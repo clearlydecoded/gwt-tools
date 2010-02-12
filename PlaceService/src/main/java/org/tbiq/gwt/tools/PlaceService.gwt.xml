@@ -3,5 +3,5 @@
 	<inherits name='com.google.gwt.user.User' />
 
 	<!-- Specify the paths for translatable code -->
-	<source path='place' />
+	<source path='placeservice' />
 </module>
