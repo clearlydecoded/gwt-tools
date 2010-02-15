@@ -15,25 +15,114 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gwt.http.client.URL;
+
 /**
  * DefaultHistoryTokenParser class is the default implementation of the
  * {@link HistoryTokenParser} interface.
  * <p>
  * This implementation expects the history token (i.e., part of the URL after the first
  * occurrence of '#' sign) to be in the same format as a standard HTTP query string, e.g.,
- * view=list, view=list&id=20, etc. In keeping with HTTP query string format standard, the
- * parser supports having multiple values for any given parameter name.
- * <p>
- * The result of the parsing is a map of each request attribute to a list of 1 or more of
- * values.
+ * view=list, view=list&id=20, etc.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
 public class DefaultHistoryTokenParser
-  implements HistoryTokenParser<Map<String, List<String>>>
+  implements HistoryTokenParser
 {
+  /** View ID param name whose value specifies requested view ID. */
+  public final static String VIEW_ID_PARAM_NAME = "view";
+
   /** Regular expression to validate format of a history token. */
   private static final String HISTORY_TOKEN_REGEX = "\\p{Alpha}+[\\p{Alnum}]*=[\\p{Alnum}.\\-*_+%()]*(&\\p{Alpha}+\\p{Alnum}*=[\\p{Alnum}.\\-*_+%()]*)*";
+
+  /** Separator between name/value pairs in the history token string. */
+  private static final String NAME_VALUE_PAIRS_SEPARATOR = "&";
+
+  /** Separator between param name and param value in the history token string. */
+  private static final String NAME_VALUE_PAIR_SEPARATOR = "=";
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.tbiq.gwt.tools.placeservice.HistoryTokenParser#buildHistoryToken(java.lang.String
+   * , java.lang.String, java.lang.String)
+   */
+  @Override
+  public String buildHistoryToken(String currentHistoryToken,
+                                  String paramName,
+                                  String paramValue)
+    throws NullPointerException
+  {
+    // Check if paramName is null
+    if (paramName == null)
+    {
+      throw new NullPointerException("paramName is null.");
+    }
+
+    // Check if paramName is an empty string
+    if (paramName.trim().equals(""))
+    {
+      throw new NullPointerException("paramName is an empty string.");
+    }
+
+    // Check if paramValue is null
+    if (paramValue == null)
+    {
+      throw new NullPointerException("paramValue is null.");
+    }
+
+    // Encode paramValue
+    paramValue = URL.encode(paramValue);
+
+    // Convert currentHistoryToken to empty string if null or un-trimmed empty string
+    String nameValuePairsSeparator = NAME_VALUE_PAIRS_SEPARATOR;
+    if (currentHistoryToken == null || currentHistoryToken.trim().equals(""))
+    {
+      currentHistoryToken = "";
+      nameValuePairsSeparator = "";
+    }
+
+    // Return current history token appended with new name/value pair
+    return currentHistoryToken + nameValuePairsSeparator
+           + paramName
+           + NAME_VALUE_PAIR_SEPARATOR
+           + paramValue;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.tbiq.gwt.tools.placeservice.HistoryTokenParser#getViewIdParam()
+   */
+  @Override
+  public String getViewIdParam()
+  {
+    return VIEW_ID_PARAM_NAME;
+  }
+
+  /**
+   * @param historyToken Entire history token, i.e., part of the URL after the first
+   *          occurrence of the '#' sign. The valid history token format is the same
+   *          format as a standard HTTP query string, e.g., view=list, view=list&id=20,
+   *          etc. In keeping with HTTP query string format standard, it is valid for the
+   *          history token to contain multiple values for any given parameter name.
+   * @return <code>true<code> if the <code>historyToken</code> conforms to the format of
+   *         'name=value' or 'name1=value1&name2=value2', i.e., standard HTTP query string
+   *         format, <code>false</code> otherwise. If the value is <code>null</code>,
+   *         <code>false</code> is returned.
+   */
+  public boolean isValidHistoryToken(String historyToken)
+  {
+    // Check historyToken for null
+    if (historyToken == null)
+    {
+      return false;
+    }
+
+    return historyToken.matches(HISTORY_TOKEN_REGEX);
+  }
 
   /*
    * (non-Javadoc)
@@ -50,14 +139,14 @@ public class DefaultHistoryTokenParser
     }
 
     // Break up the name/value pair strings
-    String[] nameValuePairStrings = historyToken.split("&");
+    String[] nameValuePairStrings = historyToken.split(NAME_VALUE_PAIRS_SEPARATOR);
 
     // Loop through the name/value pair strings
     Map<String, List<String>> keyedValueMap = new HashMap<String, List<String>>();
     for (String nameValuePairString : nameValuePairStrings)
     {
       // Break up name/value string into name/value pair (always force 2 groups)
-      String[] nameValuePair = nameValuePairString.split("=", 2);
+      String[] nameValuePair = nameValuePairString.split(NAME_VALUE_PAIR_SEPARATOR, 2);
       String name = nameValuePair[0];
       String value = nameValuePair[1];
 
@@ -75,33 +164,12 @@ public class DefaultHistoryTokenParser
           keyedValueMap.put(name, values);
         }
 
-        // Add new value to the values list for this name
+        // Decode and add new value to the values list for this name
+        value = URL.decode(value);
         values.add(value);
       }
     }
 
     return keyedValueMap;
-  }
-
-  /**
-   * @param historyToken Entire history token, i.e., part of the URL after the first
-   *          occurance of the '#' sign. The valid history token format is the same format
-   *          as a standard HTTP query string, e.g., view=list, view=list&id=20, etc. In
-   *          keeping with HTTP query string format standard, it is valid for the history
-   *          token to contain multiple values for any given parameter name.
-   * @return <code>true<code> if the <code>historyToken</code> comforms to the format of
-   *         'name=value' or 'name1=value1&name2=value2', i.e., standard HTTP query string
-   *         format, <code>false</code> otherwise. If the value is <code>null</code>,
-   *         <code>false</code> is returned.
-   */
-  public boolean isValidHistoryToken(String historyToken)
-  {
-    // Check historyToken for null
-    if (historyToken == null)
-    {
-      return false;
-    }
-
-    return historyToken.matches(HISTORY_TOKEN_REGEX);
   }
 }

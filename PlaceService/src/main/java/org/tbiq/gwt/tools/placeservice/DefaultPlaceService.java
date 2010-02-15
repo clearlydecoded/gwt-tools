@@ -17,6 +17,7 @@ import java.util.Map;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 
 /**
  * DefaultPlaceService class is the default implementation of the {@link PlaceService}
@@ -28,11 +29,8 @@ import com.google.gwt.user.client.History;
 public class DefaultPlaceService
   implements PlaceService
 {
-  /** View ID param name whose value specifies requested view ID. */
-  private final static String VIEW_ID_PARAM_NAME = "view";
-
   /** History token parser to use for this place service. */
-  private HistoryTokenParser<Map<String, List<String>>> historyTokenParser;
+  private HistoryTokenParser historyTokenParser;
 
   /** Application-wide event bus. */
   private HandlerManager eventBus;
@@ -53,7 +51,7 @@ public class DefaultPlaceService
    * @param historyTokenParser History token parser to use for this place service.
    * @param eventBus Application-wide event bus.
    */
-  public DefaultPlaceService(HistoryTokenParser<Map<String, List<String>>> historyTokenParser,
+  public DefaultPlaceService(HistoryTokenParser historyTokenParser,
                              HandlerManager eventBus)
   {
     this.historyTokenParser = historyTokenParser;
@@ -83,27 +81,24 @@ public class DefaultPlaceService
     // If parsing was unsuccessful, fire event with default place
     if (nameValuePairs == null)
     {
+      Window.alert("Parsing was not successfull!");
       fireDefaultPlaceChangedEvent();
       return;
     }
 
-    // Extract requested view
-    List<String> viewValues = nameValuePairs.get(VIEW_ID_PARAM_NAME);
+    // Extract requested view ID; if doesn't exist, assign empty string to avoid NPE
+    String requestedViewId = PlaceServiceUtil.getParamValue(nameValuePairs,
+                                                            historyTokenParser
+                                                              .getViewIdParam(),
+                                                            "");
 
-    // If no value specified, fire event with default place
-    if (viewValues == null)
-    {
-      fireDefaultPlaceChangedEvent();
-      return;
-    }
-
-    // Extract requeste view ID (if null, assign empty string to avoid NPE later)
-    String requestedViewId = viewValues.get(0) == null ? "" : viewValues.get(0);
+    Window.alert("About to show view: " + requestedViewId);
 
     // If place with requested view ID is not registered, fire event with default place
     Place requestedPlace = registeredPlaces.get(requestedViewId);
     if (requestedPlace == null)
     {
+      Window.alert("No such view ID registered, showing default view.");
       fireDefaultPlaceChangedEvent();
       return;
     }
@@ -114,6 +109,7 @@ public class DefaultPlaceService
     // If creation of place was not successful, fire event with default place
     if (requestedPlace == null)
     {
+      Window.alert("Couldn't create requested place, showing default view.");
       fireDefaultPlaceChangedEvent();
       return;
     }

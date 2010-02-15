@@ -10,17 +10,54 @@
  */
 package org.tbiq.gwt.tools.placeservice;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * HistoryTokenParser interface defines methods to extract information out of history
- * tokens as some T type.
+ * tokens as map of parameter name to a list of 1 or more parameter values. In other
+ * words, the implementation parser must support having multiple values for any given
+ * parameter name.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public interface HistoryTokenParser<T>
+public interface HistoryTokenParser
 {
   /**
-   * Parses the <code>historyToken</code> and returns some structured form of the
-   * information contained in the history token.
+   * Returns <code>currentHistoryToken</code> appended with <code>paramName</code> and
+   * <code>paramValue</code>. The values are appended in the format that this
+   * implementation supports.
+   * <p>
+   * If <code>currentHistoryToken</code> is <code>null</code>, an empty string for the
+   * current history token is assumed.
+   * <p>
+   * <b>Neither <code>paramName</code> nor <code>paramValue</code> is allowed to be
+   * <code>null</code>. In addition, <code>paramName</code> is not allowed to be an empty
+   * string (after trimming).</b>
+   * 
+   * 
+   * @param currentHistoryToken Current history token to append parameter name/value pair.
+   * @param paramName Parameter name to append.
+   * @param paramValue Parameter value to append.
+   * @return <code>currentHistoryToken</code> appended with <code>paramName</code> and
+   *         <code>paramValue</code>.
+   * @throws NullPointerException If either <code>paramName</code> or
+   *           <code>paramValue</code> is <code>null</code> or if <code>paramName</code>
+   *           is an empty string (after trimming).
+   */
+  public String buildHistoryToken(String currentHistoryToken,
+                                  String paramName,
+                                  String paramValue)
+    throws NullPointerException;
+
+  /**
+   * @return Parameter name which identifies the view ID value.
+   */
+  public String getViewIdParam();
+
+  /**
+   * Parses the <code>historyToken</code> and returns the information contained in the
+   * history token as a map of parameter name to a list of 1 or more parameter values.
    * <p>
    * If any parsing problems occur, this method return <code>null</code>.
    * 
@@ -28,8 +65,9 @@ public interface HistoryTokenParser<T>
    *          '#' sign. (E.g., in the URL
    *          http://someHost/somePage.html#view=someView&id=20, 'view=someView&id=20' is
    *          the history token).
-   * @return Structured information about what was contained in the
-   *         <code>historyToken</code> or <code>null</code> if any parsing problems occur.
+   * @return The information contained in the <code>historyToken</code> as a map of
+   *         parameter name to a list of 1 or more parameter values or <code>null</code>
+   *         if any parsing problems occur.
    */
-  public T parse(String historyToken);
+  public Map<String, List<String>> parse(String historyToken);
 }

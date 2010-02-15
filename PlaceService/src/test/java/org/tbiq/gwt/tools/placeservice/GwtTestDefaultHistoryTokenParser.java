@@ -13,33 +13,44 @@ package org.tbiq.gwt.tools.placeservice;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.TestCase;
+import com.google.gwt.junit.client.GWTTestCase;
 
 /**
- * DefaultHistoryTokenParserTest class is a test class for
+ * GwtTestDefaultHistoryTokenParser class is a GWT test class for
  * {@link DefaultHistoryTokenParser}.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public class DefaultHistoryTokenParserTest
-  extends TestCase
+public class GwtTestDefaultHistoryTokenParser
+  extends GWTTestCase
 {
   private DefaultHistoryTokenParser parser;
 
   /*
    * (non-Javadoc)
    * 
-   * @see junit.framework.TestCase#setUp()
+   * @see com.google.gwt.junit.client.GWTTestCase#getModuleName()
    */
-  protected void setUp()
+  @Override
+  public String getModuleName()
+  {
+    return "org.tbiq.gwt.tools.PlaceService";
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.google.gwt.junit.client.GWTTestCase#gwtSetUp()
+   */
+  @Override
+  protected void gwtSetUp()
     throws Exception
   {
     parser = new DefaultHistoryTokenParser();
   }
 
   /**
-   * Test method for
-   * {@link org.tbiq.gwt.place.DefaultHistoryTokenParser#parse(java.lang.String)}.
+   * Test method for {@link DefaultHistoryTokenParser#parse(java.lang.String)}.
    */
   public void testParse()
   {
@@ -71,12 +82,18 @@ public class DefaultHistoryTokenParserTest
     assertEquals(2, values.size());
     assertEquals("20", values.get(0));
     assertEquals("23", values.get(1));
+
+    // Test decoding
+    nameValuePairs = parser.parse("view=add&name=Yaakov%20Chaikin");
+    String value = PlaceServiceUtil.getParamValue(nameValuePairs, "view", null);
+    assertEquals("add", value);
+    value = PlaceServiceUtil.getParamValue(nameValuePairs, "name", null);
+    assertEquals("Yaakov Chaikin", value);
   }
 
   /**
    * Test method for
-   * {@link org.tbiq.gwt.place.DefaultHistoryTokenParser#isValidHistoryToken(java.lang.String)}
-   * .
+   * {@link DefaultHistoryTokenParser#isValidHistoryToken(java.lang.String)} .
    */
   public void testIsValidHistoryToken()
   {
@@ -97,4 +114,22 @@ public class DefaultHistoryTokenParserTest
     assertFalse(parser.isValidHistoryToken(null));
   }
 
+  /**
+   * Test method for
+   * {@link DefaultHistoryTokenParser#buildHistoryToken(String, String, String)} .
+   */
+  public void testBuildHistoryToken()
+  {
+    String currentHistoryToken = null;
+    currentHistoryToken = parser.buildHistoryToken(currentHistoryToken, "param1", "");
+    assertEquals("param1=", currentHistoryToken);
+
+    currentHistoryToken = parser.buildHistoryToken(" ", "param1", "value1");
+    assertEquals("param1=value1", currentHistoryToken);
+
+    currentHistoryToken = parser.buildHistoryToken(currentHistoryToken,
+                                                   "name",
+                                                   "Yaakov Chaikin");
+    assertEquals("param1=value1&name=Yaakov%20Chaikin", currentHistoryToken);
+  }
 }
