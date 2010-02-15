@@ -104,7 +104,7 @@ public interface Place
    * @param nameValuePairs {@link Map} of known parameters (as keys) to one or more values
    *          for that parameter. Each place should know its predefined parameters it must
    *          look for in the map.
-   * @param toBeAddedToBrowserHistory Indicates if this place should be created with a
+   * @param isToBeAddedToBrowserHistory Indicates if this place should be created with a
    *          flag which indicates whether its history token should be added to browser
    *          history when this place is later processed. If the instance returned is not
    *          of the same type as the instance this method was invoked on, it's possible
@@ -113,21 +113,7 @@ public interface Place
    *         successful, returns <code>null</code>.
    */
   public Place createPlace(Map<String, List<String>> nameValuePairs,
-                           boolean toBeAddedToBrowserHistory);
-
-  /**
-   * Returns a new instance of {@link Place} with identical data as the {@link Place}
-   * instance this method is invoked on.
-   * <p>
-   * This method assumes that the instance already contains all the data needed for
-   * processing this place. This method is usually used to make a copy of the default
-   * place within the {@link PlaceService} implementation and change it in some way and
-   * therefore leave the originally registered default place unchanged.
-   * 
-   * @return A new instance of {@link Place} with identical data as the {@link Place}
-   *         instance this method is invoked on.
-   */
-  public Place duplicate();
+                           boolean isToBeAddedToBrowserHistory);
 
   /**
    * This method is similar to the classic Command Pattern (i.e., execute()), which should
