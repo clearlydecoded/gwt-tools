@@ -76,6 +76,7 @@ public class DefaultPlaceService
   {
     // Extract name/value map from history token
     String historyToken = event.getValue();
+    Window.alert(historyToken);
     Map<String, List<String>> nameValuePairs = historyTokenParser.parse(historyToken);
 
     // If parsing was unsuccessful, fire event with default place

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.http.client.URL;
+import com.google.gwt.user.client.Window;
 
 /**
  * DefaultHistoryTokenParser class is the default implementation of the
@@ -115,13 +116,17 @@ public class DefaultHistoryTokenParser
    */
   public boolean isValidHistoryToken(String historyToken)
   {
+    Window.alert("History token to validate: '" + historyToken + "'");
     // Check historyToken for null
     if (historyToken == null)
     {
       return false;
     }
 
-    return historyToken.matches(HISTORY_TOKEN_REGEX);
+    boolean valid = historyToken.matches(HISTORY_TOKEN_REGEX);
+    Window.alert("History token is valid? " + valid);
+
+    return valid;
   }
 
   /*
@@ -135,6 +140,7 @@ public class DefaultHistoryTokenParser
     // Ensure the history token is in proper format
     if (!isValidHistoryToken(historyToken))
     {
+      Window.alert("History token is not valid!");
       return null;
     }
 
@@ -149,6 +155,8 @@ public class DefaultHistoryTokenParser
       String[] nameValuePair = nameValuePairString.split(NAME_VALUE_PAIR_SEPARATOR, 2);
       String name = nameValuePair[0];
       String value = nameValuePair[1];
+
+      Window.alert("Param name is: " + name);
 
       // Add name/value to map if value is not an empty string
       if (!value.trim().isEmpty())
@@ -165,7 +173,9 @@ public class DefaultHistoryTokenParser
         }
 
         // Decode and add new value to the values list for this name
+        Window.alert("Param value before decoding: " + value);
         value = URL.decode(value);
+        Window.alert("Param value after decoding: " + value);
         values.add(value);
       }
     }
