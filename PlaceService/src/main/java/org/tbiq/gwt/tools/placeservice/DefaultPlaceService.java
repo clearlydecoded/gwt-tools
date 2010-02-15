@@ -17,7 +17,6 @@ import java.util.Map;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 
 /**
  * DefaultPlaceService class is the default implementation of the {@link PlaceService}
@@ -75,13 +74,11 @@ public class DefaultPlaceService
   {
     // Extract name/value map from history token
     String historyToken = event.getValue();
-    Window.alert(historyToken);
     Map<String, List<String>> nameValuePairs = historyTokenParser.parse(historyToken);
 
     // If parsing was unsuccessful, fire event with default place
     if (nameValuePairs == null)
     {
-      Window.alert("Parsing was not successfull!");
       fireDefaultPlaceChangedEvent();
       return;
     }
@@ -92,13 +89,11 @@ public class DefaultPlaceService
                                                               .getViewIdParam(),
                                                             "");
 
-    Window.alert("About to show view: " + requestedViewId);
 
     // If place with requested view ID is not registered, fire event with default place
     Place requestedPlace = registeredPlaces.get(requestedViewId);
     if (requestedPlace == null)
     {
-      Window.alert("No such view ID registered, showing default view.");
       fireDefaultPlaceChangedEvent();
       return;
     }
