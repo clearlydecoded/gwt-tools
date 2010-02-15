@@ -19,8 +19,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
  * Place interface represents a place within an application from the end user prospective.
- * It represents the entire view or visual state from the end user prospective. For
- * example, a ListContactsPlace could represent a view which shows a list of contacts,
+ * For example, a ListContactsPlace could represent a view which shows a list of contacts,
  * including appropriately visually selected menu items, header/footer of the app, etc.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
@@ -42,8 +41,9 @@ public interface Place
 
   /**
    * @return History token which represents this place, i.e., manually placing this
-   *         history token on the URL should display the same visual state to the end user
-   *         as this place represents with the given data.
+   *         history token on the URL should display the same view to the end user as this
+   *         place represents, populated with the given data from the history token (if
+   *         any).
    */
   public String getHistoryToken();
 
@@ -53,10 +53,11 @@ public interface Place
    * <p>
    * A particular place creation can happen either as a result of an end user typing in a
    * URL into the browser (or following a link/bookmark) or if some application logic
-   * decides that a particular place should be shown. In the case of the end user is
-   * causing the place to be shown, the browser already has the place particulars (e.g.,
-   * xxx#viewId=listContacts), so there is usually no reason to add it again. In the case
-   * of the application logic creating a place, the browser URL may need to be updated.
+   * decides that a particular place should be shown. In the case where the end user is
+   * causing the place to be shown, the browser already has the place particulars in its
+   * history (e.g., xxx#viewId=listContacts) since the user just entered it, so there is
+   * usually no reason to add it again. In the case of the application logic creating a
+   * place, the browser URL may need to be updated.
    * 
    * @return An indicator if the history token of this place should be added to the
    *         browser URL (and therefore browser history).
@@ -69,10 +70,11 @@ public interface Place
    * <p>
    * A particular place creation can happen either as a result of an end user typing in a
    * URL into the browser (or following a link/bookmark) or if some application logic
-   * decides that a particular place should be shown. In the case of the end user is
-   * causing the place to be shown, the browser already has the place particulars (e.g.,
-   * xxx#viewId=listContacts), so there is usually no reason to add it again. In the case
-   * of the application logic creating a place, the browser URL may need to be updated.
+   * decides that a particular place should be shown. In the case where the end user is
+   * causing the place to be shown, the browser already has the place particulars in its
+   * history (e.g., xxx#viewId=listContacts) since the user just entered it, so there is
+   * usually no reason to add it again. In the case of the application logic creating a
+   * place, the browser URL may need to be updated.
    * 
    * @param toBeAddedToBrowserHistory An indicator if the history token of this place
    *          should be added to the browser URL (and therefore browser history).
@@ -82,9 +84,9 @@ public interface Place
   /**
    * Returns an instance of concrete implementation of {@link Place}. The implementation
    * of this method <i>may</i> assume that the view ID contained in the
-   * <code>nameValuePairs</code> matches the concrete implementation type's getViewId()
-   * and attempt to retrieve items out of <code>nameValuePairs</code> based on that
-   * assumption.
+   * <code>nameValuePairs</code> matches the value of its {@link Place#getViewId()} method
+   * and attempt to retrieve the rest of the items (if any) out of
+   * <code>nameValuePairs</code> based on that assumption.
    * <p>
    * The constructed instance is <i>usually</i> of the same type as the type of instance
    * this method belongs to. However, it's possible to return a different concrete
@@ -114,15 +116,24 @@ public interface Place
                            boolean toBeAddedToBrowserHistory);
 
   /**
-   * @return Creates a new instance of {@link Place} with identical data as the
-   *         {@link Place} instance this method is invoked on.
+   * Returns a new instance of {@link Place} with identical data as the {@link Place}
+   * instance this method is invoked on.
+   * <p>
+   * This method assumes that the instance already contains all the data needed for
+   * processing this place. This method is usually used to make a copy of the default
+   * place within the {@link PlaceService} implementation and change it in some way and
+   * therefore leave the originally registered default place unchanged.
+   * 
+   * @return A new instance of {@link Place} with identical data as the {@link Place}
+   *         instance this method is invoked on.
    */
   public Place duplicate();
 
   /**
    * This method is similar to the classic Command Pattern (i.e., execute()), which should
-   * know how to invoke functionality to display a view (or construct proper presenters if
-   * MVP pattern is used) to the end user which matches this place.
+   * know how to invoke functionality to display a view (or construct proper presenters
+   * which would show the view if MVP pattern is used) to the end user which matches this
+   * place.
    * 
    * @param container Container to add the corresponding to this place view into.
    * @param eventBus Event bus to use (usually in a presenter implementation).

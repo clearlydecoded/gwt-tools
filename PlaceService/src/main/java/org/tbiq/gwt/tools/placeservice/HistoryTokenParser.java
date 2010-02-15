@@ -15,9 +15,9 @@ import java.util.Map;
 
 /**
  * HistoryTokenParser interface defines methods to extract information out of history
- * tokens as map of parameter name to a list of 1 or more parameter values. In other
- * words, the implementation parser must support having multiple values for any given
- * parameter name.
+ * tokens as a map of parameter name to a list of 1 or more parameter values. In other
+ * words, the implementation parser must support having multiple instances of the same
+ * parameter name as part of the history token.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
@@ -25,8 +25,9 @@ public interface HistoryTokenParser
 {
   /**
    * Returns <code>currentHistoryToken</code> appended with <code>paramName</code> and
-   * <code>paramValue</code>. The values are appended in the format that this
-   * implementation supports.
+   * <code>paramValue</code>. The values are appended in the same format that the
+   * {@link HistoryTokenParser#parse(String)} method expects the history token to be in
+   * order to be parsable.
    * <p>
    * If <code>currentHistoryToken</code> is <code>null</code>, an empty string for the
    * current history token is assumed.
@@ -51,7 +52,7 @@ public interface HistoryTokenParser
     throws NullPointerException;
 
   /**
-   * @return Parameter name which identifies the view ID value.
+   * @return Name of the parameter which identifies the view ID value.
    */
   public String getViewIdParam();
 

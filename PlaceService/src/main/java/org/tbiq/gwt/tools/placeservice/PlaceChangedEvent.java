@@ -26,13 +26,13 @@ public class PlaceChangedEvent
   /** Type of this event - used to register event handler implementation. */
   public static Type<PlaceChangedEventHandler> TYPE = new Type<PlaceChangedEventHandler>();
 
-  /** The place the view should be switch to. */
+  /** The place the view should be switched to. */
   private final Place place;
 
   /**
    * Constructor.
    * 
-   * @param place The place the view should be switch to.
+   * @param place The place the view should be switched to.
    */
   public PlaceChangedEvent(Place place)
   {
@@ -64,8 +64,7 @@ public class PlaceChangedEvent
   }
 
   /**
-   * @return The place this event is associate with (the place the view should be switch
-   *         to).
+   * @return The place the view should be switched to.
    */
   public Place getPlace()
   {

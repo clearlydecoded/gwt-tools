@@ -22,7 +22,6 @@ import com.google.gwt.user.client.Window;
 /**
  * DefaultPlaceService class is the default implementation of the {@link PlaceService}
  * interface.
- * <p>
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
@@ -40,7 +39,7 @@ public class DefaultPlaceService
 
   /**
    * Default place to use if no other place is able to be used, e.g., if the presented
-   * history token is unknown.
+   * history token is unknown or blank.
    */
   private Place defaultPlace;
 
@@ -110,7 +109,6 @@ public class DefaultPlaceService
     // If creation of place was not successful, fire event with default place
     if (requestedPlace == null)
     {
-      Window.alert("Couldn't create requested place, showing default view.");
       fireDefaultPlaceChangedEvent();
       return;
     }

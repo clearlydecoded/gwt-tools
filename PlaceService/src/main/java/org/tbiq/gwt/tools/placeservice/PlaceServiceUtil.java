@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 
 /**
  * PlaceServiceUtil class contains utility methods for the place service.
@@ -25,19 +24,17 @@ public class PlaceServiceUtil
 {
   /**
    * Adds history token which represents provided <code>place</code> to browser history.
-   * <p>
    * <b>Calling this method does <i>not</i> trigger history token evaluation.</b>
    * 
-   * @param place {@link Place} to add to the browser history.
+   * @param place {@link Place} data to add to the browser history.
    */
   public static void addToBrowserHistory(Place place)
   {
     History.newItem(place.getHistoryToken(), false);
-    Window.alert("Just added token to browser history.");
   }
 
   /**
-   * @param nameValuePairs Map of parameter name to a list of 1 or more parameter values.
+   * @param nameValuePairs Map of parameter names to a list of 1 or more parameter values.
    * @param paramName Name of the parameter to extract the value for.
    * @param defaultValue Default value to return if no value for the
    *          <code>paramName</code> exists in the map.
