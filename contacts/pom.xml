@@ -27,6 +27,7 @@
 			<groupId>org.tbiq.gwt.tools</groupId>
 			<artifactId>PlaceService</artifactId>
 			<version>1.0-SNAPSHOT</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -53,13 +54,22 @@
 				<version>2.1-beta-1</version>
 				<configuration>
 					<!-- Autodeploy directory of your local server. -->
-					<outputDirectory>/Users/yaakov</outputDirectory>
-					<!--					<webResources>-->
-					<!--						<resource>-->
-					<!--							<directory>war</directory>-->
-					<!--							<excludes>**/gwt-servlet.jar</excludes>-->
-					<!--						</resource>-->
-					<!--					</webResources>-->
+					<outputDirectory>${user.home}</outputDirectory>
+					<webResources>
+						<resource>
+							<directory>war</directory>
+							<excludes>
+								<!--
+									These are needed for Eclipse to run as a GWT Web app, but
+									should NOT be wrapped up when assembling the war file. That is
+									why they are marked as excluded here. Instead, these will be
+									brought in from maven.
+								-->
+								<exclude>**/contacts/*</exclude>
+								<exclude>**/gwt-servlet.jar</exclude>
+							</excludes>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 			<plugin>
