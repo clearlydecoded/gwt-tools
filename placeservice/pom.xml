@@ -9,7 +9,7 @@
 	<description>PlaceService handles managing history within a GWT application.</description>
 
 	<properties>
-		<gwt.version>2.0.1</gwt.version>
+		<gwt.version>2.0.2</gwt.version>
 	</properties>
 
 	<dependencies>
