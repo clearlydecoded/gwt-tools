@@ -13,12 +13,16 @@ package org.tbiq.gwt.tools.rpcrequest;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
+ * RpcRequestServiceAsync interface is the async interface of the
+ * {@link RpcRequestService} interface.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
 public interface RpcRequestServiceAsync
 {
-
+  /**
+   * @see RpcRequestService#execute(RpcRequest).
+   */
   public <T extends RpcResponse> void execute(RpcRequest<T> rpcRequest,
                                               AsyncCallback<T> callback)
     throws RpcRequestException;

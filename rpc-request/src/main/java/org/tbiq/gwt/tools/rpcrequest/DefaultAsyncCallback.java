@@ -13,7 +13,13 @@ package org.tbiq.gwt.tools.rpcrequest;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
- * TODO: JavaDoc
+ * DefaultAsyncCallback abstract class shields the concrete implementations of this class
+ * from having to always override onSuccuss and onFailure. Instead, it provides a
+ * mechanism to have central exception handling as well as a way to override/augment
+ * central exception handling when needed.
+ * <p>
+ * Typically, the concrete implementation of this class would only implement
+ * {@link DefaultAsyncCallback#handleResponse(RpcResponse)}.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
@@ -21,25 +27,27 @@ public abstract class DefaultAsyncCallback<T extends RpcResponse>
   implements AsyncCallback<T>
 {
   /** Application-wide exception handler. */
-  protected ApplicationWideExceptionHandler exceptionHandler;
+  protected ApplicationWideExceptionHandler appWideExceptionHandler;
 
   /**
-   * TODO: write javadoc here.
+   * This method uses {@link DefaultAsyncCallback#appWideExceptionHandler} to handle the
+   * exception if the app-wide exception handler has been provided.
    * 
-   * @param exception
-   * @return
+   * @param exception Exception to handle.
+   * @return <code>true</code> if the <code>exception</code> has been handled,
+   *         <code>false</code> otherwise.
    */
   protected boolean handleException(Throwable exception)
   {
     // Check if application wide exception handler is available
-    if (exceptionHandler == null)
+    if (appWideExceptionHandler == null)
     {
       // Can't handle exception as app wide exception handler is missing
       return false;
     }
 
     // Use central exception handler to handle this exception
-    exceptionHandler.handleException(exception);
+    appWideExceptionHandler.handleException(exception);
 
     // Nofify that the exception has been handled
     return true;
@@ -53,8 +61,13 @@ public abstract class DefaultAsyncCallback<T extends RpcResponse>
   @Override
   public void onFailure(Throwable exception)
   {
-    // TODO Auto-generated method stub
+    // Attempt to handle the exception in an app-wide way
+    if (handleException(exception))
+    {
+      return;
+    }
 
+    exception.printStackTrace();
   }
 
   /*
@@ -63,13 +76,5 @@ public abstract class DefaultAsyncCallback<T extends RpcResponse>
    * @see com.google.gwt.user.client.rpc.AsyncCallback#onSuccess(java.lang.Object)
    */
   @Override
-  public void onSuccess(T response)
-  {
-    processResponse(response);
-  }
-
-  /**
-   * @param response
-   */
-  protected abstract void processResponse(T response);
+  public abstract void onSuccess(T response);
 }

@@ -11,6 +11,7 @@
 package org.tbiq.gwt.tools.rpcrequest;
 
 import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * RpcRequestService interface defines the single execute method (command pattern) to
@@ -18,9 +19,20 @@ import com.google.gwt.user.client.rpc.RemoteService;
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
+@RemoteServiceRelativePath("rpc-request")
 public interface RpcRequestService
   extends RemoteService
 {
+  /**
+   * Executes some {@link RpcRequest} and returns some {@link RpcResponse}. This method
+   * follows Command pattern.
+   * 
+   * @param rpcRequest RPC request object containing data which is needed in order to
+   *          execute the request.
+   * @return Response object which contains data which is the product of executing the RPC
+   *         request.
+   * @throws RpcRequestException If anything goes wrong with executing the RPC request.
+   */
   public <T extends RpcResponse> T execute(RpcRequest<T> rpcRequest)
     throws RpcRequestException;
 }
