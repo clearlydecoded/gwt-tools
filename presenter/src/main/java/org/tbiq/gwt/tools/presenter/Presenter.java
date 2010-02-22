@@ -45,6 +45,9 @@ public interface Presenter
    * It is usually called when the presenter is tearing itself down, i.e., a different
    * present/view is being loaded instead and this presenter no longer needs to listen for
    * events that affect its view.
+   * <p>
+   * If the implementation of this interface is not worried about extra event handling
+   * which does not affect the view, this method can contain no code.
    */
   public void unbind();
 }
