@@ -12,7 +12,7 @@ package org.tbiq.gwt.tools.rpcrequest;
 
 /**
  * RpcRequestException class is an exception that the RpcService can throw if something
- * goes wrong during an RPC request..
+ * goes wrong during an RPC request.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */

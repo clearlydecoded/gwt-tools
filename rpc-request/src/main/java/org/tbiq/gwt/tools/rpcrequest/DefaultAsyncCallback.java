@@ -14,12 +14,12 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
  * DefaultAsyncCallback abstract class shields the concrete implementations of this class
- * from having to always override onSuccuss and onFailure. Instead, it provides a
- * mechanism to have central exception handling as well as a way to override/augment
- * central exception handling when needed.
+ * from having to always override onFailure. Instead, it provides a mechanism to have
+ * central exception handling as well as a way to override/augment central exception
+ * handling when needed.
  * <p>
  * Typically, the concrete implementation of this class would only implement
- * {@link DefaultAsyncCallback#handleResponse(RpcResponse)}.
+ * {@link DefaultAsyncCallback#onSuccess(RpcResponse)}.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
@@ -49,7 +49,7 @@ public abstract class DefaultAsyncCallback<T extends RpcResponse>
     // Use central exception handler to handle this exception
     appWideExceptionHandler.handleException(exception);
 
-    // Nofify that the exception has been handled
+    // Notify that the exception has been handled
     return true;
   }
 
