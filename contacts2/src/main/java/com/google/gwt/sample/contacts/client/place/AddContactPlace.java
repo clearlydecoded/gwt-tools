@@ -13,9 +13,9 @@ package com.google.gwt.sample.contacts.client.place;
 import java.util.List;
 import java.util.Map;
 
-import org.tbiq.gwt.tools.placeservice.HistoryTokenParser;
-import org.tbiq.gwt.tools.placeservice.Place;
-import org.tbiq.gwt.tools.placeservice.PlaceServiceUtil;
+import org.tbiq.gwt.tools.placeservice.browser.HistoryTokenParser;
+import org.tbiq.gwt.tools.placeservice.browser.Place;
+import org.tbiq.gwt.tools.placeservice.browser.PlaceServiceUtil;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;

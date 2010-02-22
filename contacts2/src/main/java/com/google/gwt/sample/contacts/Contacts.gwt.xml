@@ -7,9 +7,9 @@
 	<inherits name='com.google.gwt.user.theme.standard.Standard' />
 
 	<!-- Other module inherits -->
-	<inherits name='org.tbiq.gwt.tools.PlaceService' />
-	<inherits name='org.tbiq.gwt.tools.RpcRequest' />
-	<inherits name='org.tbiq.gwt.tools.Presenter' />
+	<inherits name='org.tbiq.gwt.tools.placeservice.PlaceService' />
+	<inherits name='org.tbiq.gwt.tools.rpcrequest.RpcRequest' />
+	<inherits name='org.tbiq.gwt.tools.presenter.Presenter' />
 
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.google.gwt.sample.contacts.client.Contacts' />

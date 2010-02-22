@@ -1,7 +1,7 @@
 package com.google.gwt.sample.contacts.client.presenter;
 
-import org.tbiq.gwt.tools.placeservice.HistoryTokenParser;
-import org.tbiq.gwt.tools.placeservice.PlaceChangedEvent;
+import org.tbiq.gwt.tools.placeservice.browser.HistoryTokenParser;
+import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEvent;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

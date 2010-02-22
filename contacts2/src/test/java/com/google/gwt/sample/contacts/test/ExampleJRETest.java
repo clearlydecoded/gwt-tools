@@ -7,7 +7,7 @@ import com.google.gwt.sample.contacts.shared.ContactDetails;
 
 import java.util.ArrayList;
 
-import org.tbiq.gwt.tools.placeservice.DefaultHistoryTokenParser;
+import org.tbiq.gwt.tools.placeservice.browser.DefaultHistoryTokenParser;
 
 import junit.framework.TestCase;
 
