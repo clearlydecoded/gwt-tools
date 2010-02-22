@@ -8,19 +8,17 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpccommand;
+package org.tbiq.gwt.tools.rpcrequest;
 
-import com.google.gwt.user.client.rpc.RemoteService;
+import java.io.Serializable;
 
 /**
- * RpcRequestService interface defines the single execute method (command pattern) to
- * carry out the RPC request.
+ * RpcRequest interface represents an GWT RPC request to the server. It should contain the
+ * necessary data for the server to complete the response.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public interface RpcRequestService
-  extends RemoteService
+public interface RpcRequest<T extends RpcResponse>
+  extends Serializable
 {
-  public <T extends RpcResponse> T execute(RpcRequest<T> rpcRequest)
-    throws RpcRequestException;
 }

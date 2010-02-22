@@ -8,7 +8,7 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpccommand;
+package org.tbiq.gwt.tools.rpcrequest;
 
 /**
  * RpcRequestException class is an exception that the RpcService can throw if something

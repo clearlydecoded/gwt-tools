@@ -8,7 +8,7 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpccommand;
+package org.tbiq.gwt.tools.rpcrequest;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

@@ -8,17 +8,16 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpccommand;
+package org.tbiq.gwt.tools.rpcrequest;
 
 import java.io.Serializable;
 
 /**
- * RpcRequest interface represents an GWT RPC request to the server. It should contain the
- * necessary data for the server to complete the response.
+ * RpcResponse interface represents the response returned from making an RPC GWT call.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public interface RpcRequest<T extends RpcResponse>
+public interface RpcResponse
   extends Serializable
 {
 }
