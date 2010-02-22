@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.tbiq.gwt.tools.placeservice.browser.PlaceServiceUtil;
 
 /**
  * PlaceServiceUtilTest is a test class for {@link PlaceServiceUtil}.
@@ -29,7 +30,7 @@ public class PlaceServiceUtilTest
 
   /**
    * Test method for
-   * {@link org.tbiq.gwt.tools.placeservice.PlaceServiceUtil#getParamValue(java.util.Map, java.lang.String, java.lang.String)}
+   * {@link org.tbiq.gwt.tools.placeservice.browser.PlaceServiceUtil#getParamValue(java.util.Map, java.lang.String, java.lang.String)}
    * .
    */
   @Test

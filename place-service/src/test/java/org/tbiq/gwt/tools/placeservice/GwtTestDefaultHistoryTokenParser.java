@@ -13,6 +13,9 @@ package org.tbiq.gwt.tools.placeservice;
 import java.util.List;
 import java.util.Map;
 
+import org.tbiq.gwt.tools.placeservice.browser.DefaultHistoryTokenParser;
+import org.tbiq.gwt.tools.placeservice.browser.PlaceServiceUtil;
+
 import com.google.gwt.junit.client.GWTTestCase;
 
 /**

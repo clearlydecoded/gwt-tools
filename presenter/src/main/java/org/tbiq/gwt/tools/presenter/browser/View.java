@@ -8,7 +8,7 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.presenter;
+package org.tbiq.gwt.tools.presenter.browser;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
