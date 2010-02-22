@@ -14,12 +14,12 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
  * DefaultAsyncCallback abstract class shields the concrete implementations of this class
- * from having to always override onFailure. Instead, it provides a mechanism to have
- * central exception handling as well as a way to override/augment central exception
- * handling when needed.
+ * from having to always override onSuccess and onFailure. Instead, it provides a
+ * mechanism to have central exception handling as well as a way to override/augment
+ * central exception handling when needed.
  * <p>
  * Typically, the concrete implementation of this class would only implement
- * {@link DefaultAsyncCallback#onSuccess(RpcResponse)}.
+ * {@link DefaultAsyncCallback#handleResponse(RpcResponse)}.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
@@ -32,6 +32,13 @@ public abstract class DefaultAsyncCallback<T extends RpcResponse>
   /**
    * This method uses {@link DefaultAsyncCallback#appWideExceptionHandler} to handle the
    * exception if the app-wide exception handler has been provided.
+   * <p>
+   * If a concrete implementation of this class would want to override the app-wide
+   * exception handling behavior, it would override this method <b>without calling
+   * <code>super.handleException();</code>. If a concrete implementation of this class
+   * would want to augment the app-wide exception handling, it would call
+   * <code>super.handleException();</code> where it makes sense for its particular
+   * implementation in the overriding method.
    * 
    * @param exception Exception to handle.
    * @return <code>true</code> if the <code>exception</code> has been handled,
@@ -76,5 +83,17 @@ public abstract class DefaultAsyncCallback<T extends RpcResponse>
    * @see com.google.gwt.user.client.rpc.AsyncCallback#onSuccess(java.lang.Object)
    */
   @Override
-  public abstract void onSuccess(T response);
+  public void onSuccess(T response)
+  {
+    handleResponse(response);
+  }
+
+  /**
+   * This abstract method is what the concrete implementation of this class will override
+   * to do something with the response.
+   * 
+   * @param response Response containing the data which was returned as the response to
+   *          the RPC request.
+   */
+  protected abstract void handleResponse(T response);
 }
