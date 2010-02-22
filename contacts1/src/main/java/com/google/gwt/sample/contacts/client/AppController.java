@@ -1,12 +1,12 @@
 package com.google.gwt.sample.contacts.client;
 
-import org.tbiq.gwt.tools.placeservice.DefaultHistoryTokenParser;
-import org.tbiq.gwt.tools.placeservice.DefaultPlaceService;
-import org.tbiq.gwt.tools.placeservice.HistoryTokenParser;
-import org.tbiq.gwt.tools.placeservice.Place;
-import org.tbiq.gwt.tools.placeservice.PlaceChangedEvent;
-import org.tbiq.gwt.tools.placeservice.PlaceChangedEventHandler;
-import org.tbiq.gwt.tools.placeservice.PlaceService;
+import org.tbiq.gwt.tools.placeservice.browser.DefaultHistoryTokenParser;
+import org.tbiq.gwt.tools.placeservice.browser.DefaultPlaceService;
+import org.tbiq.gwt.tools.placeservice.browser.HistoryTokenParser;
+import org.tbiq.gwt.tools.placeservice.browser.Place;
+import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEvent;
+import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEventHandler;
+import org.tbiq.gwt.tools.placeservice.browser.PlaceService;
 
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.sample.contacts.client.event.ContactDeletedEvent;

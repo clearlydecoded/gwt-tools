@@ -1,17 +1,17 @@
 package com.google.gwt.sample.contacts.test;
 
+import static org.easymock.EasyMock.createStrictMock;
+
+import java.util.ArrayList;
+
+import junit.framework.TestCase;
+
+import org.tbiq.gwt.tools.placeservice.browser.DefaultHistoryTokenParser;
+
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.sample.contacts.client.ContactsServiceAsync;
 import com.google.gwt.sample.contacts.client.presenter.ContactsPresenter;
 import com.google.gwt.sample.contacts.shared.ContactDetails;
-
-import java.util.ArrayList;
-
-import org.tbiq.gwt.tools.placeservice.DefaultHistoryTokenParser;
-
-import junit.framework.TestCase;
-
-import static org.easymock.EasyMock.createStrictMock;
 
 public class ExampleJRETest
   extends TestCase
