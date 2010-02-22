@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.tbiq.gwt.tools</groupId>
-	<artifactId>rpc-request</artifactId>
+	<artifactId>presenter</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>RPC Request</name>
-	<description>RPC Request is a set of interfaces and helper classes for implementing GWT RPC through Command Pattern.</description>
+	<name>Presenter</name>
+	<description>Presenter module contains MVP (Model View Presenter) interfaces.</description>
 
 	<properties>
 		<gwt.version>2.0.2</gwt.version>
