@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.tbiq.gwt.tools.example</groupId>
-	<artifactId>contacts1</artifactId>
+	<artifactId>contacts2</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Contacts1 example app</name>
-	<description>Contacts example app from GWT tutorial on MVP. Uses the place-service.</description>
+	<name>Contacts2 example app</name>
+	<description>Contacts example app from GWT tutorial on MVP. Uses the place-service AND rpc-request modules.</description>
 
 	<properties>
 		<gwt.version>2.0.2</gwt.version>
@@ -30,6 +30,18 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.tbiq.gwt.tools</groupId>
+			<artifactId>rpc-request</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.tbiq.gwt.tools</groupId>
+			<artifactId>presenter</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
@@ -45,7 +57,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>contacts1</finalName>
+		<finalName>contacts2</finalName>
 		<outputDirectory>war/WEB-INF/classes</outputDirectory>
 		<plugins>
 			<plugin>
