@@ -10,6 +10,7 @@
  */
 package org.tbiq.gwt.tools.rpcrequest.server;
 
+import org.tbiq.gwt.tools.rpcrequest.browser.DummyRpcRequest;
 import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequest;
 import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestException;
 import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestService;
@@ -41,6 +42,11 @@ public class RpcRequestServiceServlet
   public <T extends RpcResponse> T execute(RpcRequest<T> rpcRequest)
     throws RpcRequestException
   {
+    RpcRequestHandler<? extends RpcRequest<?>, ? extends RpcResponse> handler = new NewDummyRequestHandler();
+
+    handler.isCompatibleWith(rpcRequest.getClass());
+    return handler.execute(rpcRequest);
+
     return null;
   }
 }
