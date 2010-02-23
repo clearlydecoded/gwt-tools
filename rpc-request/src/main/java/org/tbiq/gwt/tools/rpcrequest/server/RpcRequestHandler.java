@@ -38,6 +38,6 @@ public interface RpcRequestHandler<ReqT extends RpcRequest<ResT>, ResT extends R
   public boolean isCompatibleWith(Class<ReqT> rpcRequestClass);
 
 
-  public RpcResponse execute(ReqT rpcRequest)
+  public ResT execute(ReqT rpcRequest)
     throws RpcRequestException;
 }
