@@ -28,7 +28,7 @@ public class Test
   {
 
     @SuppressWarnings("unchecked")
-    RpcRequestHandler<RpcRequestT, RpcResponseT> handler = (RpcRequestHandler<RpcRequestT, RpcResponseT>) new NewDummyRequestHandler();
+    RpcRequestHandler<RpcRequestT, RpcResponseT> handler = (RpcRequestHandler<RpcRequestT, RpcResponseT>) (Object) new NewDummyRequestHandler();
 
     DummyRpcRequest request = new DummyRpcRequest();
     Dummy1RpcRequest request1 = new Dummy1RpcRequest();
