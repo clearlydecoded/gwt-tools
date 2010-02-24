@@ -35,7 +35,7 @@ public interface RpcRequestHandler<ReqT extends RpcRequest<ResT>, ResT extends R
    * @return <code>true</code> if this handler is compatible with (i.e., able to execute)
    *         <code>rpcRequest</code>, <code>false</code> otherwise.
    */
-  public boolean isCompatibleWith(Class<ReqT> rpcRequestClass);
+  public boolean isCompatibleWith(Class<?> rpcRequestClass);
 
 
   public ResT execute(ReqT rpcRequest)
