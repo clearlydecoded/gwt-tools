@@ -39,10 +39,11 @@ public class RpcRequestServiceServlet
    * .rpcrequest.browser.RpcRequest)
    */
   @Override
-  public <T extends RpcResponse> T execute(RpcRequest<T> rpcRequest)
+  public <T extends RpcResponse, V extends RpcRequest<T>> T execute(V rpcRequest)
     throws RpcRequestException
   {
     RpcRequestHandler<? extends RpcRequest<?>, ? extends RpcResponse> handler = new NewDummyRequestHandler();
+    rpcRequest = ()
 
     handler.isCompatibleWith(rpcRequest.getClass());
     return handler.execute(rpcRequest);
