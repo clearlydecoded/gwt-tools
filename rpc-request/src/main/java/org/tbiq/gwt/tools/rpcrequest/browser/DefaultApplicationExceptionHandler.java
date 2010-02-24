@@ -13,17 +13,17 @@ package org.tbiq.gwt.tools.rpcrequest.browser;
 import com.google.gwt.user.client.Window;
 
 /**
- * DefaultAppWideExceptionHandler class is the default implementation of the
- * {@link ApplicationWideExceptionHandler} interface. It uses a pop-up window to display
- * the message in the exception. It is provided as part of the rpc-request package as a
+ * DefaultApplicationExceptionHandler class is the default implementation of the
+ * {@link ApplicationExceptionHandler} interface. It uses a pop-up window to display the
+ * message in the exception. It is provided as part of the rpc-request package as a
  * starting point and convenience. Most application should create their own
- * implementations of the {@link ApplicationWideExceptionHandler} interface to provide
- * styled, non-native pop-ups, etc.
+ * implementations of the {@link ApplicationExceptionHandler} interface to provide styled,
+ * non-native pop-ups, etc.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public class DefaultAppWideExceptionHandler
-  implements ApplicationWideExceptionHandler
+public class DefaultApplicationExceptionHandler
+  implements ApplicationExceptionHandler
 {
   /*
    * (non-Javadoc)

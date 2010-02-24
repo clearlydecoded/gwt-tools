@@ -27,7 +27,7 @@ public abstract class DefaultAsyncCallback<T extends RpcResponse>
   implements AsyncCallback<T>
 {
   /** Application-wide exception handler. */
-  protected ApplicationWideExceptionHandler appWideExceptionHandler;
+  protected ApplicationExceptionHandler appWideExceptionHandler;
 
   /**
    * This method uses {@link DefaultAsyncCallback#appWideExceptionHandler} to handle the

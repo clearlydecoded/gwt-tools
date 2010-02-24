@@ -10,9 +10,6 @@
  */
 package org.tbiq.gwt.tools.rpcrequest.server;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.tbiq.gwt.tools.rpcrequest.browser.DummyRpcRequest;
 import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequest;
 import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestException;
 import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestService;
@@ -44,12 +41,15 @@ public class RpcRequestServiceServlet
   public <RpcRequestT extends RpcRequest<RpcResponseT>, RpcResponseT extends RpcResponse> RpcResponseT execute(RpcRequestT rpcRequest)
     throws RpcRequestException
   {
-    @SuppressWarnings("unchecked")
-    RpcRequestHandler<RpcRequestT, RpcResponseT> handler = (RpcRequestHandler<RpcRequestT, RpcResponseT>) new NewDummyRequestHandler();
+    // @SuppressWarnings("unchecked")
+    // RpcRequestHandler<RpcRequestT, RpcResponseT> handler =
+    // (RpcRequestHandler<RpcRequestT, RpcResponseT>) new NewDummyRequestHandler();
+    //
+    // handler.isCompatibleWith(rpcRequest.getClass());
 
-    handler.isCompatibleWith(rpcRequest.getClass());
+    // return handler.execute(rpcRequest);
 
-    return handler.execute(rpcRequest);
+    return null;
   }
 
 

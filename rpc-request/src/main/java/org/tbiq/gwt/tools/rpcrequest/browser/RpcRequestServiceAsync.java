@@ -22,8 +22,14 @@ public interface RpcRequestServiceAsync
 {
   /**
    * @see RpcRequestService#execute(RpcRequest).
+   * 
+   *      This interface does NOT use generics because of a GWT bug:
+   *      http://code.google.com/p/google-web-toolkit/issues/detail?id=4423
+   *      http://code.google.com/p/google-web-toolkit/issues/detail?id=2374
+   *      <p>
+   *      Once this bug is fixed, this interface will change to use generics.
    */
-  public <RpcRequestT extends RpcRequest<RpcResponseT>, RpcResponseT extends RpcResponse> void execute(RpcRequestT rpcRequest,
-                                                                                                       AsyncCallback<RpcResponseT> callback)
+  @SuppressWarnings("unchecked")
+  public void execute(RpcRequest rpcRequest, AsyncCallback<RpcResponse> callback)
     throws RpcRequestException;
 }

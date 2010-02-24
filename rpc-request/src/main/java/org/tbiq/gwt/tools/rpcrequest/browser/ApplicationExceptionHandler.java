@@ -11,12 +11,12 @@
 package org.tbiq.gwt.tools.rpcrequest.browser;
 
 /**
- * ApplicationWideExceptionHandler interface defines a method to handle exceptions for the
+ * ApplicationExceptionHandler interface defines a method to handle exceptions for the
  * entire application in a central place.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public interface ApplicationWideExceptionHandler
+public interface ApplicationExceptionHandler
 {
   /**
    * This method is meant to be an application wide (central) exception/failure handler.
