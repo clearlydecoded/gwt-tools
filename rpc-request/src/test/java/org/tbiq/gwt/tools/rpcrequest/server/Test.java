@@ -11,7 +11,8 @@
 package org.tbiq.gwt.tools.rpcrequest.server;
 
 import org.tbiq.gwt.tools.rpcrequest.browser.DummyRpcRequest;
-import org.tbiq.gwt.tools.rpcrequest.browser.DummyRpcResponse;
+import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequest;
+import org.tbiq.gwt.tools.rpcrequest.browser.RpcResponse;
 
 /**
  * 
@@ -23,13 +24,21 @@ public class Test
   /**
    * @param args
    */
-  public static void main(String[] args)
+  public static <RpcRequestT extends RpcRequest<RpcResponseT>, RpcResponseT extends RpcResponse> void main(String[] args)
   {
-    RpcRequestHandler handler = new NewDummyRequestHandler();
+
+    @SuppressWarnings("unchecked")
+    RpcRequestHandler<RpcRequestT, RpcResponseT> handler = (RpcRequestHandler<RpcRequestT, RpcResponseT>) new NewDummyRequestHandler();
 
     DummyRpcRequest request = new DummyRpcRequest();
-
+    Dummy1RpcRequest request1 = new Dummy1RpcRequest();
     System.out.println(handler.isCompatibleWith(request.getClass()));
+    System.out.println(handler.isCompatibleWith(request1.getClass()));
+
+    @SuppressWarnings("unchecked")
+    RpcRequestT genericRequest = (RpcRequestT) request;
+
+    System.out.println(handler.execute(genericRequest));
 
 
     // System.out.println(handler.isCompatibleWith(new DummyRpcRequest()));
@@ -38,5 +47,4 @@ public class Test
     // DummyRpcResponse response = handler.execute(new DummyRpcRequest());
     // System.out.println(response);
   }
-
 }

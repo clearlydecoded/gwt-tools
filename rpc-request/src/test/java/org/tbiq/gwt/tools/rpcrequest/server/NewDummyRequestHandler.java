@@ -22,22 +22,37 @@ public class NewDummyRequestHandler
   implements RpcRequestHandler<DummyRpcRequest, DummyRpcResponse>
 {
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.tbiq.gwt.tools.rpcrequest.server.RpcRequestHandler#execute(org.tbiq.gwt.tools
+   * .rpcrequest.browser.RpcRequest)
+   */
   @Override
   public DummyRpcResponse execute(DummyRpcRequest rpcRequest)
     throws RpcRequestException
   {
-    // TODO Auto-generated method stub
     return new DummyRpcResponse();
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.tbiq.gwt.tools.rpcrequest.server.RpcRequestHandler#isCompatibleWith(java.lang
+   * .Class)
+   */
   @Override
-  public boolean isCompatibleWith(Class<DummyRpcRequest> rpcRequestClass)
+  public boolean isCompatibleWith(Class<?> rpcRequestClass)
   {
-    if (DummyRpcRequest.class == rpcRequestClass)
+    if (rpcRequestClass == DummyRpcRequest.class)
     {
       return true;
     }
 
     return false;
   }
+
+
 }

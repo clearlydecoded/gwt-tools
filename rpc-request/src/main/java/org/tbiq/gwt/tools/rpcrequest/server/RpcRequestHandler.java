@@ -24,7 +24,7 @@ import org.tbiq.gwt.tools.rpcrequest.browser.RpcResponse;
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public interface RpcRequestHandler<ReqT extends RpcRequest<ResT>, ResT extends RpcResponse>
+public interface RpcRequestHandler<RpcRequestT extends RpcRequest<RpcResponseT>, RpcResponseT extends RpcResponse>
 {
   /**
    * Examines the <code>rpcRequest</code> objects and decides if this handler compatible
@@ -38,6 +38,6 @@ public interface RpcRequestHandler<ReqT extends RpcRequest<ResT>, ResT extends R
   public boolean isCompatibleWith(Class<?> rpcRequestClass);
 
 
-  public ResT execute(ReqT rpcRequest)
+  public RpcResponseT execute(RpcRequestT rpcRequest)
     throws RpcRequestException;
 }

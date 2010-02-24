@@ -33,6 +33,6 @@ public interface RpcRequestService
    *         request.
    * @throws RpcRequestException If anything goes wrong with executing the RPC request.
    */
-  public <T extends RpcResponse> T execute(RpcRequest<T> rpcRequest)
+  public <RpcRequestT extends RpcRequest<RpcResponseT>, RpcResponseT extends RpcResponse> RpcResponseT execute(RpcRequestT rpcRequest)
     throws RpcRequestException;
 }

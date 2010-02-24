@@ -23,7 +23,7 @@ public interface RpcRequestServiceAsync
   /**
    * @see RpcRequestService#execute(RpcRequest).
    */
-  public <T extends RpcResponse> void execute(RpcRequest<T> rpcRequest,
-                                              AsyncCallback<T> callback)
+  public <RpcRequestT extends RpcRequest<RpcResponseT>, RpcResponseT extends RpcResponse> void execute(RpcRequestT rpcRequest,
+                                                                                                       AsyncCallback<RpcResponseT> callback)
     throws RpcRequestException;
 }

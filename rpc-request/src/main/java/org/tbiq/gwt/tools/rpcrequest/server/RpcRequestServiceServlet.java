@@ -10,6 +10,8 @@
  */
 package org.tbiq.gwt.tools.rpcrequest.server;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.tbiq.gwt.tools.rpcrequest.browser.DummyRpcRequest;
 import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequest;
 import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestException;
@@ -39,15 +41,40 @@ public class RpcRequestServiceServlet
    * .rpcrequest.browser.RpcRequest)
    */
   @Override
-  public <T extends RpcResponse, V extends RpcRequest<T>> T execute(V rpcRequest)
+  public <RpcRequestT extends RpcRequest<RpcResponseT>, RpcResponseT extends RpcResponse> RpcResponseT execute(RpcRequestT rpcRequest)
     throws RpcRequestException
   {
-    RpcRequestHandler<? extends RpcRequest<?>, ? extends RpcResponse> handler = new NewDummyRequestHandler();
-    rpcRequest = ()
+    @SuppressWarnings("unchecked")
+    RpcRequestHandler<RpcRequestT, RpcResponseT> handler = (RpcRequestHandler<RpcRequestT, RpcResponseT>) new NewDummyRequestHandler();
 
     handler.isCompatibleWith(rpcRequest.getClass());
-    return handler.execute(rpcRequest);
 
-    return null;
+    return handler.execute(rpcRequest);
   }
+
+
+
+
+
+  // /*
+  // * (non-Javadoc)
+  // *
+  // * @see
+  // * org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestService#execute(org.tbiq.gwt.tools
+  // * .rpcrequest.browser.RpcRequest)
+  // */
+  // @Override
+  // public <RpcResponseT extends RpcResponse, RpcRequestT extends
+  // RpcRequest<RpcResponseT>> RpcResponseT execute(RpcRequestT rpcRequest)
+  // throws RpcRequestException
+  // {
+  // // RpcRequestHandler<? extends RpcRequest<?>, ? extends RpcResponse> handler = new
+  // NewDummyRequestHandler();
+  // // rpcRequest = ()
+  // //
+  // // handler.isCompatibleWith(rpcRequest.getClass());
+  // // return handler.execute(rpcRequest);
+  //
+  // return null;
+  // }
 }
