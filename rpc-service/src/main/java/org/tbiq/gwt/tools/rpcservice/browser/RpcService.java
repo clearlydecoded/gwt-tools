@@ -14,12 +14,12 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
- * RpcService interface defines the single execute method (command pattern) to
- * carry out the RPC request.
+ * RpcService interface defines the single execute method (command pattern) to carry out
+ * the RPC request.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-@RemoteServiceRelativePath("rpc-request")
+@RemoteServiceRelativePath("rpc-service")
 public interface RpcService
   extends RemoteService
 {

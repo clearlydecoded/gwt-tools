@@ -11,33 +11,51 @@
 package org.tbiq.gwt.tools.rpcservice.server;
 
 import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
-import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
-import org.tbiq.gwt.tools.rpcservice.browser.RpcService;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
 
 /**
- * RpcRequestHandler interface extends {@link RpcService} interface which
- * necessitates the implementing classes to implement the Command pattern
- * {@link RpcService#execute(org.tbiq.gwt.tools.rpcservice.browser.RpcRequest)}
- * method. In addition, it defines a method which allows some handler registry to figure
- * out if a particular handler is compatible with a given {@link RpcRequest} object.
+ * RpcRequestHandler interface defines methods which allows its implementations to do the
+ * actual work of processing a concrete type of {@link RpcRequest} and produce concrete
+ * type of {@link RpcResponse}.
+ * <p>
+ * This is the interface that the clients of this package would have to implement for each
+ * distinct type of {@link RpcRequest}/{@link RpcResponse} pair.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
 public interface RpcRequestHandler<RpcRequestT extends RpcRequest<RpcResponseT>, RpcResponseT extends RpcResponse>
 {
   /**
-   * Examines the <code>rpcRequest</code> objects and decides if this handler compatible
-   * with (i.e., able to execute) that particular {@link RpcRequest}. Returns
+   * Executes the <code>rpcRequest</code>, producing an RPC response of type which is
+   * embedded in the type of <code>rpcRequest</code>.
+   * 
+   * @param rpcRequest RPC request possibly containing data which is needed for execution
+   *          of that request.
+   * @param context Servlet execution context, containing standard objects available
+   *          within a servlet.
+   * @return RPC response (i.e., some concrete subtype of {@link RpcResponse} which is
+   *         embedded in the type of <code>rpcRequest</code>), possibly containing the
+   *         data which represents a response to the executed <code>rpcRequest</code>.
+   * @throws RpcServiceException If anything goes wrong during the execution of the
+   *           request.
+   */
+  public RpcResponseT execute(RpcRequestT rpcRequest, ServletExecutionContext context)
+    throws RpcServiceException;
+
+  /**
+   * @return Class type of {@link RpcRequest} that this handler is able to execute.
+   */
+  public Class<RpcRequestT> getCompatibleType();
+
+  /**
+   * Examines the <code>rpcRequest</code> objects and decides if this handler is
+   * compatible with (i.e., able to execute) that particular {@link RpcRequest}. Returns
    * <code>true</code> if it is compatible, <code>false</code> otherwise.
    * 
-   * @param rpcRequest RPC request to handle/execute.
+   * @param rpcRequestClass RPC request class to handle/execute.
    * @return <code>true</code> if this handler is compatible with (i.e., able to execute)
    *         <code>rpcRequest</code>, <code>false</code> otherwise.
    */
-  public boolean isCompatibleWith(Class<?> rpcRequestClass);
-
-
-  public RpcResponseT execute(RpcRequestT rpcRequest)
-    throws RpcServiceException;
+  public boolean isCompatibleWith(Class<? extends RpcRequest<? extends RpcResponse>> rpcRequestClass);
 }

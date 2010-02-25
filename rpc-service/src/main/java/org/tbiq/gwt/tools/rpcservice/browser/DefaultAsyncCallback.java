@@ -18,7 +18,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * mechanism to have central exception handling as well as a way to override/augment
  * central exception handling when needed.
  * <p>
- * Typically, the concrete implementation of this class would only implement
+ * Typically, a concrete implementation of this class would only implement
  * {@link DefaultAsyncCallback#handleResponse(RpcResponse)}.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)

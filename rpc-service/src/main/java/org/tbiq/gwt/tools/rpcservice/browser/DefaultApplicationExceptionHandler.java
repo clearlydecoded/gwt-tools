@@ -15,7 +15,7 @@ import com.google.gwt.user.client.Window;
 /**
  * DefaultApplicationExceptionHandler class is the default implementation of the
  * {@link ApplicationExceptionHandler} interface. It uses a pop-up window to display the
- * message in the exception. It is provided as part of the rpc-request package as a
+ * message in the exception. It is provided as part of the rpc-service package as a
  * starting point and convenience. Most application should create their own
  * implementations of the {@link ApplicationExceptionHandler} interface to provide styled,
  * non-native pop-ups, etc.
