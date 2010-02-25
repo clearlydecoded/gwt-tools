@@ -8,7 +8,7 @@
 
 	<!-- Other module inherits -->
 	<inherits name='org.tbiq.gwt.tools.placeservice.PlaceService' />
-	<inherits name='org.tbiq.gwt.tools.rpcrequest.RpcRequest' />
+	<inherits name='org.tbiq.gwt.tools.rpcservice.RpcService' />
 	<inherits name='org.tbiq.gwt.tools.presenter.Presenter' />
 
 	<!-- Specify the app entry point class. -->

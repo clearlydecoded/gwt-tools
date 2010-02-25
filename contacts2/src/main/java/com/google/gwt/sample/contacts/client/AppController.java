@@ -7,7 +7,7 @@ import org.tbiq.gwt.tools.placeservice.browser.Place;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEvent;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEventHandler;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceService;
-import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestServiceAsync;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceAsync;
 
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.sample.contacts.client.event.ContactDeletedEvent;
@@ -26,9 +26,9 @@ public class AppController
   private HasWidgets container;
   private final PlaceService placeService;
   private final HistoryTokenParser historyTokenParser;
-  private final RpcRequestServiceAsync rpcService;
+  private final RpcServiceAsync rpcService;
 
-  public AppController(HandlerManager eventBus, RpcRequestServiceAsync rpcService)
+  public AppController(HandlerManager eventBus, RpcServiceAsync rpcService)
   {
     this.eventBus = eventBus;
     this.rpcService = rpcService;
