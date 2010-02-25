@@ -8,19 +8,19 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpcrequest.browser;
+package org.tbiq.gwt.tools.rpcservice.browser;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
- * RpcRequestService interface defines the single execute method (command pattern) to
+ * RpcService interface defines the single execute method (command pattern) to
  * carry out the RPC request.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
 @RemoteServiceRelativePath("rpc-request")
-public interface RpcRequestService
+public interface RpcService
   extends RemoteService
 {
   /**
@@ -31,8 +31,8 @@ public interface RpcRequestService
    *          execute the request.
    * @return Response object which contains data which is the product of executing the RPC
    *         request.
-   * @throws RpcRequestException If anything goes wrong with executing the RPC request.
+   * @throws RpcServiceException If anything goes wrong with executing the RPC request.
    */
   public <RpcRequestT extends RpcRequest<RpcResponseT>, RpcResponseT extends RpcResponse> RpcResponseT execute(RpcRequestT rpcRequest)
-    throws RpcRequestException;
+    throws RpcServiceException;
 }

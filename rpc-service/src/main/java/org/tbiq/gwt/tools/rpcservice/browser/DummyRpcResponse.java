@@ -8,13 +8,13 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpcrequest.browser;
+package org.tbiq.gwt.tools.rpcservice.browser;
 
 /**
- * DummyRpcRequest class is only here to allow the templated (generics-enabled)
- * {@link RpcRequestService} to compile in dependent modules. Without it, the dependent
+ * DummyRpcResponse class is only here to allow the templated (generics-enabled)
+ * {@link RpcService} to compile in dependent modules. Without it, the dependent
  * modules would not GWT compile because the GWT compiler would fail to resolve
- * {@link RpcRequestService} via deferred binding.
+ * {@link RpcService} via deferred binding.
  * <p>
  * Note that this is only a problem in the initial stages of the project when the new
  * project has no implementations of {@link RpcRequest} and {@link RpcResponse} of its
@@ -23,7 +23,7 @@ package org.tbiq.gwt.tools.rpcrequest.browser;
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
 @SuppressWarnings("serial")
-public class DummyRpcRequest
-  implements RpcRequest<DummyRpcResponse>
+public class DummyRpcResponse
+  implements RpcResponse
 {
 }

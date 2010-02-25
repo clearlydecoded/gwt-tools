@@ -8,24 +8,24 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpcrequest.server;
+package org.tbiq.gwt.tools.rpcservice.server;
 
-import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequest;
-import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestException;
-import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestService;
-import org.tbiq.gwt.tools.rpcrequest.browser.RpcResponse;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcService;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
- * RpcRequestServiceServlet class is the server-side part of the {@link RpcRequestService}
+ * RpcServiceServlet class is the server-side part of the {@link RpcService}
  * interface.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public class RpcRequestServiceServlet
+public class RpcServiceServlet
   extends RemoteServiceServlet
-  implements RpcRequestService
+  implements RpcService
 {
   /** Class version ID. */
   private static final long serialVersionUID = 1296115987581738426L;
@@ -34,12 +34,12 @@ public class RpcRequestServiceServlet
    * (non-Javadoc)
    * 
    * @see
-   * org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestService#execute(org.tbiq.gwt.tools
+   * org.tbiq.gwt.tools.rpcservice.browser.RpcService#execute(org.tbiq.gwt.tools
    * .rpcrequest.browser.RpcRequest)
    */
   @Override
   public <RpcRequestT extends RpcRequest<RpcResponseT>, RpcResponseT extends RpcResponse> RpcResponseT execute(RpcRequestT rpcRequest)
-    throws RpcRequestException
+    throws RpcServiceException
   {
     // @SuppressWarnings("unchecked")
     // RpcRequestHandler<RpcRequestT, RpcResponseT> handler =
@@ -60,13 +60,13 @@ public class RpcRequestServiceServlet
   // * (non-Javadoc)
   // *
   // * @see
-  // * org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestService#execute(org.tbiq.gwt.tools
+  // * org.tbiq.gwt.tools.rpcservice.browser.RpcService#execute(org.tbiq.gwt.tools
   // * .rpcrequest.browser.RpcRequest)
   // */
   // @Override
   // public <RpcResponseT extends RpcResponse, RpcRequestT extends
   // RpcRequest<RpcResponseT>> RpcResponseT execute(RpcRequestT rpcRequest)
-  // throws RpcRequestException
+  // throws RpcServiceException
   // {
   // // RpcRequestHandler<? extends RpcRequest<?>, ? extends RpcResponse> handler = new
   // NewDummyRequestHandler();

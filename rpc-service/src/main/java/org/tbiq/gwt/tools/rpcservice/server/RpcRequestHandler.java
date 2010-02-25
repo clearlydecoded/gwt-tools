@@ -8,17 +8,17 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpcrequest.server;
+package org.tbiq.gwt.tools.rpcservice.server;
 
-import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequest;
-import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestException;
-import org.tbiq.gwt.tools.rpcrequest.browser.RpcRequestService;
-import org.tbiq.gwt.tools.rpcrequest.browser.RpcResponse;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcService;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
 
 /**
- * RpcRequestHandler interface extends {@link RpcRequestService} interface which
+ * RpcRequestHandler interface extends {@link RpcService} interface which
  * necessitates the implementing classes to implement the Command pattern
- * {@link RpcRequestService#execute(org.tbiq.gwt.tools.rpcrequest.browser.RpcRequest)}
+ * {@link RpcService#execute(org.tbiq.gwt.tools.rpcservice.browser.RpcRequest)}
  * method. In addition, it defines a method which allows some handler registry to figure
  * out if a particular handler is compatible with a given {@link RpcRequest} object.
  * 
@@ -39,5 +39,5 @@ public interface RpcRequestHandler<RpcRequestT extends RpcRequest<RpcResponseT>,
 
 
   public RpcResponseT execute(RpcRequestT rpcRequest)
-    throws RpcRequestException;
+    throws RpcServiceException;
 }

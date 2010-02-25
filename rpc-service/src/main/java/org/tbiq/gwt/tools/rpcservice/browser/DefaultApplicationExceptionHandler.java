@@ -8,7 +8,7 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpcrequest.browser;
+package org.tbiq.gwt.tools.rpcservice.browser;
 
 import com.google.gwt.user.client.Window;
 
@@ -29,7 +29,7 @@ public class DefaultApplicationExceptionHandler
    * (non-Javadoc)
    * 
    * @see
-   * org.tbiq.gwt.tools.rpcrequest.ApplicationWideExceptionHandler#handleException(java
+   * org.tbiq.gwt.tools.rpcservice.ApplicationWideExceptionHandler#handleException(java
    * .lang.Throwable)
    */
   @Override

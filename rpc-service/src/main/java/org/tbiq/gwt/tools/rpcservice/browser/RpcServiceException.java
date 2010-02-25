@@ -8,15 +8,15 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpcrequest.browser;
+package org.tbiq.gwt.tools.rpcservice.browser;
 
 /**
- * RpcRequestException class is an exception that the RpcService can throw if something
+ * RpcServiceException class is an exception that the RpcService can throw if something
  * goes wrong during an RPC request.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public class RpcRequestException
+public class RpcServiceException
   extends RuntimeException
 {
   /** Class version ID. */
@@ -25,7 +25,7 @@ public class RpcRequestException
   /**
    * @see RuntimeException#RuntimeException()
    */
-  public RpcRequestException()
+  public RpcServiceException()
   {
     super();
   }
@@ -33,7 +33,7 @@ public class RpcRequestException
   /**
    * @see RuntimeException#RuntimeException(String, Throwable)
    */
-  public RpcRequestException(String message, Throwable cause)
+  public RpcServiceException(String message, Throwable cause)
   {
     super(message, cause);
   }
@@ -41,7 +41,7 @@ public class RpcRequestException
   /**
    * @see RuntimeException#RuntimeException(String)
    */
-  public RpcRequestException(String message)
+  public RpcServiceException(String message)
   {
     super(message);
   }
@@ -49,7 +49,7 @@ public class RpcRequestException
   /**
    * @see RuntimeException#RuntimeException(Throwable)
    */
-  public RpcRequestException(Throwable cause)
+  public RpcServiceException(Throwable cause)
   {
     super(cause);
   }

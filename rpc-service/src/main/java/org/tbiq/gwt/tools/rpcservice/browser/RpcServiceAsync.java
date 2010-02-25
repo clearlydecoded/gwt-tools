@@ -8,20 +8,20 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpcrequest.browser;
+package org.tbiq.gwt.tools.rpcservice.browser;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
- * RpcRequestServiceAsync interface is the async interface of the
- * {@link RpcRequestService} interface.
+ * RpcServiceAsync interface is the async interface of the
+ * {@link RpcService} interface.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public interface RpcRequestServiceAsync
+public interface RpcServiceAsync
 {
   /**
-   * @see RpcRequestService#execute(RpcRequest).
+   * @see RpcService#execute(RpcRequest).
    * 
    *      This interface does NOT use generics because of a GWT bug:
    *      http://code.google.com/p/google-web-toolkit/issues/detail?id=4423
@@ -31,5 +31,5 @@ public interface RpcRequestServiceAsync
    */
   @SuppressWarnings("unchecked")
   public void execute(RpcRequest rpcRequest, AsyncCallback<RpcResponse> callback)
-    throws RpcRequestException;
+    throws RpcServiceException;
 }
