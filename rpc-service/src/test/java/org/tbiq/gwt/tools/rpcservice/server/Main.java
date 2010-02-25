@@ -8,7 +8,7 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpcservicet.server;
+package org.tbiq.gwt.tools.rpcservice.server;
 
 import org.tbiq.gwt.tools.rpcservice.browser.DummyRpcRequest;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
