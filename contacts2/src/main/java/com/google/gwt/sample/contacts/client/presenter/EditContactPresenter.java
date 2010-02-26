@@ -1,14 +1,21 @@
 package com.google.gwt.sample.contacts.client.presenter;
 
 import org.tbiq.gwt.tools.placeservice.browser.HistoryTokenParser;
+import org.tbiq.gwt.tools.placeservice.browser.Place;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEvent;
+import org.tbiq.gwt.tools.rpcservice.browser.DefaultApplicationExceptionHandler;
+import org.tbiq.gwt.tools.rpcservice.browser.DefaultRpcAsyncCallback;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceAsync;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.sample.contacts.client.ContactsServiceAsync;
 import com.google.gwt.sample.contacts.client.place.ListContactsPlace;
+import com.google.gwt.sample.contacts.client.rpc.GetContactResponse;
+import com.google.gwt.sample.contacts.client.rpc.UpdateContactRequest;
+import com.google.gwt.sample.contacts.client.rpc.UpdateContactResponse;
 import com.google.gwt.sample.contacts.shared.Contact;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -35,12 +42,12 @@ public class EditContactPresenter
   }
 
   private Contact contact;
-  private final ContactsServiceAsync rpcService;
+  private final RpcServiceAsync rpcService;
   private final HandlerManager eventBus;
   private final Display display;
   private final HistoryTokenParser historyTokenParser;
 
-  public EditContactPresenter(ContactsServiceAsync rpcService,
+  public EditContactPresenter(RpcServiceAsync rpcService,
                               HandlerManager eventBus,
                               Display display,
                               HistoryTokenParser historyTokenParser)
@@ -53,7 +60,7 @@ public class EditContactPresenter
     bind();
   }
 
-  public EditContactPresenter(ContactsServiceAsync rpcService,
+  public EditContactPresenter(RpcServiceAsync rpcService,
                               HandlerManager eventBus,
                               Display display,
                               HistoryTokenParser historyTokenParser,
@@ -64,6 +71,24 @@ public class EditContactPresenter
     this.display = display;
     this.historyTokenParser = historyTokenParser;
     bind();
+
+    // Define a callback and execute a get contract request
+    DefaultRpcAsyncCallback callback = new DefaultRpcAsyncCallback(
+      new DefaultApplicationExceptionHandler())
+    {
+      @Override
+      protected void handleResponse(RpcResponse response)
+      {
+        // Cast response to GetContactResponse (because of GWT compiler generics bug)
+        GetContactResponse getContactResponse = (GetContactResponse) response;
+
+        // On successful update (do nothing with response), switch to list contacts place
+        Place listContactsPlace = new ListContactsPlace(historyTokenParser, true);
+        EditContactPresenter.this.eventBus.fireEvent(new PlaceChangedEvent(
+          listContactsPlace));
+      }
+    };
+    rpcService.execute(new UpdateContactRequest(contact), callback);
 
     rpcService.getContact(id, new AsyncCallback<Contact>()
     {
@@ -116,19 +141,18 @@ public class EditContactPresenter
     contact.setLastName(display.getLastName().getValue());
     contact.setEmailAddress(display.getEmailAddress().getValue());
 
-    rpcService.updateContact(contact, new AsyncCallback<Contact>()
+    // Define a callback and execute an update contact request
+    DefaultRpcAsyncCallback callback = new DefaultRpcAsyncCallback(
+      new DefaultApplicationExceptionHandler())
     {
-      public void onSuccess(Contact result)
+      @Override
+      protected void handleResponse(RpcResponse response)
       {
-        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(
-          historyTokenParser, true)));
+        // On successful update (do nothing with response), switch to list contacts place
+        Place listContactsPlace = new ListContactsPlace(historyTokenParser, true);
+        eventBus.fireEvent(new PlaceChangedEvent(listContactsPlace));
       }
-
-      public void onFailure(Throwable caught)
-      {
-        Window.alert("Error updating contact");
-      }
-    });
+    };
+    rpcService.execute(new UpdateContactRequest(contact), callback);
   }
-
 }

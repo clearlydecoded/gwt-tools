@@ -16,9 +16,11 @@ import java.util.Map;
 import org.tbiq.gwt.tools.placeservice.browser.HistoryTokenParser;
 import org.tbiq.gwt.tools.placeservice.browser.Place;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceServiceUtil;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.sample.contacts.client.Contacts;
 import com.google.gwt.sample.contacts.client.ContactsService;
 import com.google.gwt.sample.contacts.client.ContactsServiceAsync;
 import com.google.gwt.sample.contacts.client.presenter.EditContactPresenter;
@@ -136,8 +138,8 @@ public class AddContactPlace
       PlaceServiceUtil.addToBrowserHistory(this);
     }
 
-    // Initialize async service needed for the presenter
-    ContactsServiceAsync rpcService = GWT.create(ContactsService.class);
+    // Retrieve RPC service to use in the presenter
+    RpcServiceAsync rpcService = Contacts.RPC_SERVICE;
 
     // Create presenter and execute
     Presenter editcontactPresenter = new EditContactPresenter(rpcService, eventBus,
