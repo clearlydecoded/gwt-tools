@@ -21,6 +21,11 @@ import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
  * <p>
  * This is the interface that the clients of this package would have to implement for each
  * distinct type of {@link RpcRequest}/{@link RpcResponse} pair.
+ * <p>
+ * <b>Warning! Implementations of this interface must account for the fact that the
+ * execution of its code might happen in a multi-threaded environment. Do NOT assume that
+ * a new instance of this handler will be created for each thread. In other words,
+ * multiple threads might share the same instance of the handler.</b>
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */

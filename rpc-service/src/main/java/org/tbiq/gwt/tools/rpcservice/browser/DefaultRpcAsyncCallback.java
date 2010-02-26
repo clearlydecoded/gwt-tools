@@ -13,25 +13,47 @@ package org.tbiq.gwt.tools.rpcservice.browser;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
- * DefaultAsyncCallback abstract class shields the concrete implementations of this class
- * from having to always override onSuccess and onFailure. Instead, it provides a
+ * DefaultRpcAsyncCallback abstract class shields the concrete implementations of this
+ * class from having to always override onSuccess and onFailure. Instead, it provides a
  * mechanism to have central exception handling as well as a way to override/augment
  * central exception handling when needed.
  * <p>
  * Typically, a concrete implementation of this class would only implement
- * {@link DefaultAsyncCallback#handleResponse(RpcResponse)}.
+ * {@link DefaultRpcAsyncCallback#handleResponse(RpcResponse)}.
+ * <p>
+ * In the future this class will be declared as:
+ * 
+ * <pre>
+ * public abstract class DefaultRpcAsyncCallback&lt;T extends RpcResponse>
+ *   implements AsyncCallback&lt;T>
+ * </pre>
+ * 
+ * Currently, this is not possible because GWT compiler doesn't handle generics correctly.
+ * This bug is documented here:<br/>
+ * http://code.google.com/p/google-web-toolkit/issues/detail?id=4423 <br/>
+ * http://code.google.com/p/google-web-toolkit/issues/detail?id=2374
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public abstract class DefaultAsyncCallback<T extends RpcResponse>
-  implements AsyncCallback<T>
+public abstract class DefaultRpcAsyncCallback
+  implements AsyncCallback<RpcResponse>
 {
   /** Application-wide exception handler. */
   protected ApplicationExceptionHandler appWideExceptionHandler;
 
   /**
-   * This method uses {@link DefaultAsyncCallback#appWideExceptionHandler} to handle the
-   * exception if the app-wide exception handler has been provided.
+   * Constructor.
+   * 
+   * @param appWideExceptionHandler Application-wide exception handler.
+   */
+  public DefaultRpcAsyncCallback(ApplicationExceptionHandler appWideExceptionHandler)
+  {
+    this.appWideExceptionHandler = appWideExceptionHandler;
+  }
+
+  /**
+   * This method uses {@link DefaultRpcAsyncCallback#appWideExceptionHandler} to handle
+   * the exception if the app-wide exception handler has been provided.
    * <p>
    * If a concrete implementation of this class would want to override the app-wide
    * exception handling behavior, it would override this method <b>without calling
@@ -83,7 +105,7 @@ public abstract class DefaultAsyncCallback<T extends RpcResponse>
    * @see com.google.gwt.user.client.rpc.AsyncCallback#onSuccess(java.lang.Object)
    */
   @Override
-  public void onSuccess(T response)
+  public void onSuccess(RpcResponse response)
   {
     handleResponse(response);
   }
@@ -95,5 +117,5 @@ public abstract class DefaultAsyncCallback<T extends RpcResponse>
    * @param response Response containing the data which was returned as the response to
    *          the RPC request.
    */
-  protected abstract void handleResponse(T response);
+  protected abstract void handleResponse(RpcResponse response);
 }

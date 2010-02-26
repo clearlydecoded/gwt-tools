@@ -13,8 +13,7 @@ package org.tbiq.gwt.tools.rpcservice.browser;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
- * RpcServiceAsync interface is the async interface of the
- * {@link RpcService} interface.
+ * RpcServiceAsync interface is the async interface of the {@link RpcService} interface.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
@@ -23,8 +22,8 @@ public interface RpcServiceAsync
   /**
    * @see RpcService#execute(RpcRequest).
    * 
-   *      This interface does NOT use generics because of a GWT bug:
-   *      http://code.google.com/p/google-web-toolkit/issues/detail?id=4423
+   *      This interface does NOT use generics because of a GWT bug: <br/>
+   *      http://code.google.com/p/google-web-toolkit/issues/detail?id=4423 <br/>
    *      http://code.google.com/p/google-web-toolkit/issues/detail?id=2374
    *      <p>
    *      Once this bug is fixed, this interface will change to use generics.
