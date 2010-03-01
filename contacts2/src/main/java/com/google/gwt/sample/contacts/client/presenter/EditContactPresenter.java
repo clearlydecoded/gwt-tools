@@ -13,12 +13,10 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.sample.contacts.client.place.ListContactsPlace;
+import com.google.gwt.sample.contacts.client.rpc.GetContactRequest;
 import com.google.gwt.sample.contacts.client.rpc.GetContactResponse;
 import com.google.gwt.sample.contacts.client.rpc.UpdateContactRequest;
-import com.google.gwt.sample.contacts.client.rpc.UpdateContactResponse;
 import com.google.gwt.sample.contacts.shared.Contact;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
@@ -81,32 +79,17 @@ public class EditContactPresenter
       {
         // Cast response to GetContactResponse (because of GWT compiler generics bug)
         GetContactResponse getContactResponse = (GetContactResponse) response;
+        Contact contact = getContactResponse.getContact();
 
-        // On successful update (do nothing with response), switch to list contacts place
-        Place listContactsPlace = new ListContactsPlace(historyTokenParser, true);
-        EditContactPresenter.this.eventBus.fireEvent(new PlaceChangedEvent(
-          listContactsPlace));
-      }
-    };
-    rpcService.execute(new UpdateContactRequest(contact), callback);
-
-    rpcService.getContact(id, new AsyncCallback<Contact>()
-    {
-      public void onSuccess(Contact result)
-      {
-        contact = result;
+        // Display retrieved contact
         EditContactPresenter.this.display.getFirstName().setValue(contact.getFirstName());
         EditContactPresenter.this.display.getLastName().setValue(contact.getLastName());
         EditContactPresenter.this.display.getEmailAddress().setValue(contact
           .getEmailAddress());
       }
-
-      public void onFailure(Throwable caught)
-      {
-        Window.alert("Error retrieving contact");
-      }
-    });
-
+    };
+    int intId = Integer.parseInt(id);
+    rpcService.execute(new GetContactRequest(intId), callback);
   }
 
   public void bind()
