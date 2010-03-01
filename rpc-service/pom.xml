@@ -28,6 +28,16 @@
 	</dependencies>
 
 	<build>
+		<!-- Build jar with resources (including java files) -->
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
