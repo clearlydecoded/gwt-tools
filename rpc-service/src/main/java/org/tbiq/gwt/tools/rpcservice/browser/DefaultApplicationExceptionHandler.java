@@ -35,6 +35,7 @@ public class DefaultApplicationExceptionHandler
   @Override
   public void handleException(Throwable exception)
   {
+    exception.printStackTrace();
     Window.alert(exception.getMessage());
   }
 }
