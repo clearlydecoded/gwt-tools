@@ -19,8 +19,6 @@ import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler;
 import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandlerRegistry;
 import org.tbiq.gwt.tools.rpcservice.server.RpcServiceServlet;
 
-import com.google.gwt.sample.contacts.server.ContactsStore;
-
 /**
  * RpcRequestHandlerRegistryInitializationListener class is a listener that initializes an
  * implementation of {@link RpcRequestHandlerRegistry} and registers implementations of

@@ -10,8 +10,6 @@
  */
 package com.google.gwt.sample.contacts.server.rpc;
 
-import javax.servlet.ServletContext;
-
 import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
