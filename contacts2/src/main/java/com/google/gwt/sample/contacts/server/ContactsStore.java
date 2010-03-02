@@ -24,9 +24,6 @@ import com.google.gwt.sample.contacts.shared.ContactDetails;
  */
 public class ContactsStore
 {
-  /** Publicly available instance of this store with all the data. */
-  public static final ContactsStore CONTACTS_STORE = new ContactsStore();
-
   private static final String[] contactsFirstNameData = new String[] {"Hollie",
     "Emerson", "Healy", "Brigitte", "Elba", "Claudio", "Dena", "Christina", "Gail",
     "Orville", "Rae", "Mildred", "Candice", "Louise", "Emilio", "Geneva", "Heriberto",
@@ -48,7 +45,24 @@ public class ContactsStore
 
   private final HashMap<String, Contact> contacts = new HashMap<String, Contact>();
 
-  public ContactsStore()
+  /** Private instance of this class. */
+  private static ContactsStore contactsStore;
+
+  /**
+   * @return The single instance of ContactsStore.
+   */
+  public static ContactsStore getContactsStore()
+  {
+    // Check if contactsStore needs to be created first
+    if (contactsStore == null)
+    {
+      contactsStore = new ContactsStore();
+    }
+
+    return contactsStore;
+  }
+
+  private ContactsStore()
   {
     initContacts();
   }

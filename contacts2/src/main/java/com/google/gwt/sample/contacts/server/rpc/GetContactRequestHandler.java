@@ -44,7 +44,7 @@ public class GetContactRequestHandler
     throws RpcServiceException
   {
     // Retrieve contact with the given ID
-    ContactsStore store = ContactsStore.CONTACTS_STORE;
+    ContactsStore store = ContactsStore.getContactsStore();
     String contactId = rpcRequest.getContactId() + "";
     Contact contact = store.getContact(contactId);
 

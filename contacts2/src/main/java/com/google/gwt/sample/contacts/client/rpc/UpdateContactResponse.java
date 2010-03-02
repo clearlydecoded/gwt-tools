@@ -22,4 +22,11 @@ public class UpdateContactResponse
 {
   /** Class version ID. */
   private static final long serialVersionUID = -365411119002508623L;
+
+  /**
+   * Default constructor. (for serialization).
+   */
+  public UpdateContactResponse()
+  {
+  }
 }

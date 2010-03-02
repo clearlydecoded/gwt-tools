@@ -25,14 +25,21 @@ public class UpdateContactRequest
   private static final long serialVersionUID = 732509426992612814L;
 
   /** Updated contact info to update contact in the store with. */
-  private final Contact updatedContact;
+  private Contact updatedContact;
+
+  /**
+   * Default constructor. (for serialization).
+   */
+  public UpdateContactRequest()
+  {
+  }
 
   /**
    * Constructor.
    * 
    * @param updatedContact Updated contact info to update contact in the store with.
    */
-  public UpdateContactRequest(final Contact updatedContact)
+  public UpdateContactRequest(Contact updatedContact)
   {
     this.updatedContact = updatedContact;
   }
@@ -43,5 +50,13 @@ public class UpdateContactRequest
   public Contact getUpdatedContact()
   {
     return updatedContact;
+  }
+
+  /**
+   * @param updatedContact Updated contact info to update contact in the store with.
+   */
+  public void setUpdatedContact(Contact updatedContact)
+  {
+    this.updatedContact = updatedContact;
   }
 }

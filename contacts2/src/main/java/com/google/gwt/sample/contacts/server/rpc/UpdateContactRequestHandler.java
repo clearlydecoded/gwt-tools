@@ -10,6 +10,8 @@
  */
 package com.google.gwt.sample.contacts.server.rpc;
 
+import javax.servlet.ServletContext;
+
 import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
@@ -43,7 +45,7 @@ public class UpdateContactRequestHandler
   {
     // Retrieve updated contact and update it in the store
     Contact updatedContact = rpcRequest.getUpdatedContact();
-    ContactsStore store = ContactsStore.CONTACTS_STORE;
+    ContactsStore store = ContactsStore.getContactsStore();
     store.updateContact(updatedContact);
 
     return new UpdateContactResponse();

@@ -26,7 +26,14 @@ public class GetContactResponse
   private static final long serialVersionUID = -4334636472137820671L;
 
   /** Contact details retrieved from the server. */
-  private final Contact contact;
+  private Contact contact;
+
+  /**
+   * Default constructor. (for serialization).
+   */
+  public GetContactResponse()
+  {
+  }
 
   /**
    * Constuctor.
@@ -44,5 +51,13 @@ public class GetContactResponse
   public Contact getContact()
   {
     return contact;
+  }
+
+  /**
+   * @param contact the contact to set
+   */
+  public void setContact(Contact contact)
+  {
+    this.contact = contact;
   }
 }
