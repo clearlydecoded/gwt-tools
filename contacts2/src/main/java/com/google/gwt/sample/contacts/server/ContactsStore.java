@@ -13,6 +13,7 @@ package com.google.gwt.sample.contacts.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import com.google.gwt.sample.contacts.shared.Contact;
 import com.google.gwt.sample.contacts.shared.ContactDetails;
@@ -100,7 +101,7 @@ public class ContactsStore
     return true;
   }
 
-  public synchronized ArrayList<ContactDetails> deleteContacts(ArrayList<String> ids)
+  public synchronized ArrayList<ContactDetails> deleteContacts(List<String> ids)
   {
 
     for (int i = 0; i < ids.size(); ++i)

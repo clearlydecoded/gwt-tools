@@ -62,5 +62,7 @@ public class RpcRequestHandlerRegistryInitializationListener
     // Add handlers to the registry
     registry.addHandler(new GetContactRequestHandler());
     registry.addHandler(new UpdateContactRequestHandler());
+    registry.addHandler(new DeleteContactsRequestHandler());
+    registry.addHandler(new GetContactDetailsRequestHandler());
   }
 }

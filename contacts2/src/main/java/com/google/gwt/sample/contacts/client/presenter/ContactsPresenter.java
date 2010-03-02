@@ -5,18 +5,24 @@ import java.util.List;
 
 import org.tbiq.gwt.tools.placeservice.browser.HistoryTokenParser;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEvent;
+import org.tbiq.gwt.tools.rpcservice.browser.DefaultApplicationExceptionHandler;
+import org.tbiq.gwt.tools.rpcservice.browser.DefaultRpcAsyncCallback;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceAsync;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.sample.contacts.client.ContactsServiceAsync;
 import com.google.gwt.sample.contacts.client.event.ContactDeletedEvent;
 import com.google.gwt.sample.contacts.client.place.AddContactPlace;
 import com.google.gwt.sample.contacts.client.place.EditContactPlace;
+import com.google.gwt.sample.contacts.client.rpc.DeleteContactsRequest;
+import com.google.gwt.sample.contacts.client.rpc.DeleteContactsResponse;
+import com.google.gwt.sample.contacts.client.rpc.GetContactDetailsRequest;
+import com.google.gwt.sample.contacts.client.rpc.GetContactDetailsResponse;
 import com.google.gwt.sample.contacts.shared.ContactDetails;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -43,12 +49,12 @@ public class ContactsPresenter
     Widget asWidget();
   }
 
-  private final ContactsServiceAsync rpcService;
+  private final RpcServiceAsync rpcService;
   private final HandlerManager eventBus;
   private final Display display;
   private final HistoryTokenParser historyTokenParser;
 
-  public ContactsPresenter(ContactsServiceAsync rpcService,
+  public ContactsPresenter(RpcServiceAsync rpcService,
                            HandlerManager eventBus,
                            Display view,
                            HistoryTokenParser historyTokenParser)
@@ -141,27 +147,29 @@ public class ContactsPresenter
 
   private void fetchContactDetails()
   {
-    rpcService.getContactDetails(new AsyncCallback<ArrayList<ContactDetails>>()
+    // Define a callback and execute a get contract details request
+    DefaultRpcAsyncCallback callback = new DefaultRpcAsyncCallback(
+      new DefaultApplicationExceptionHandler())
     {
-      public void onSuccess(ArrayList<ContactDetails> result)
+      @Override
+      protected void handleResponse(RpcResponse response)
       {
-        contactDetails = result;
+        // Cast response to GetContactDetailsResponse
+        GetContactDetailsResponse getContactDetailsResponse = (GetContactDetailsResponse) response;
+        contactDetails = getContactDetailsResponse.getContactList();
+
         sortContactDetails();
         List<String> data = new ArrayList<String>();
 
-        for (int i = 0; i < result.size(); ++i)
+        for (int i = 0; i < contactDetails.size(); ++i)
         {
           data.add(contactDetails.get(i).getDisplayName());
         }
 
         display.setData(data);
       }
-
-      public void onFailure(Throwable caught)
-      {
-        Window.alert("Error fetching contact details");
-      }
-    });
+    };
+    rpcService.execute(new GetContactDetailsRequest(), callback);
   }
 
   private void deleteSelectedContacts()
@@ -182,15 +190,20 @@ public class ContactsPresenter
       ids.add(contactDetails.get(selectedRows.get(i)).getId());
     }
 
-    rpcService.deleteContacts(ids, new AsyncCallback<ArrayList<ContactDetails>>()
+    // Define a callback and execute a delete contracts request
+    DefaultRpcAsyncCallback callback = new DefaultRpcAsyncCallback(
+      new DefaultApplicationExceptionHandler())
     {
-      public void onSuccess(ArrayList<ContactDetails> result)
+      @Override
+      protected void handleResponse(RpcResponse response)
       {
-        contactDetails = result;
+        // Cast response to GetContactDetailsResponse
+        DeleteContactsResponse getContactDetailsResponse = (DeleteContactsResponse) response;
+        contactDetails = getContactDetailsResponse.getContactList();
         sortContactDetails();
         List<String> data = new ArrayList<String>();
 
-        for (int i = 0; i < result.size(); ++i)
+        for (int i = 0; i < contactDetails.size(); ++i)
         {
           data.add(contactDetails.get(i).getDisplayName());
         }
@@ -198,11 +211,7 @@ public class ContactsPresenter
         display.setData(data);
         eventBus.fireEvent(new ContactDeletedEvent());
       }
-
-      public void onFailure(Throwable caught)
-      {
-        Window.alert("Error deleting selected contacts");
-      }
-    });
+    };
+    rpcService.execute(new DeleteContactsRequest(ids), callback);
   }
 }

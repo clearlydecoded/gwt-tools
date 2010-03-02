@@ -16,9 +16,11 @@ import java.util.Map;
 import org.tbiq.gwt.tools.placeservice.browser.HistoryTokenParser;
 import org.tbiq.gwt.tools.placeservice.browser.Place;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceServiceUtil;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.sample.contacts.client.Contacts;
 import com.google.gwt.sample.contacts.client.ContactsService;
 import com.google.gwt.sample.contacts.client.ContactsServiceAsync;
 import com.google.gwt.sample.contacts.client.presenter.ContactsPresenter;
@@ -139,7 +141,7 @@ public class ListContactsPlace
     }
 
     // Initialize async service needed for the presenter
-    ContactsServiceAsync rpcService = GWT.create(ContactsService.class);
+    RpcServiceAsync rpcService = Contacts.RPC_SERVICE;
 
     // Create presenter and execute
     Presenter listContactsPresenter = new ContactsPresenter(rpcService, eventBus,
