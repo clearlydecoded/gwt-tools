@@ -29,17 +29,18 @@ public interface RpcRequestHandlerRegistry
   public void addHandler(RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> handler);
 
   /**
-   * Removes <code>handler</code> from the handler registry.
-   * 
-   * @param handler Handler to remove.
-   */
-  public void removeHandler(RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> handler);
-
-  /**
    * @param rpcRequestClassType RPC request type.
    * @return An instance of a concrete implementation of {@link RpcRequestHandler} based
    *         on the <code>rpcRequestClassType</code>. If no handler is found for that RPC
    *         request type, returns <code>null</code>.
    */
   public RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> getHandlerFor(Class<?> rpcRequestClassType);
+
+  /**
+   * Removes RPC request handler which handles the <code>rpcRequestClassType</code> type
+   * of RPC request from the handler registry.
+   * 
+   * @param handler RPC request type that identifies the RPC request handler to remove.
+   */
+  public void removeHandler(Class<?> rpcRequestClassType);
 }

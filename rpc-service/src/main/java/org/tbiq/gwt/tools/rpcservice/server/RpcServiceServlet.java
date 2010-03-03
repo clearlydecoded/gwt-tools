@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcService;
@@ -33,6 +34,9 @@ public class RpcServiceServlet
 {
   /** Class version ID. */
   private static final long serialVersionUID = 1296115987581738426L;
+
+  /** Logger for this class. */
+  private static Logger logger = Logger.getLogger(RpcServiceServlet.class);
 
   /**
    * Attribute name for retrieving a concrete implementation of RpcRequestHanderRegistry
@@ -64,6 +68,7 @@ public class RpcServiceServlet
       String message = "No RpcRequestHandlerRegistry has been provided in the servlet";
       message += " context under the predefined key '";
       message += RPC_HANDLER_REGISTRY_ATTRIBUTE_NAME + "'.";
+      logger.error(message);
       RpcServiceException exception = new RpcServiceException(message);
       throw new ServletException(exception);
     }
@@ -80,6 +85,8 @@ public class RpcServiceServlet
   public <RpcRequestT extends RpcRequest<RpcResponseT>, RpcResponseT extends RpcResponse> RpcResponseT execute(RpcRequestT rpcRequest)
     throws RpcServiceException
   {
+    logger.debug("Begin execute().");
+
     // Retrieve RPC request handler for this RPC request
     RpcRequestHandler<RpcRequestT, RpcResponseT> handler = (RpcRequestHandler<RpcRequestT, RpcResponseT>) rpcRequestHandlerRegistry
       .getHandlerFor(rpcRequest.getClass());
@@ -89,7 +96,16 @@ public class RpcServiceServlet
     {
       String message = "No compatible RpcRequestHandler is found for RPC request type: ";
       message += rpcRequest.getClass() + ".";
+      logger.error(message);
       throw new RpcServiceException(message);
+    }
+
+    if (logger.isDebugEnabled())
+    {
+      logger.debug("Retrieved handler instance [" + handler
+                   + "] for RPC request: ["
+                   + rpcRequest
+                   + "].");
     }
 
     // Extract standard objects available in a servlet to pass along to the execution
@@ -99,6 +115,15 @@ public class RpcServiceServlet
     ServletExecutionContext servletExecutionContext = new ServletExecutionContext(
       request, response, servletContext);
 
-    return handler.execute(rpcRequest, servletExecutionContext);
+    // Handle the request and retrieve the response
+    RpcResponseT rpcResponse = handler.execute(rpcRequest, servletExecutionContext);
+
+    if (logger.isDebugEnabled())
+    {
+      logger.debug("RPC response to be returned is: [" + rpcResponse + "].");
+      logger.debug("End execute().");
+    }
+
+    return rpcResponse;
   }
 }

@@ -18,6 +18,11 @@
 			<artifactId>gwt-user</artifactId>
 			<version>${gwt.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.9</version>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>

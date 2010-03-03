@@ -13,6 +13,7 @@ package org.tbiq.gwt.tools.rpcservice.server;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
 
@@ -25,6 +26,9 @@ import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
 public class DefaultRpcRequestHandlerRegistry
   implements RpcRequestHandlerRegistry
 {
+  /** Logger for this class. */
+  private static Logger logger = Logger.getLogger(DefaultRpcRequestHandlerRegistry.class);
+
   /** Map of RpcRequestHandler instances keyed by their compatible type. */
   private Map<Class<? extends RpcRequest<? extends RpcResponse>>, RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>> handlerMap;
 
@@ -47,6 +51,11 @@ public class DefaultRpcRequestHandlerRegistry
   @Override
   public void addHandler(RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> handler)
   {
+    if (logger.isDebugEnabled())
+    {
+      logger.debug("Registering handler instance [" + handler + "].");
+    }
+
     handlerMap.put(handler.getCompatibleRpcRequestType(), handler);
   }
 
@@ -60,6 +69,12 @@ public class DefaultRpcRequestHandlerRegistry
   @Override
   public RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> getHandlerFor(Class<?> rpcRequestClassType)
   {
+    if (logger.isDebugEnabled())
+    {
+      logger.debug("Retrieving handler for RPC request type [" + rpcRequestClassType
+                   + "].");
+    }
+
     return handlerMap.get(rpcRequestClassType);
   }
 
@@ -67,12 +82,18 @@ public class DefaultRpcRequestHandlerRegistry
    * (non-Javadoc)
    * 
    * @see
-   * org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandlerRegistry#removeHandler(org.
-   * tbiq.gwt.tools.rpcservice.server.RpcRequestHandler)
+   * org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandlerRegistry#removeHandler(java
+   * .lang.Class)
    */
   @Override
-  public void removeHandler(RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> handler)
+  public void removeHandler(Class<?> rpcRequestClassType)
   {
-    handlerMap.remove(handler.getCompatibleRpcRequestType());
+    if (logger.isDebugEnabled())
+    {
+      logger
+        .debug("Removing handler for RPC request type [" + rpcRequestClassType + "].");
+    }
+
+    handlerMap.remove(rpcRequestClassType);
   }
 }
