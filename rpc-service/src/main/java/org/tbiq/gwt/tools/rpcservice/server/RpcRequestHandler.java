@@ -51,16 +51,5 @@ public interface RpcRequestHandler<RpcRequestT extends RpcRequest<RpcResponseT>,
   /**
    * @return Class type of {@link RpcRequest} that this handler is able to execute.
    */
-  public Class<RpcRequestT> getCompatibleType();
-
-  /**
-   * Examines the <code>rpcRequest</code> objects and decides if this handler is
-   * compatible with (i.e., able to execute) that particular {@link RpcRequest}. Returns
-   * <code>true</code> if it is compatible, <code>false</code> otherwise.
-   * 
-   * @param rpcRequestClass RPC request class to handle/execute.
-   * @return <code>true</code> if this handler is compatible with (i.e., able to execute)
-   *         <code>rpcRequest</code>, <code>false</code> otherwise.
-   */
-  public boolean isCompatibleWith(Class<? extends RpcRequest<? extends RpcResponse>> rpcRequestClass);
+  public Class<RpcRequestT> getCompatibleRpcRequestType();
 }

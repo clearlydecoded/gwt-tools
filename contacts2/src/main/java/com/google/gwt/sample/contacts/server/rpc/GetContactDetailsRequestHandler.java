@@ -12,8 +12,6 @@ package com.google.gwt.sample.contacts.server.rpc;
 
 import java.util.List;
 
-import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
-import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
 import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler;
 import org.tbiq.gwt.tools.rpcservice.server.ServletExecutionContext;
@@ -56,29 +54,12 @@ public class GetContactDetailsRequestHandler
   /*
    * (non-Javadoc)
    * 
-   * @see org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler#getCompatibleType()
+   * @see
+   * org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler#getCompatibleRpcRequestType()
    */
   @Override
-  public Class<GetContactDetailsRequest> getCompatibleType()
+  public Class<GetContactDetailsRequest> getCompatibleRpcRequestType()
   {
     return GetContactDetailsRequest.class;
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler#isCompatibleWith(java.lang
-   * .Class)
-   */
-  @Override
-  public boolean isCompatibleWith(Class<? extends RpcRequest<? extends RpcResponse>> rpcRequestClass)
-  {
-    if (rpcRequestClass == GetContactDetailsRequest.class)
-    {
-      return true;
-    }
-
-    return false;
   }
 }

@@ -12,8 +12,6 @@ package com.google.gwt.sample.contacts.server.rpc;
 
 import java.util.List;
 
-import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
-import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
 import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler;
 import org.tbiq.gwt.tools.rpcservice.server.ServletExecutionContext;
@@ -55,30 +53,12 @@ public class DeleteContactsRequestHandler
   /*
    * (non-Javadoc)
    * 
-   * @see org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler#getCompatibleType()
+   * @see
+   * org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler#getCompatibleRpcRequestType()
    */
   @Override
-  public Class<DeleteContactsRequest> getCompatibleType()
+  public Class<DeleteContactsRequest> getCompatibleRpcRequestType()
   {
     return DeleteContactsRequest.class;
   }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler#isCompatibleWith(java.lang
-   * .Class)
-   */
-  @Override
-  public boolean isCompatibleWith(Class<? extends RpcRequest<? extends RpcResponse>> rpcRequestClass)
-  {
-    if (rpcRequestClass == DeleteContactsRequest.class)
-    {
-      return true;
-    }
-
-    return false;
-  }
-
 }

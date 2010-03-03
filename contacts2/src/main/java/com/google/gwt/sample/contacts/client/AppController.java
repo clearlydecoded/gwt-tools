@@ -56,7 +56,7 @@ public class AppController
       @Override
       public void onContactDeleted(ContactDeletedEvent event)
       {
-        Window.alert("Contact Deleted!");
+        Window.alert("Contact(s) successfully Deleted!");
       }
     });
   }

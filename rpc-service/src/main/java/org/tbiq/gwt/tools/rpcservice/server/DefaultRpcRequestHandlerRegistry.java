@@ -47,7 +47,7 @@ public class DefaultRpcRequestHandlerRegistry
   @Override
   public void addHandler(RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> handler)
   {
-    handlerMap.put(handler.getCompatibleType(), handler);
+    handlerMap.put(handler.getCompatibleRpcRequestType(), handler);
   }
 
   /*
@@ -73,6 +73,6 @@ public class DefaultRpcRequestHandlerRegistry
   @Override
   public void removeHandler(RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> handler)
   {
-    handlerMap.remove(handler.getCompatibleType());
+    handlerMap.remove(handler.getCompatibleRpcRequestType());
   }
 }
