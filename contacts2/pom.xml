@@ -6,7 +6,7 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Contacts2 example app</name>
-	<description>Contacts example app from GWT tutorial on MVP. Uses the place-service AND rpc-request modules.</description>
+	<description>Contacts example app from GWT tutorial on MVP. Uses the place-service, rpc-service, and presenter modules.</description>
 
 	<properties>
 		<gwt.version>2.0.2</gwt.version>
