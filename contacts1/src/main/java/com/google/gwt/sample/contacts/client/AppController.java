@@ -38,7 +38,8 @@ public class AppController
   {
     // Register places with the place service
     placeService.registerPlace(new ListContactsPlace(historyTokenParser, true), true);
-    placeService.registerPlace(new EditContactPlace(historyTokenParser, true, -1), false);
+    placeService.registerPlace(new EditContactPlace(historyTokenParser, true, null),
+                               false);
     placeService.registerPlace(new AddContactPlace(historyTokenParser, true), false);
 
     eventBus.addHandler(PlaceChangedEvent.TYPE, new PlaceChangedEventHandler()
@@ -55,7 +56,7 @@ public class AppController
       @Override
       public void onContactDeleted(ContactDeletedEvent event)
       {
-        Window.alert("Contact Deleted!");
+        Window.alert("Selected contacts were successfully deleted!");
       }
     });
   }
