@@ -18,11 +18,8 @@ import org.tbiq.gwt.tools.placeservice.browser.Place;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceServiceUtil;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceAsync;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.sample.contacts.client.Contacts;
-import com.google.gwt.sample.contacts.client.ContactsService;
-import com.google.gwt.sample.contacts.client.ContactsServiceAsync;
 import com.google.gwt.sample.contacts.client.presenter.ContactsPresenter;
 import com.google.gwt.sample.contacts.client.presenter.Presenter;
 import com.google.gwt.sample.contacts.client.view.ContactsView;
