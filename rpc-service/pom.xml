@@ -6,7 +6,7 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>RPC Service</name>
-	<description>RPC Service is a set of interfaces and default implementations and helper classes for implementing GWT RPC following Command Pattern.</description>
+	<description>RPC Service is a set of interfaces, default implementations and helper classes for implementing GWT RPC following Command Pattern.</description>
 
 	<properties>
 		<gwt.version>2.0.2</gwt.version>
