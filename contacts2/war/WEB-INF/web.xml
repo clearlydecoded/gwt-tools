@@ -18,18 +18,6 @@
 		<listener-class>com.google.gwt.sample.contacts.server.rpc.RpcRequestHandlerRegistryInitializationListener</listener-class>
 	</listener>
 
-
-
-	<servlet>
-		<servlet-name>contactsServiceServlet</servlet-name>
-		<servlet-class>com.google.gwt.sample.contacts.server.ContactsServiceImpl</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>contactsServiceServlet</servlet-name>
-		<url-pattern>/contacts/contactsService</url-pattern>
-	</servlet-mapping>
-
 	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>Contacts.html</welcome-file>
