@@ -7,6 +7,7 @@
 		<description>RPC service servlet</description>
 		<servlet-name>rpc-service-servlet</servlet-name>
 		<servlet-class>org.tbiq.gwt.tools.rpcservice.server.RpcServiceServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>rpc-service-servlet</servlet-name>
