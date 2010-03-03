@@ -16,12 +16,12 @@ import java.util.Map;
 import org.tbiq.gwt.tools.placeservice.browser.HistoryTokenParser;
 import org.tbiq.gwt.tools.placeservice.browser.Place;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceServiceUtil;
+import org.tbiq.gwt.tools.presenter.browser.Presenter;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceAsync;
 
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.sample.contacts.client.Contacts;
 import com.google.gwt.sample.contacts.client.presenter.ContactsPresenter;
-import com.google.gwt.sample.contacts.client.presenter.Presenter;
 import com.google.gwt.sample.contacts.client.view.ContactsView;
 import com.google.gwt.user.client.ui.HasWidgets;
 

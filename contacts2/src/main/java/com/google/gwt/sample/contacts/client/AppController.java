@@ -7,6 +7,7 @@ import org.tbiq.gwt.tools.placeservice.browser.Place;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEvent;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEventHandler;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceService;
+import org.tbiq.gwt.tools.presenter.browser.Presenter;
 
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.sample.contacts.client.event.ContactDeletedEvent;
@@ -14,7 +15,6 @@ import com.google.gwt.sample.contacts.client.event.ContactDeletedEventHandler;
 import com.google.gwt.sample.contacts.client.place.AddContactPlace;
 import com.google.gwt.sample.contacts.client.place.EditContactPlace;
 import com.google.gwt.sample.contacts.client.place.ListContactsPlace;
-import com.google.gwt.sample.contacts.client.presenter.Presenter;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 
@@ -35,7 +35,13 @@ public class AppController
     bind();
   }
 
-  private void bind()
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.tbiq.gwt.tools.presenter.browser.Presenter#bind()
+   */
+  @Override
+  public void bind()
   {
     // Register places with the place service
     placeService.registerPlace(new ListContactsPlace(historyTokenParser, true), true);
@@ -72,11 +78,29 @@ public class AppController
     place.show(container, eventBus);
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @seeorg.tbiq.gwt.tools.presenter.browser.Presenter#go(com.google.gwt.user.client.ui.
+   * HasWidgets)
+   */
+  @Override
   public void go(final HasWidgets container)
   {
     this.container = container;
 
     // Force initial place evaluation
     placeService.forcePlaceEvaluation();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.tbiq.gwt.tools.presenter.browser.Presenter#unbind()
+   */
+  @Override
+  public void unbind()
+  {
+    // Nothing to do for this particular example
   }
 }

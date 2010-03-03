@@ -3,6 +3,8 @@ package com.google.gwt.sample.contacts.client.presenter;
 import org.tbiq.gwt.tools.placeservice.browser.HistoryTokenParser;
 import org.tbiq.gwt.tools.placeservice.browser.Place;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEvent;
+import org.tbiq.gwt.tools.presenter.browser.Presenter;
+import org.tbiq.gwt.tools.presenter.browser.View;
 import org.tbiq.gwt.tools.rpcservice.browser.DefaultApplicationExceptionHandler;
 import org.tbiq.gwt.tools.rpcservice.browser.DefaultRpcAsyncCallback;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
@@ -19,12 +21,12 @@ import com.google.gwt.sample.contacts.client.rpc.UpdateContactRequest;
 import com.google.gwt.sample.contacts.shared.Contact;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
 
 public class EditContactPresenter
   implements Presenter
 {
   public interface Display
+    extends View
   {
     HasClickHandlers getSaveButton();
 
@@ -35,8 +37,6 @@ public class EditContactPresenter
     HasValue<String> getLastName();
 
     HasValue<String> getEmailAddress();
-
-    Widget asWidget();
   }
 
   private Contact contact;
@@ -91,6 +91,12 @@ public class EditContactPresenter
     rpcService.execute(new GetContactRequest(id), callback);
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.tbiq.gwt.tools.presenter.browser.Presenter#bind()
+   */
+  @Override
   public void bind()
   {
     this.display.getSaveButton().addClickHandler(new ClickHandler()
@@ -111,6 +117,13 @@ public class EditContactPresenter
     });
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @seeorg.tbiq.gwt.tools.presenter.browser.Presenter#go(com.google.gwt.user.client.ui.
+   * HasWidgets)
+   */
+  @Override
   public void go(final HasWidgets container)
   {
     container.clear();
@@ -136,5 +149,16 @@ public class EditContactPresenter
       }
     };
     rpcService.execute(new UpdateContactRequest(contact), callback);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.tbiq.gwt.tools.presenter.browser.Presenter#unbind()
+   */
+  @Override
+  public void unbind()
+  {
+    // Nothing to do for this particular example
   }
 }
