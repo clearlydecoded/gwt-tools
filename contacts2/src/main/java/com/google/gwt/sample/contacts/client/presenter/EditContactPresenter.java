@@ -88,8 +88,7 @@ public class EditContactPresenter
           .getEmailAddress());
       }
     };
-    int intId = Integer.parseInt(id);
-    rpcService.execute(new GetContactRequest(intId), callback);
+    rpcService.execute(new GetContactRequest(id), callback);
   }
 
   public void bind()

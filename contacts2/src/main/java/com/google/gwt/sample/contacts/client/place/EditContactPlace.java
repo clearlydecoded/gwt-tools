@@ -53,7 +53,7 @@ public class EditContactPlace
   private final HistoryTokenParser historyTokenParser;
 
   /** ID of the contact to edit. */
-  private int contactId;
+  private String contactId;
 
 
   /**
@@ -67,7 +67,7 @@ public class EditContactPlace
    */
   public EditContactPlace(final HistoryTokenParser historyTokenParser,
                           boolean toBeAddedToBrowserHistory,
-                          int contactId)
+                          String contactId)
   {
     this.historyTokenParser = historyTokenParser;
     this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
@@ -77,7 +77,7 @@ public class EditContactPlace
   /**
    * @return ID of the contact to edit.
    */
-  protected int getContactId()
+  protected String getContactId()
   {
     return contactId;
   }
@@ -103,19 +103,19 @@ public class EditContactPlace
       return new AddContactPlace(historyTokenParser, toBeAddedToBrowserHistory);
     }
 
-    // Return null if ID value is not an int
-    int contactId = 0;
+    // Return null if ID value is not translatable to an int (being extra cautious)
     try
     {
-      contactId = Integer.parseInt(idString);
+      @SuppressWarnings("unused")
+      int id = Integer.parseInt(idString);
     }
     catch (NumberFormatException e)
     {
-      // Creation failed; makes sense to just go to 'add contact place'
+      // ID is not translatable to an int; makes sense to just go to 'add contact place'
       return new AddContactPlace(historyTokenParser, toBeAddedToBrowserHistory);
     }
 
-    return new EditContactPlace(historyTokenParser, toBeAddedToBrowserHistory, contactId);
+    return new EditContactPlace(historyTokenParser, toBeAddedToBrowserHistory, idString);
   }
 
   /*
@@ -130,7 +130,7 @@ public class EditContactPlace
       .getViewIdParam(), VIEW_ID);
     historyToken = historyTokenParser.buildHistoryToken(historyToken,
                                                         CONTACT_ID_PARAM_NAME,
-                                                        contactId + "");
+                                                        contactId);
 
     return historyToken;
   }
@@ -188,7 +188,7 @@ public class EditContactPlace
 
     // Create presenter and execute
     Presenter editContactPresenter = new EditContactPresenter(rpcService, eventBus,
-      new EditContactView(), historyTokenParser, contactId + "");
+      new EditContactView(), historyTokenParser, contactId);
     editContactPresenter.go(container);
   }
 }

@@ -25,7 +25,7 @@ public class GetContactRequest
   private static final long serialVersionUID = 4848650876180814057L;
 
   /** ID of the contact to retrieve from the server. */
-  private int contactId;
+  private String contactId;
 
   /**
    * Default Constructor. (for serialization)
@@ -39,7 +39,7 @@ public class GetContactRequest
    * 
    * @param contactId ID of the contact to retrieve from the server.
    */
-  public GetContactRequest(int contactId)
+  public GetContactRequest(String contactId)
   {
     this.contactId = contactId;
   }
@@ -47,7 +47,7 @@ public class GetContactRequest
   /**
    * @return ID of the contact to retrieve from the server.
    */
-  public int getContactId()
+  public String getContactId()
   {
     return contactId;
   }
@@ -55,7 +55,7 @@ public class GetContactRequest
   /**
    * @param contactId ID of the contact to retrieve from the server.
    */
-  public void setContactId(int contactId)
+  public void setContactId(String contactId)
   {
     this.contactId = contactId;
   }

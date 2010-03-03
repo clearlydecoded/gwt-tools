@@ -97,7 +97,7 @@ public class ContactsPresenter
           ContactDetails contactDetails = getContactDetail(selectedRow);
 
           // Row was clicked to edit, create EditContactPlace
-          int id = Integer.parseInt(contactDetails.getId());
+          String id = contactDetails.getId();
           EditContactPlace place = new EditContactPlace(historyTokenParser, true, id);
           eventBus.fireEvent(new PlaceChangedEvent(place));
         }
