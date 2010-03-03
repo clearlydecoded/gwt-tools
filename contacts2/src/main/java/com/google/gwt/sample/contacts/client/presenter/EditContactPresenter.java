@@ -79,7 +79,7 @@ public class EditContactPresenter
       {
         // Cast response to GetContactResponse (because of GWT compiler generics bug)
         GetContactResponse getContactResponse = (GetContactResponse) response;
-        Contact contact = getContactResponse.getContact();
+        contact = getContactResponse.getContact();
 
         // Display retrieved contact
         EditContactPresenter.this.display.getFirstName().setValue(contact.getFirstName());
