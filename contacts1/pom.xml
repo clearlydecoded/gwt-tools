@@ -4,15 +4,15 @@
 
 	<parent>
 		<groupId>org.tbiq.gwt.tools</groupId>
-		<artifactId>org.tbiq.gwt.tools</artifactId>
+		<artifactId>gwt-tools</artifactId>
 		<version>1.0-RC2-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>contacts1</artifactId>
 	<packaging>war</packaging>
 
-	<name>Contacts1 example app</name>
-	<description>Contacts example app from GWT tutorial on MVP. Uses the place-service module.</description>
+	<name>Contacts1 example app (plus place-service)</name>
+	<description>Original Contacts example app, converted to use the place-service module</description>
 
 	<dependencies>
 		<dependency>
