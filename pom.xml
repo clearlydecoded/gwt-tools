@@ -1,0 +1,90 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.tbiq.gwt.tools</groupId>
+	<artifactId>org.tbiq.gwt.tools</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>GWT Tools</name>
+	<description>Parent pom for the gwt-tools components</description>
+
+	<scm>
+		<connection>scm:svn:http://gwt-tools.googlecode.com/svn/trunk</connection>
+		<developerConnection>scm:svn:https://gwt-tools.googlecode.com/svn/trunk</developerConnection>
+		<url>scm:svn:http://gwt-tools.googlecode.com/svn</url>
+	</scm>
+
+	<modules>
+		<module>contacts1</module>
+		<module>contacts2</module>
+		<module>place-service</module>
+		<module>presenter</module>
+		<module>rpc-service</module>
+	</modules>
+
+	<properties>
+		<gwt.version>2.0.2</gwt.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<id>compile</id>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<scmCommentPrefix>[maven-release-plugin]</scmCommentPrefix>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
