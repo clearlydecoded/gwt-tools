@@ -1,0 +1,62 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.tbiq.gwt.tools</groupId>
+		<artifactId>org.tbiq.gwt.tools</artifactId>
+		<version>1.0-RC2-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>contacts</artifactId>
+	<packaging>war</packaging>
+
+	<name>Contacts example app</name>
+	<description>Original (mavenized) Contacts example app from GWT tutorial on MVP.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwt.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>2.5.2</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>contacts1</finalName>
+		<outputDirectory>war/WEB-INF/classes</outputDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1-beta-1</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>war</directory>
+							<excludes>
+								<!--
+									These are needed for Eclipse to run as a GWT Web app, but
+									should NOT be wrapped up when assembling the war file. That is
+									why they are marked as excluded here. Instead, these will be
+									brought in from maven.
+								-->
+								<exclude>**/contacts/*</exclude>
+								<exclude>**/gwt-servlet.jar</exclude>
+							</excludes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
