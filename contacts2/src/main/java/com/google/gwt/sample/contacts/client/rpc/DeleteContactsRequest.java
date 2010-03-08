@@ -53,7 +53,7 @@ public class DeleteContactsRequest
   }
 
   /**
-   * @param List of IDs of contacts to delete.
+   * @param id List of IDs of contacts to delete.
    */
   public void setIds(List<String> ids)
   {
