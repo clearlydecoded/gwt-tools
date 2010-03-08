@@ -15,6 +15,7 @@ import java.util.List;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
 
 /**
+ * DeleteContactsRequest class represents a delete request of one or more contacts.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */

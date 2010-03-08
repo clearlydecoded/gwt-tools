@@ -15,6 +15,7 @@ import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
 import com.google.gwt.sample.contacts.shared.Contact;
 
 /**
+ * UpdateContactRequest class represents a request to update a contact.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
