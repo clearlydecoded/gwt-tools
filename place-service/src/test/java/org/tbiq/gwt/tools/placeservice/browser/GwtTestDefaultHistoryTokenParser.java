@@ -8,7 +8,7 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.placeservice;
+package org.tbiq.gwt.tools.placeservice.browser;
 
 import java.util.List;
 import java.util.Map;
@@ -37,7 +37,7 @@ public class GwtTestDefaultHistoryTokenParser
   @Override
   public String getModuleName()
   {
-    return "org.tbiq.gwt.tools.PlaceService";
+    return "org.tbiq.gwt.tools.placeservice.PlaceService";
   }
 
   /*

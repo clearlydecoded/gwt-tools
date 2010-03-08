@@ -22,6 +22,10 @@ import org.tbiq.gwt.tools.placeservice.browser.PlaceServiceUtil;
 
 /**
  * PlaceServiceUtilTest is a test class for {@link PlaceServiceUtil}.
+ * <p>
+ * <b>This test class is purposefully not placed inside the same package structure as the
+ * class it is testing to avoid GWT compiler trying to compile it during the testing
+ * phase.</b>
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
