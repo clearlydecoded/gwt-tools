@@ -12,6 +12,8 @@ package org.tbiq.gwt.tools.rpcservice.server;
 
 import java.util.List;
 
+import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
+
 /**
  * RpcRequestHandlerFinder interface defines a method which finds the handler classes to
  * be initialized and registered with the {@link RpcRequestHandlerRegistry}.
@@ -31,6 +33,10 @@ public interface RpcRequestHandlerFinder
    *         {@link RpcRequestHandler} interface and are annotated with
    *         {@link org.tbiq.gwt.tools.rpcservice.server.annotation.RpcRequestHandler}
    *         annotation located within the provided <code>packages</code>.
+   * @throws RpcServiceException If <code>packages</code> is <code>null</code>, any of the
+   *           passed in packages are null or an empty string, or something else goes
+   *           wrong during the search in the packages.
    */
-  List<Class<?>> findHandlers(String... packages);
+  List<Class<?>> findHandlers(String... packages)
+    throws RpcServiceException;
 }
