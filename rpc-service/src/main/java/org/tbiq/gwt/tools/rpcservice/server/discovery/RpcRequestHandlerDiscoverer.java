@@ -8,24 +8,27 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpcservice.server;
+package org.tbiq.gwt.tools.rpcservice.server.discovery;
 
 import java.util.List;
 
 import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
+import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler;
 
 /**
- * RpcRequestHandlerInitializer interface defines a method to initialize all the handlers
- * within the application.
- * 
+ * RpcRequestHandlerDiscoverer interface defines a method that loads and initializes all
+ * RPC request handlers within the system which are annotated with
+ * {@link org.tbiq.gwt.tools.rpcservice.server.discovery.RpcRequestHandler} annotation.
+ * TODO look over this comment
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public interface RpcRequestHandlerInitializer
+public interface RpcRequestHandlerDiscoverer
 {
   /**
+   * TODO finish this comment.
    * @return List of instances of implementations of {@link RpcRequestHandler} which are
    *         ready to be executed.
    */
-  List<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>> initializeHandlers();
+  List<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>> discoverHandlers();
 }

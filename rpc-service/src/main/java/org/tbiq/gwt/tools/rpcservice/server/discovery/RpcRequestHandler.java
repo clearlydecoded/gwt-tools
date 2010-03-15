@@ -8,7 +8,7 @@
  * License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.tbiq.gwt.tools.rpcservice.server.annotation;
+package org.tbiq.gwt.tools.rpcservice.server.discovery;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
