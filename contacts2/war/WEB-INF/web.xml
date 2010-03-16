@@ -14,10 +14,15 @@
 		<url-pattern>/contacts/rpc-service</url-pattern>
 	</servlet-mapping>
 
-	<!-- RPC Request handlers registry initialization listener -->
+	<!-- Auto-discover RPC request handlers -->
 	<listener>
-		<listener-class>com.google.gwt.sample.contacts.server.rpc.RpcRequestHandlerRegistryInitializationListener</listener-class>
+		<listener-class>org.tbiq.gwt.tools.rpcservice.server.discovery.DefaultRpcRequestRegistryInitializationListener</listener-class>
 	</listener>
+	<context-param>
+		<description>Packages for initialization listener to scan for RPC handlers</description>
+		<param-name>packagesToScan</param-name>
+		<param-value>com.google.gwt.sample.contacts.server.rpc</param-value>
+	</context-param>
 
 	<!-- Default page to serve -->
 	<welcome-file-list>

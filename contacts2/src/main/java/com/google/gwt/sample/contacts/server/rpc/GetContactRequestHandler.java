@@ -13,6 +13,7 @@ package com.google.gwt.sample.contacts.server.rpc;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
 import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler;
 import org.tbiq.gwt.tools.rpcservice.server.ServletExecutionContext;
+import org.tbiq.gwt.tools.rpcservice.server.discovery.RpcHandler;
 
 import com.google.gwt.sample.contacts.client.rpc.GetContactRequest;
 import com.google.gwt.sample.contacts.client.rpc.GetContactResponse;
@@ -25,6 +26,7 @@ import com.google.gwt.sample.contacts.shared.Contact;
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
+@RpcHandler
 public class GetContactRequestHandler
   implements RpcRequestHandler<GetContactRequest, GetContactResponse>
 {

@@ -10,6 +10,8 @@
  */
 package org.tbiq.gwt.tools.rpcservice.server;
 
+import java.util.List;
+
 import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
 
@@ -27,6 +29,13 @@ public interface RpcRequestHandlerRegistry
    * @param handler Handler to add.
    */
   public void addHandler(RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> handler);
+
+  /**
+   * Adds <code>handlers</code> to the handler registry.
+   * 
+   * @param handlers List of handlers to add.
+   */
+  public void addHandlers(List<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>> handlers);
 
   /**
    * @param rpcRequestClassType RPC request type.

@@ -13,6 +13,7 @@ package com.google.gwt.sample.contacts.server.rpc;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
 import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler;
 import org.tbiq.gwt.tools.rpcservice.server.ServletExecutionContext;
+import org.tbiq.gwt.tools.rpcservice.server.discovery.RpcHandler;
 
 import com.google.gwt.sample.contacts.client.rpc.UpdateContactRequest;
 import com.google.gwt.sample.contacts.client.rpc.UpdateContactResponse;
@@ -20,9 +21,12 @@ import com.google.gwt.sample.contacts.server.ContactsStore;
 import com.google.gwt.sample.contacts.shared.Contact;
 
 /**
+ * UpdateContactRequestHandler class is the server-side handler of requests of type
+ * {@link UpdateContactRequest}.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
+@RpcHandler
 public class UpdateContactRequestHandler
   implements RpcRequestHandler<UpdateContactRequest, UpdateContactResponse>
 {

@@ -11,6 +11,7 @@
 package org.tbiq.gwt.tools.rpcservice.server;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -41,13 +42,6 @@ public class DefaultRpcRequestHandlerRegistry
     handlerMap = new HashMap<Class<? extends RpcRequest<? extends RpcResponse>>, RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>>();
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandlerRegistry#addHandler(org.tbiq
-   * .gwt.tools.rpcservice.server.RpcRequestHandler)
-   */
   @Override
   public void addHandler(RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> handler)
   {
@@ -59,13 +53,22 @@ public class DefaultRpcRequestHandlerRegistry
     handlerMap.put(handler.getCompatibleRpcRequestType(), handler);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandlerRegistry#getHandlerFor(java
-   * .lang.Class)
-   */
+  @Override
+  public void addHandlers(List<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>> handlers)
+  {
+    // Check to make sure handlers is not null
+    if (handlers == null)
+    {
+      return;
+    }
+
+    // Loop through handlers and add them to the map
+    for (RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> handler : handlers)
+    {
+      addHandler(handler);
+    }
+  }
+
   @Override
   public RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> getHandlerFor(Class<?> rpcRequestClassType)
   {
@@ -78,13 +81,6 @@ public class DefaultRpcRequestHandlerRegistry
     return handlerMap.get(rpcRequestClassType);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandlerRegistry#removeHandler(java
-   * .lang.Class)
-   */
   @Override
   public void removeHandler(Class<?> rpcRequestClassType)
   {

@@ -15,6 +15,7 @@ import java.util.List;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
 import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler;
 import org.tbiq.gwt.tools.rpcservice.server.ServletExecutionContext;
+import org.tbiq.gwt.tools.rpcservice.server.discovery.RpcHandler;
 
 import com.google.gwt.sample.contacts.client.rpc.GetContactDetailsRequest;
 import com.google.gwt.sample.contacts.client.rpc.GetContactDetailsResponse;
@@ -22,9 +23,12 @@ import com.google.gwt.sample.contacts.server.ContactsStore;
 import com.google.gwt.sample.contacts.shared.ContactDetails;
 
 /**
+ * GetContactDetailsRequestHandler class is the server-side handler of requests of type
+ * {@link GetContactDetailsRequest}.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
+@RpcHandler
 public class GetContactDetailsRequestHandler
   implements RpcRequestHandler<GetContactDetailsRequest, GetContactDetailsResponse>
 
