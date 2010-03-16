@@ -19,9 +19,9 @@ import java.lang.annotation.Target;
 import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandlerRegistry;
 
 /**
- * RpcRequestHandler annotation is a marker annotation designed to mark an implementation
- * of {@link org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler} as a handler that
- * needs to be initialized and registered with some {@link RpcRequestHandlerRegistry}
+ * RpcHandler annotation is a marker annotation designed to mark an implementation of
+ * {@link org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler} as a handler that needs
+ * to be initialized and registered with some {@link RpcRequestHandlerRegistry}
  * implementation.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
@@ -29,6 +29,6 @@ import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandlerRegistry;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface RpcRequestHandler
+public @interface RpcHandler
 {
 }

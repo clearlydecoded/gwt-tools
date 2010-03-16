@@ -68,6 +68,8 @@ public class RpcServiceServlet
       String message = "No RpcRequestHandlerRegistry has been provided in the servlet";
       message += " context under the predefined key '";
       message += RPC_HANDLER_REGISTRY_ATTRIBUTE_NAME + "'.";
+      message += " Did you forget to configure a custom ServletContext listener or one";
+      message += " of the provided listeners?";
       logger.error(message);
       RpcServiceException exception = new RpcServiceException(message);
       throw new ServletException(exception);

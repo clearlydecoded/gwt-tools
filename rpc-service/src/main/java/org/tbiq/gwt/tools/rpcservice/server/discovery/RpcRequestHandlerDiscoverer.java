@@ -18,8 +18,8 @@ import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler;
 
 /**
  * RpcRequestHandlerDiscoverer interface defines a method that loads and initializes all
- * RPC request handlers within the system which are annotated with
- * {@link org.tbiq.gwt.tools.rpcservice.server.discovery.RpcRequestHandler} annotation.
+ * RPC request handlers within the system which are annotated with {@link RpcHandler}
+ * annotation.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
@@ -27,8 +27,7 @@ public interface RpcRequestHandlerDiscoverer
 {
   /**
    * This method returns "ready to be executed" RPC request handlers which are located
-   * within this system and annotated with
-   * {@link org.tbiq.gwt.tools.rpcservice.server.discovery.RpcRequestHandler} annotation.
+   * within this system and annotated with {@link RpcHandler} annotation.
    * 
    * @return List of instances of implementations of {@link RpcRequestHandler} which are
    *         ready to be executed.
