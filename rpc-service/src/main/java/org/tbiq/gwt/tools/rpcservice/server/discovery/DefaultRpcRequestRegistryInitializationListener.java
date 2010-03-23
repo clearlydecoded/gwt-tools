@@ -76,11 +76,11 @@ public class DefaultRpcRequestRegistryInitializationListener
       packageToScan = packageToScan.trim();
     }
 
-    // Auto-discover the RPC request handlers
-    RpcRequestHandlerDiscoverer discoverer = new DefaultRpcRequestHandlerDiscoverer(
+    // Auto-discover and initialize the RPC request handlers
+    RpcRequestHandlerInitializer initializer = new DefaultRpcRequestHandlerInitializer(
       packagesToScan);
     List<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>> rpcHandlers;
-    rpcHandlers = discoverer.discoverHandlers();
+    rpcHandlers = initializer.initializeHandlers();
 
     // Warn in the logs if no handlers were discovered
     if (rpcHandlers.size() == 0)

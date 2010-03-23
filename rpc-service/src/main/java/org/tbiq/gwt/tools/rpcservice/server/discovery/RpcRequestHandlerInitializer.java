@@ -17,22 +17,20 @@ import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
 import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler;
 
 /**
- * RpcRequestHandlerDiscoverer interface defines a method that loads and initializes all
- * RPC request handlers within the system which are annotated with {@link RpcHandler}
+ * RpcRequestHandlerInitializer interface defines a method that loads and initializes RPC
+ * request handlers within the system which are annotated with {@link RpcHandler}
  * annotation.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public interface RpcRequestHandlerDiscoverer
+public interface RpcRequestHandlerInitializer
 {
   /**
-   * This method returns class types of RPC request handlers which are found within this
-   * system that implement {@link RpcRequestHandler} interface and annotated with
-   * {@link RpcHandler} annotation.
+   * This method returns "ready to be executed" RPC request handlers which are located
+   * within this system and annotated with {@link RpcHandler} annotation.
    * 
-   * @return Class type list of found classes within this system that implement
-   *         {@link RpcRequestHandler} interface and annotated with {@link RpcHandler}
-   *         annotation.
+   * @return List of instances of implementations of {@link RpcRequestHandler} which are
+   *         ready to be executed.
    */
-  List<Class<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>>> discoverHandlers();
+  List<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>> initializeHandlers();
 }

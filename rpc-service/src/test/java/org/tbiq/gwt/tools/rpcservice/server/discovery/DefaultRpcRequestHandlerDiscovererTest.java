@@ -18,10 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
-import org.tbiq.gwt.tools.rpcservice.browser.RpcRequest;
-import org.tbiq.gwt.tools.rpcservice.browser.RpcResponse;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
-import org.tbiq.gwt.tools.rpcservice.server.RpcRequestHandler;
 import org.tbiq.gwt.tools.rpcservice.server.discovery.dummy.DummyRpcRequestHandler3;
 import org.tbiq.gwt.tools.rpcservice.server.discovery.dummy.DummyRpcRequestHandler4;
 
@@ -86,22 +83,5 @@ public class DefaultRpcRequestHandlerDiscovererTest
     catch (RpcServiceException e)
     {
     }
-  }
-
-  @Test
-  public void testDiscoverHandlers()
-  {
-    RpcRequestHandlerDiscoverer discoverer = new DefaultRpcRequestHandlerDiscoverer(
-      "org.tbiq.gwt.tools.rpcservice.server.discovery");
-    List<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>> rpcHandlers;
-
-    rpcHandlers = discoverer.discoverHandlers();
-    assertEquals("4 handlers should have been discovered.", 4, rpcHandlers.size());
-
-    discoverer = new DefaultRpcRequestHandlerDiscoverer(
-      "org.tbiq.gwt.tools.rpcservice.server.discovery.dummy");
-
-    rpcHandlers = discoverer.discoverHandlers();
-    assertEquals("2 handlers should have been discovered.", 2, rpcHandlers.size());
   }
 }

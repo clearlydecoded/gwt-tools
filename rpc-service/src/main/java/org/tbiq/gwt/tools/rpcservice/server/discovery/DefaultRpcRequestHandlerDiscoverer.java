@@ -77,11 +77,11 @@ public class DefaultRpcRequestHandlerDiscoverer
   }
 
   @Override
-  @SuppressWarnings("unchecked")
-  public List<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>> discoverHandlers()
+  public List<Class<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>>> discoverHandlers()
   {
     // Find all RPC handler classes
-    List<Class> rpcHandlerClasses = new ArrayList<Class>();
+    List<Class<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>>> rpcHandlerClasses;
+    rpcHandlerClasses = new ArrayList<Class<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>>>();
     for (String packageName : packageNameList)
     {
       try
@@ -96,28 +96,7 @@ public class DefaultRpcRequestHandlerDiscoverer
       }
     }
 
-    // Instantiate each RPC handler class
-    List<RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>> rpcHandlers;
-    rpcHandlers = new ArrayList<RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>>();
-    for (Class rpcHandlerClass : rpcHandlerClasses)
-    {
-      RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse> rpcHandler;
-      try
-      {
-        // Instantiate RPC handler and add it to the collection
-        rpcHandler = (RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>) rpcHandlerClass
-          .newInstance();
-        rpcHandlers.add(rpcHandler);
-      }
-      catch (Exception exception)
-      {
-        // Log and rethrow
-        logger.error(exception.getMessage(), exception);
-        throw new RpcServiceException(exception);
-      }
-    }
-
-    return rpcHandlers;
+    return rpcHandlerClasses;
   }
 
   /**
@@ -132,8 +111,7 @@ public class DefaultRpcRequestHandlerDiscoverer
    *           <code>packageName</code> directory.
    * @throws ClassNotFoundException If anything goes wrong with loading found classes.
    */
-  @SuppressWarnings("unchecked")
-  public List<? extends Class> findRpcHandlerClasses(String packageName)
+  public List<Class<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>>> findRpcHandlerClasses(String packageName)
     throws IOException, ClassNotFoundException
   {
     // Retrieve the context classloader
@@ -160,7 +138,8 @@ public class DefaultRpcRequestHandlerDiscoverer
     }
 
     // Find RPC handler classes in every resource pointed to by the package directory
-    List<Class> rpcHandlerClasses = new ArrayList<Class>();
+    List<Class<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>>> rpcHandlerClasses;
+    rpcHandlerClasses = new ArrayList<Class<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>>>();
     for (File directory : directories)
     {
       rpcHandlerClasses.addAll(findRpcHandlerClasses(directory, packageName));
@@ -182,10 +161,12 @@ public class DefaultRpcRequestHandlerDiscoverer
    * @throws ClassNotFoundException If anything goes wrong with loading found classes.
    */
   @SuppressWarnings("unchecked")
-  public List<? extends Class> findRpcHandlerClasses(File directory, String packageName)
+  public List<Class<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>>> findRpcHandlerClasses(File directory,
+                                                                                                                                            String packageName)
     throws ClassNotFoundException
   {
-    List<Class> rpcHandlerClasses = new ArrayList<Class>();
+    List<Class<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>>> rpcHandlerClasses;
+    rpcHandlerClasses = new ArrayList<Class<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>>>();
 
     // If directory doesn't exist, no classes can be found in it, return empty list
     if (!directory.exists())
