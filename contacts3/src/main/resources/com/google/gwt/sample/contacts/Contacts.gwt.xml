@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='contacts'>
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+
+	<!-- Inherit the default GWT style sheet. -->
+	<inherits name='com.google.gwt.user.theme.standard.Standard' />
+
+	<!-- Other module inherits -->
+	<inherits name='org.tbiq.gwt.tools.placeservice.PlaceService' />
+	<inherits name='org.tbiq.gwt.tools.rpcservice.RpcService' />
+	<inherits name='org.tbiq.gwt.tools.presenter.Presenter' />
+
+	<!-- Specify the app entry point class. -->
+	<entry-point class='com.google.gwt.sample.contacts.client.Contacts' />
+
+	<!-- Specify the paths for translatable code. -->
+	<source path='client' />
+	<source path='shared' />
+	<source path='test' />
+	<source path='place' />
+
+</module>

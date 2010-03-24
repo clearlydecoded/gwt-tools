@@ -1,0 +1,36 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+	<!-- RPC Service Servlet configuration -->
+	<servlet>
+		<description>RPC service servlet</description>
+		<servlet-name>rpc-service-servlet</servlet-name>
+		<servlet-class>org.tbiq.gwt.tools.rpcservice.server.RpcServiceServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>rpc-service-servlet</servlet-name>
+		<url-pattern>/contacts/rpc-service</url-pattern>
+	</servlet-mapping>
+
+	<!-- Spring framework container initialization (must be done first). -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/applicationContext.xml</param-value>
+	</context-param>
+
+	<!-- Auto-discover Spring-enabled RPC request handlers -->
+	<listener>
+		<listener-class>org.tbiq.gwt.tools.rpcservice.server.discovery.SpringRpcRequestRegistryInitializationListener</listener-class>
+	</listener>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>Contacts.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>
