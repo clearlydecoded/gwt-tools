@@ -14,6 +14,14 @@
 		<developerConnection>scm:svn:https://gwt-tools.googlecode.com/svn/trunk</developerConnection>
 		<url>scm:svn:http://gwt-tools.googlecode.com/svn</url>
 	</scm>
+	
+	<distributionManagement>
+		<repository>
+			<id>archiva.internal</id>
+			<name>Internal Archiva repository</name>
+			<url>${internal.archiva.url}</url>
+		</repository>
+	</distributionManagement>
 
 	<modules>
 		<module>contacts</module>
