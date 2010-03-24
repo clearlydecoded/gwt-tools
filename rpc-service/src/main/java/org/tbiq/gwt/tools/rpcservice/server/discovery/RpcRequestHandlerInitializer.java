@@ -28,9 +28,13 @@ public interface RpcRequestHandlerInitializer
   /**
    * This method returns "ready to be executed" RPC request handlers which are located
    * within this system and annotated with {@link RpcHandler} annotation.
+   * <p>
+   * The implementation of this method must guarantee to never return <code>null</code>.
+   * If no RPC handlers are initialized, returns an empty list.
    * 
    * @return List of instances of implementations of {@link RpcRequestHandler} which are
-   *         ready to be executed.
+   *         ready to be executed. If no RPC handlers are initialized, returns an empty
+   *         list.
    */
   List<? extends RpcRequestHandler<? extends RpcRequest<? extends RpcResponse>, ? extends RpcResponse>> initializeHandlers();
 }

@@ -215,8 +215,7 @@ public class DefaultRpcRequestHandlerDiscoverer
         }
 
         // Add to RPC handler classes if annotated with RpcHandler annotation
-        if (foundClass
-          .isAnnotationPresent(org.tbiq.gwt.tools.rpcservice.server.discovery.RpcHandler.class))
+        if (foundClass.isAnnotationPresent(RpcHandler.class))
         {
           // Make sure this class implements RpcRequestHandler interface
           Class[] implementedInterfaces = foundClass.getInterfaces();

@@ -10,6 +10,7 @@
  */
 package org.tbiq.gwt.tools.rpcservice.server.discovery.dummy;
 
+import org.springframework.stereotype.Component;
 import org.tbiq.gwt.tools.rpcservice.browser.DummyRpcRequest;
 import org.tbiq.gwt.tools.rpcservice.browser.DummyRpcResponse;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceException;
@@ -23,6 +24,7 @@ import org.tbiq.gwt.tools.rpcservice.server.discovery.RpcHandler;
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
 @RpcHandler
+@Component
 public class DummyRpcRequestHandler4
   implements RpcRequestHandler<DummyRpcRequest, DummyRpcResponse>
 {
