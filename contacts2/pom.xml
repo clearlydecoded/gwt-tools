@@ -10,7 +10,7 @@
 	<artifactId>contacts2</artifactId>
 	<packaging>war</packaging>
 
-	<name>Contacts2 example app (plus place-service, rpc-service, and presenter)</name>
+	<name>contacts2</name>
 	<description>Original Contacts example app, converted to use the place-service, rpc-service, and presenter modules</description>
 
 	<dependencies>

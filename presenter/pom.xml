@@ -10,7 +10,7 @@
 	<artifactId>presenter</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Presenter</name>
+	<name>presenter</name>
 	<description>Presenter module contains MVP (Model View Presenter) interfaces</description>
 
 	<build>

@@ -10,8 +10,8 @@
 	<artifactId>place-service</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Place Service</name>
-	<description>PlaceService handles managing history within a GWT application</description>
+	<name>place-service</name>
+	<description>Place service handles managing history within a GWT application</description>
 
 	<build>
 		<!-- Build jar with resources (including java files) -->

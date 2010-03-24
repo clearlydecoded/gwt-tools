@@ -19,6 +19,7 @@
 		<module>contacts</module>
 		<module>contacts1</module>
 		<module>contacts2</module>
+		<module>contacts3</module>
 		<module>place-service</module>
 		<module>presenter</module>
 		<module>rpc-service</module>
