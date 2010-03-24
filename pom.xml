@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.tbiq.gwt.tools</groupId>
@@ -14,7 +15,7 @@
 		<developerConnection>scm:svn:https://gwt-tools.googlecode.com/svn/trunk</developerConnection>
 		<url>scm:svn:http://gwt-tools.googlecode.com/svn</url>
 	</scm>
-	
+
 	<distributionManagement>
 		<repository>
 			<id>archiva.internal</id>
@@ -95,14 +96,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>release</id>
-			<properties>
-				<skipTests>true</skipTests>
-			</properties>
-		</profile>
-	</profiles>
-
 </project>
