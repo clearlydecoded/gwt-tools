@@ -26,7 +26,6 @@ public class AppController
   public AppController(HandlerManager eventBus)
   {
     this.eventBus = eventBus;
-
     placeService = new DefaultPlaceService(new DefaultHistoryTokenParser(), eventBus);
     bind();
   }
