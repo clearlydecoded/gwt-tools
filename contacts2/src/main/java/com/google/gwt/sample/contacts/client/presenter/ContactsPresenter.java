@@ -3,7 +3,6 @@ package com.google.gwt.sample.contacts.client.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.tbiq.gwt.tools.placeservice.browser.HistoryTokenParser;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEvent;
 import org.tbiq.gwt.tools.presenter.browser.Presenter;
 import org.tbiq.gwt.tools.presenter.browser.View;
