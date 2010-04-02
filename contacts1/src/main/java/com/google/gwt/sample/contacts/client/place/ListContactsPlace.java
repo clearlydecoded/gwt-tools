@@ -47,41 +47,27 @@ public class ListContactsPlace
    * History token parser which knows the format to use when building history token based
    * on this place's data.
    */
-  private final HistoryTokenParser historyTokenParser;
+  private HistoryTokenParser historyTokenParser;
 
 
   /**
    * Constructor.
    * 
-   * @param historyTokenParser History token parser which knows the format to use when
-   *          building history token based on this place's data.
    * @param toBeAddedToBrowserHistory Flag if the history token of this place should be
    *          added to the browser URL.
    */
-  public ListContactsPlace(final HistoryTokenParser historyTokenParser,
-                           boolean toBeAddedToBrowserHistory)
+  public ListContactsPlace(boolean toBeAddedToBrowserHistory)
   {
-    this.historyTokenParser = historyTokenParser;
     this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.Place#createPlace(java.util.Map, boolean)
-   */
   @Override
   public Place createPlace(Map<String, List<String>> nameValuePairs,
                            boolean toBeAddedToBrowserHistory)
   {
-    return new ListContactsPlace(historyTokenParser, toBeAddedToBrowserHistory);
+    return new ListContactsPlace(toBeAddedToBrowserHistory);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.Place#getHistoryToken()
-   */
   @Override
   public String getHistoryToken()
   {
@@ -90,45 +76,24 @@ public class ListContactsPlace
                                                 VIEW_ID);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.Place#getViewId()
-   */
   @Override
   public String getViewId()
   {
     return VIEW_ID;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.Place#isToBeAddedToBrowserHistory()
-   */
   @Override
   public boolean isToBeAddedToBrowserHistory()
   {
     return toBeAddedToBrowserHistory;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.Place#setToBeAddedToBrowserHistory(boolean)
-   */
   @Override
   public void setToBeAddedToBrowserHistory(boolean toBeAddedToBrowserHistory)
   {
     this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.Place#show(com.google.gwt.user.client.ui.HasWidgets,
-   * com.google.gwt.event.shared.HandlerManager)
-   */
   @Override
   public void show(HasWidgets container, HandlerManager eventBus)
   {
@@ -143,7 +108,13 @@ public class ListContactsPlace
 
     // Create presenter and execute
     Presenter listContactsPresenter = new ContactsPresenter(rpcService, eventBus,
-      new ContactsView(), historyTokenParser);
+      new ContactsView());
     listContactsPresenter.go(container);
+  }
+
+  @Override
+  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser)
+  {
+    this.historyTokenParser = historyTokenParser;
   }
 }

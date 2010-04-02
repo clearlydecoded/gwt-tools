@@ -38,18 +38,15 @@ public class EditContactPresenter
   private final ContactsServiceAsync rpcService;
   private final HandlerManager eventBus;
   private final Display display;
-  private final HistoryTokenParser historyTokenParser;
 
   public EditContactPresenter(ContactsServiceAsync rpcService,
                               HandlerManager eventBus,
-                              Display display,
-                              HistoryTokenParser historyTokenParser)
+                              Display display)
   {
     this.rpcService = rpcService;
     this.eventBus = eventBus;
     this.contact = new Contact();
     this.display = display;
-    this.historyTokenParser = historyTokenParser;
     bind();
   }
 
@@ -62,7 +59,6 @@ public class EditContactPresenter
     this.rpcService = rpcService;
     this.eventBus = eventBus;
     this.display = display;
-    this.historyTokenParser = historyTokenParser;
     bind();
 
     rpcService.getContact(id, new AsyncCallback<Contact>()
@@ -98,8 +94,7 @@ public class EditContactPresenter
     {
       public void onClick(ClickEvent event)
       {
-        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(
-          historyTokenParser, true)));
+        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(true)));
       }
     });
   }
@@ -120,8 +115,7 @@ public class EditContactPresenter
     {
       public void onSuccess(Contact result)
       {
-        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(
-          historyTokenParser, true)));
+        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(true)));
       }
 
       public void onFailure(Throwable caught)
@@ -130,5 +124,4 @@ public class EditContactPresenter
       }
     });
   }
-
 }

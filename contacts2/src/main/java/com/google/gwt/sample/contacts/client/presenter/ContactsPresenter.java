@@ -52,17 +52,14 @@ public class ContactsPresenter
   private final RpcServiceAsync rpcService;
   private final HandlerManager eventBus;
   private final Display display;
-  private final HistoryTokenParser historyTokenParser;
 
   public ContactsPresenter(RpcServiceAsync rpcService,
                            HandlerManager eventBus,
-                           Display view,
-                           HistoryTokenParser historyTokenParser)
+                           Display view)
   {
     this.rpcService = rpcService;
     this.eventBus = eventBus;
     this.display = view;
-    this.historyTokenParser = historyTokenParser;
   }
 
   /*
@@ -78,7 +75,7 @@ public class ContactsPresenter
       public void onClick(ClickEvent event)
       {
         // Switch to add contact place
-        AddContactPlace place = new AddContactPlace(historyTokenParser, true);
+        AddContactPlace place = new AddContactPlace(true);
         eventBus.fireEvent(new PlaceChangedEvent(place));
       }
     });
@@ -104,7 +101,7 @@ public class ContactsPresenter
 
           // Row was clicked to edit, create EditContactPlace
           String id = contactDetails.getId();
-          EditContactPlace place = new EditContactPlace(historyTokenParser, true, id);
+          EditContactPlace place = new EditContactPlace(true, id);
           eventBus.fireEvent(new PlaceChangedEvent(place));
         }
       }

@@ -65,6 +65,14 @@ public interface Place
   public boolean isToBeAddedToBrowserHistory();
 
   /**
+   * Sets the history token parser to use in this place.
+   * 
+   * @param historyTokenParser Instance of {@link HistoryTokenParser} to be used in this
+   *          place.
+   */
+  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser);
+
+  /**
    * Sets an indicator if the history token of this place should be added to the browser
    * URL (and therefore browser history).
    * <p>

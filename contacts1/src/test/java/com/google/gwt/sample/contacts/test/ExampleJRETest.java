@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
-import org.tbiq.gwt.tools.placeservice.browser.DefaultHistoryTokenParser;
-
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.sample.contacts.client.ContactsServiceAsync;
 import com.google.gwt.sample.contacts.client.presenter.ContactsPresenter;
@@ -26,8 +24,7 @@ public class ExampleJRETest
     mockRpcService = createStrictMock(ContactsServiceAsync.class);
     eventBus = new HandlerManager(null);
     mockDisplay = createStrictMock(ContactsPresenter.Display.class);
-    contactsPresenter = new ContactsPresenter(mockRpcService, eventBus, mockDisplay,
-      new DefaultHistoryTokenParser());
+    contactsPresenter = new ContactsPresenter(mockRpcService, eventBus, mockDisplay);
   }
 
   public void testContactSort()

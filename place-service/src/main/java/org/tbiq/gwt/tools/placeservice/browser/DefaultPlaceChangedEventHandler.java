@@ -14,12 +14,12 @@ import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
- * DefaultPlaceChangedHandler class is the default implementation of the
+ * DefaultPlaceChangedEventHandler class is the default implementation of the
  * {@link PlaceChangedEventHandler} interface.
  * 
  * @author Yaakov Chaikin (yaakov.chaikin@gmail.com)
  */
-public class DefaultPlaceChangedHandler
+public class DefaultPlaceChangedEventHandler
   implements PlaceChangedEventHandler
 {
   /** Container to add the corresponding to this place view into. */
@@ -28,24 +28,43 @@ public class DefaultPlaceChangedHandler
   /** Application-wide event bus. */
   private final HandlerManager eventBus;
 
+  /** Place service used in the application. */
+  private final PlaceService placeService;
+
   /**
    * Constructor.
    * 
    * @param container Container to add the corresponding to this place view into.
    * @param eventBus Application-wide event bus.
+   * @param placeService Place service used in the application.
    */
-  public DefaultPlaceChangedHandler(final HasWidgets container,
-                                    final HandlerManager eventBus)
+  public DefaultPlaceChangedEventHandler(final HasWidgets container,
+                                         final HandlerManager eventBus,
+                                         final PlaceService placeService)
   {
+    // Check that container is not null (done here since if it is, it wouldn't come out
+    // until later in the place's show method and wouldn't be as obvious why it's null)
+    if (container == null)
+    {
+      String message = "container must not be null.";
+      throw new NullPointerException(message);
+    }
+
     this.container = container;
     this.eventBus = eventBus;
+    this.placeService = placeService;
   }
 
   @Override
   public void onPlaceChange(PlaceChangedEvent event)
   {
-    // Retrieve wrapped place and show it
+    // Retrieve wrapped place
     Place requestedPlace = event.getPlace();
+
+    // Inject the history token parser used by the place service into this place
+    requestedPlace.setHistoryTokenParser(placeService.getHistoryTokenParser());
+
+    // Show requested place
     requestedPlace.show(container, eventBus);
   }
 }

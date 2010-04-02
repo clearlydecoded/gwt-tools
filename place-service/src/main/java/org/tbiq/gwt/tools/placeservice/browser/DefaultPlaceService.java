@@ -79,6 +79,9 @@ public class DefaultPlaceService
    */
   public Place duplicatePlace(Place place, boolean isBeAddedToBrowserHistory)
   {
+    // Inject place to duplicate with a history token parser
+    place.setHistoryTokenParser(historyTokenParser);
+
     // Build name/value pairs map based on place's history token
     String historyToken = place.getHistoryToken();
     Map<String, List<String>> nameValuePairs = historyTokenParser.parse(historyToken);

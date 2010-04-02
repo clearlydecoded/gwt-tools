@@ -43,18 +43,15 @@ public class EditContactPresenter
   private final RpcServiceAsync rpcService;
   private final HandlerManager eventBus;
   private final Display display;
-  private final HistoryTokenParser historyTokenParser;
 
   public EditContactPresenter(RpcServiceAsync rpcService,
                               HandlerManager eventBus,
-                              Display display,
-                              HistoryTokenParser historyTokenParser)
+                              Display display)
   {
     this.rpcService = rpcService;
     this.eventBus = eventBus;
     this.contact = new Contact();
     this.display = display;
-    this.historyTokenParser = historyTokenParser;
     bind();
   }
 
@@ -67,7 +64,6 @@ public class EditContactPresenter
     this.rpcService = rpcService;
     this.eventBus = eventBus;
     this.display = display;
-    this.historyTokenParser = historyTokenParser;
     bind();
 
     // Define a callback and execute a get contract request
@@ -111,8 +107,7 @@ public class EditContactPresenter
     {
       public void onClick(ClickEvent event)
       {
-        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(
-          historyTokenParser, true)));
+        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(true)));
       }
     });
   }
@@ -144,7 +139,7 @@ public class EditContactPresenter
       protected void handleResponse(RpcResponse response)
       {
         // On successful update (do nothing with response), switch to list contacts place
-        Place listContactsPlace = new ListContactsPlace(historyTokenParser, true);
+        Place listContactsPlace = new ListContactsPlace(true);
         eventBus.fireEvent(new PlaceChangedEvent(listContactsPlace));
       }
     };

@@ -51,7 +51,7 @@ public class EditContactPlace
    * History token parser which knows the format to use when building history token based
    * on this place's data.
    */
-  private final HistoryTokenParser historyTokenParser;
+  private HistoryTokenParser historyTokenParser;
 
   /** ID of the contact to edit. */
   private String contactId;
@@ -60,17 +60,12 @@ public class EditContactPlace
   /**
    * Constructor.
    * 
-   * @param historyTokenParser History token parser which knows the format to use when
-   *          building history token based on this place's data.
    * @param toBeAddedToBrowserHistory Flag if the history token of this place should be
    *          added to the browser URL.
    * @param contactId ID of the contact to edit.
    */
-  public EditContactPlace(final HistoryTokenParser historyTokenParser,
-                          boolean toBeAddedToBrowserHistory,
-                          String contactId)
+  public EditContactPlace(boolean toBeAddedToBrowserHistory, String contactId)
   {
-    this.historyTokenParser = historyTokenParser;
     this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
     this.contactId = contactId;
   }
@@ -83,11 +78,6 @@ public class EditContactPlace
     return contactId;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.Place#createPlace(java.util.Map, boolean)
-   */
   @Override
   public Place createPlace(Map<String, List<String>> nameValuePairs,
                            boolean toBeAddedToBrowserHistory)
@@ -101,7 +91,7 @@ public class EditContactPlace
     if (idString == null)
     {
       // Creation failed; makes sense to just go to 'add contact place'
-      return new AddContactPlace(historyTokenParser, toBeAddedToBrowserHistory);
+      return new AddContactPlace(toBeAddedToBrowserHistory);
     }
 
     // Return null if ID value is not translatable to an int (being extra cautious)
@@ -113,17 +103,12 @@ public class EditContactPlace
     catch (NumberFormatException e)
     {
       // ID is not translatable to an int; makes sense to just go to 'add contact place'
-      return new AddContactPlace(historyTokenParser, toBeAddedToBrowserHistory);
+      return new AddContactPlace(toBeAddedToBrowserHistory);
     }
 
-    return new EditContactPlace(historyTokenParser, toBeAddedToBrowserHistory, idString);
+    return new EditContactPlace(toBeAddedToBrowserHistory, idString);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.Place#getHistoryToken()
-   */
   @Override
   public String getHistoryToken()
   {
@@ -136,45 +121,24 @@ public class EditContactPlace
     return historyToken;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.Place#getViewId()
-   */
   @Override
   public String getViewId()
   {
     return VIEW_ID;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.Place#isToBeAddedToBrowserHistory()
-   */
   @Override
   public boolean isToBeAddedToBrowserHistory()
   {
     return toBeAddedToBrowserHistory;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.Place#setToBeAddedToBrowserHistory(boolean)
-   */
   @Override
   public void setToBeAddedToBrowserHistory(boolean toBeAddedToBrowserHistory)
   {
     this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.Place#show(com.google.gwt.user.client.ui.HasWidgets,
-   * com.google.gwt.event.shared.HandlerManager)
-   */
   @Override
   public void show(HasWidgets container, HandlerManager eventBus)
   {
@@ -191,5 +155,11 @@ public class EditContactPlace
     Presenter editContactPresenter = new EditContactPresenter(rpcService, eventBus,
       new EditContactView(), historyTokenParser, contactId + "");
     editContactPresenter.go(container);
+  }
+
+  @Override
+  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser)
+  {
+    this.historyTokenParser = historyTokenParser;
   }
 }
