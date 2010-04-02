@@ -3,7 +3,6 @@ package com.google.gwt.sample.contacts.client;
 import org.tbiq.gwt.tools.placeservice.browser.DefaultHistoryTokenParser;
 import org.tbiq.gwt.tools.placeservice.browser.DefaultPlaceChangedEventHandler;
 import org.tbiq.gwt.tools.placeservice.browser.DefaultPlaceService;
-import org.tbiq.gwt.tools.placeservice.browser.HistoryTokenParser;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEvent;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEventHandler;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceService;
@@ -23,13 +22,11 @@ public class AppController
 {
   private final HandlerManager eventBus;
   private final PlaceService placeService;
-  private final HistoryTokenParser historyTokenParser;
 
   public AppController(HandlerManager eventBus)
   {
     this.eventBus = eventBus;
-    historyTokenParser = new DefaultHistoryTokenParser();
-    placeService = new DefaultPlaceService(historyTokenParser, eventBus);
+    placeService = new DefaultPlaceService(new DefaultHistoryTokenParser(), eventBus);
     bind();
   }
 
