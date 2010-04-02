@@ -42,13 +42,6 @@ public class DefaultHistoryTokenParser
   /** Separator between param name and param value in the history token string. */
   private static final String NAME_VALUE_PAIR_SEPARATOR = "=";
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.tbiq.gwt.tools.placeservice.HistoryTokenParser#buildHistoryToken(java.lang.String
-   * , java.lang.String, java.lang.String)
-   */
   @Override
   public String buildHistoryToken(String currentHistoryToken,
                                   String paramName,
@@ -91,11 +84,6 @@ public class DefaultHistoryTokenParser
            + paramValue;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.tools.placeservice.HistoryTokenParser#getViewIdParam()
-   */
   @Override
   public String getViewIdParam()
   {

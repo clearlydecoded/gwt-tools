@@ -23,6 +23,11 @@ public interface PlaceService
   extends ValueChangeHandler<String>
 {
   /**
+   * @return Instance of the {@link HistoryTokenParser} this place service is using.
+   */
+  public HistoryTokenParser getHistoryTokenParser();
+
+  /**
    * Registers <code>place</code> as an available place to choose from when interpreting
    * requested URLs. If <code>isDefaultPlace</code> is <code>true</code>, this place is
    * also registered as the default place of the {@link PlaceService}. There can only be

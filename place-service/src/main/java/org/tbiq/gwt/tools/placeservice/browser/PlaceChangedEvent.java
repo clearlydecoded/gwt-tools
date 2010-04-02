@@ -39,24 +39,12 @@ public class PlaceChangedEvent
     this.place = place;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler
-   * )
-   */
   @Override
   protected void dispatch(PlaceChangedEventHandler handler)
   {
     handler.onPlaceChange(this);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
-   */
   @Override
   public Type<PlaceChangedEventHandler> getAssociatedType()
   {

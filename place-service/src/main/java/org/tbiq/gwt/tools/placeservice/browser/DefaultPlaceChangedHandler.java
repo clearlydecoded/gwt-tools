@@ -41,12 +41,6 @@ public class DefaultPlaceChangedHandler
     this.eventBus = eventBus;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @seeorg.tbiq.gwt.place.PlaceChangedEventHandler#onPlaceChange(org.tbiq.gwt.place.
-   * PlaceChangedEvent)
-   */
   @Override
   public void onPlaceChange(PlaceChangedEvent event)
   {

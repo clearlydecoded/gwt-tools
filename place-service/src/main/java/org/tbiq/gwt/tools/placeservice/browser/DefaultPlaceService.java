@@ -87,13 +87,6 @@ public class DefaultPlaceService
     return place.createPlace(nameValuePairs, isBeAddedToBrowserHistory);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * com.google.gwt.event.logical.shared.ValueChangeHandler#onValueChange(com.google.gwt
-   * .event.logical.shared.ValueChangeEvent)
-   */
   @Override
   public void onValueChange(ValueChangeEvent<String> event)
   {
@@ -164,11 +157,6 @@ public class DefaultPlaceService
     eventBus.fireEvent(new PlaceChangedEvent(duplicateDefaultPlace));
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.PlaceService#registerPlace(org.tbiq.gwt.place.Place, boolean)
-   */
   @Override
   public void registerPlace(Place place, boolean isDefaultPlace)
   {
@@ -182,14 +170,15 @@ public class DefaultPlaceService
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.place.PlaceService#forcePlaceEvaluation()
-   */
   @Override
   public void forcePlaceEvaluation()
   {
     History.fireCurrentHistoryState();
+  }
+
+  @Override
+  public HistoryTokenParser getHistoryTokenParser()
+  {
+    return historyTokenParser;
   }
 }
