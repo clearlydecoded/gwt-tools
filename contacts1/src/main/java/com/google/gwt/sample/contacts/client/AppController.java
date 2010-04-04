@@ -33,9 +33,9 @@ public class AppController
   private void bind()
   {
     // Register places with the place service
-    placeService.registerPlace(new ListContactsPlace(true), true);
-    placeService.registerPlace(new EditContactPlace(true, null), false);
-    placeService.registerPlace(new AddContactPlace(true), false);
+    placeService.registerPlace(new ListContactsPlace(eventBus, true), true);
+    placeService.registerPlace(new EditContactPlace(eventBus, true, null), false);
+    placeService.registerPlace(new AddContactPlace(eventBus, true), false);
 
     eventBus.addHandler(ContactDeletedEvent.TYPE, new ContactDeletedEventHandler()
     {
@@ -51,7 +51,7 @@ public class AppController
   {
     // Register place changed event handler
     PlaceChangedEventHandler placeChangedHandler = new DefaultPlaceChangedEventHandler(
-      container, eventBus, placeService);
+      container, placeService);
     eventBus.addHandler(PlaceChangedEvent.TYPE, placeChangedHandler);
 
     // Force initial place evaluation

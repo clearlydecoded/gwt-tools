@@ -46,6 +46,9 @@ public class EditContactPlace
   /** Flag if the history token of this place should be added to the browser URL. */
   private boolean toBeAddedToBrowserHistory;
 
+  /** Application-wide event bus. */
+  private final HandlerManager eventBus;
+
   /**
    * History token parser which knows the format to use when building history token based
    * on this place's data.
@@ -59,12 +62,16 @@ public class EditContactPlace
   /**
    * Constructor.
    * 
+   * @param eventBus Application-wide event bus.
    * @param toBeAddedToBrowserHistory Flag if the history token of this place should be
    *          added to the browser URL.
    * @param contactId ID of the contact to edit.
    */
-  public EditContactPlace(boolean toBeAddedToBrowserHistory, String contactId)
+  public EditContactPlace(HandlerManager eventBus,
+                          boolean toBeAddedToBrowserHistory,
+                          String contactId)
   {
+    this.eventBus = eventBus;
     this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
     this.contactId = contactId;
   }
@@ -90,7 +97,7 @@ public class EditContactPlace
     if (idString == null)
     {
       // Creation failed; makes sense to just go to 'add contact place'
-      return new AddContactPlace(toBeAddedToBrowserHistory);
+      return new AddContactPlace(eventBus, toBeAddedToBrowserHistory);
     }
 
     // Return null if ID value is not translatable to an int (being extra cautious)
@@ -102,10 +109,10 @@ public class EditContactPlace
     catch (NumberFormatException e)
     {
       // ID is not translatable to an int; makes sense to just go to 'add contact place'
-      return new AddContactPlace(toBeAddedToBrowserHistory);
+      return new AddContactPlace(eventBus, toBeAddedToBrowserHistory);
     }
 
-    return new EditContactPlace(toBeAddedToBrowserHistory, idString);
+    return new EditContactPlace(eventBus, toBeAddedToBrowserHistory, idString);
   }
 
   @Override
@@ -139,7 +146,7 @@ public class EditContactPlace
   }
 
   @Override
-  public void show(HasWidgets container, HandlerManager eventBus)
+  public void show(HasWidgets container)
   {
     // Add history token to URL if so indicated
     if (toBeAddedToBrowserHistory)

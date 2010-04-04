@@ -10,7 +10,6 @@
  */
 package org.tbiq.gwt.tools.placeservice.browser;
 
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
@@ -25,9 +24,6 @@ public class DefaultPlaceChangedEventHandler
   /** Container to add the corresponding to this place view into. */
   private final HasWidgets container;
 
-  /** Application-wide event bus. */
-  private final HandlerManager eventBus;
-
   /** Place service used in the application. */
   private final PlaceService placeService;
 
@@ -35,11 +31,9 @@ public class DefaultPlaceChangedEventHandler
    * Constructor.
    * 
    * @param container Container to add the corresponding to this place view into.
-   * @param eventBus Application-wide event bus.
    * @param placeService Place service used in the application.
    */
   public DefaultPlaceChangedEventHandler(final HasWidgets container,
-                                         final HandlerManager eventBus,
                                          final PlaceService placeService)
   {
     // Check that container is not null (done here since if it is, it wouldn't come out
@@ -51,7 +45,6 @@ public class DefaultPlaceChangedEventHandler
     }
 
     this.container = container;
-    this.eventBus = eventBus;
     this.placeService = placeService;
   }
 
@@ -65,6 +58,6 @@ public class DefaultPlaceChangedEventHandler
     requestedPlace.setHistoryTokenParser(placeService.getHistoryTokenParser());
 
     // Show requested place
-    requestedPlace.show(container, eventBus);
+    requestedPlace.show(container);
   }
 }

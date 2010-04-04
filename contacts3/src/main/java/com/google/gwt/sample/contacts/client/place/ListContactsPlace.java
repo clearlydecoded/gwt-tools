@@ -20,7 +20,6 @@ import org.tbiq.gwt.tools.presenter.browser.Presenter;
 import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceAsync;
 
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.sample.contacts.client.Contacts;
 import com.google.gwt.sample.contacts.client.presenter.ContactsPresenter;
 import com.google.gwt.sample.contacts.client.view.ContactsView;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -42,6 +41,12 @@ public class ListContactsPlace
   /** Flag if the history token of this place should be added to the browser URL. */
   private boolean toBeAddedToBrowserHistory;
 
+  /** Application-wide event bus. */
+  private final HandlerManager eventBus;
+
+  /** RPC service to use. */
+  private final RpcServiceAsync rpcService;
+
   /**
    * History token parser which knows the format to use when building history token based
    * on this place's data.
@@ -52,11 +57,17 @@ public class ListContactsPlace
   /**
    * Constructor.
    * 
+   * @param eventBus Application-wide event bus.
+   * @param rpcService RPC service to use.
    * @param toBeAddedToBrowserHistory Flag if the history token of this place should be
    *          added to the browser URL.
    */
-  public ListContactsPlace(boolean toBeAddedToBrowserHistory)
+  public ListContactsPlace(HandlerManager eventBus,
+                           RpcServiceAsync rpcService,
+                           boolean toBeAddedToBrowserHistory)
   {
+    this.eventBus = eventBus;
+    this.rpcService = rpcService;
     this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
   }
 
@@ -64,7 +75,7 @@ public class ListContactsPlace
   public Place createPlace(Map<String, List<String>> nameValuePairs,
                            boolean toBeAddedToBrowserHistory)
   {
-    return new ListContactsPlace(toBeAddedToBrowserHistory);
+    return new ListContactsPlace(eventBus, rpcService, toBeAddedToBrowserHistory);
   }
 
   @Override
@@ -94,16 +105,13 @@ public class ListContactsPlace
   }
 
   @Override
-  public void show(HasWidgets container, HandlerManager eventBus)
+  public void show(HasWidgets container)
   {
     // Add history token to URL if so indicated
     if (toBeAddedToBrowserHistory)
     {
       PlaceServiceUtil.addToBrowserHistory(this);
     }
-
-    // Initialize async service needed for the presenter
-    RpcServiceAsync rpcService = Contacts.RPC_SERVICE;
 
     // Create presenter and execute
     Presenter listContactsPresenter = new ContactsPresenter(rpcService, eventBus,

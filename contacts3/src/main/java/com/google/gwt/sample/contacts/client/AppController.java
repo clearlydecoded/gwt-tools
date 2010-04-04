@@ -7,7 +7,10 @@ import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEvent;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceChangedEventHandler;
 import org.tbiq.gwt.tools.placeservice.browser.PlaceService;
 import org.tbiq.gwt.tools.presenter.browser.Presenter;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcService;
+import org.tbiq.gwt.tools.rpcservice.browser.RpcServiceAsync;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.sample.contacts.client.event.ContactDeletedEvent;
 import com.google.gwt.sample.contacts.client.event.ContactDeletedEventHandler;
@@ -22,6 +25,7 @@ public class AppController
 {
   private final HandlerManager eventBus;
   private final PlaceService placeService;
+  private final RpcServiceAsync rpcService = GWT.create(RpcService.class);
 
   public AppController(HandlerManager eventBus)
   {
@@ -34,9 +38,10 @@ public class AppController
   public void bind()
   {
     // Register places with the place service
-    placeService.registerPlace(new ListContactsPlace(true), true);
-    placeService.registerPlace(new EditContactPlace(true, null), false);
-    placeService.registerPlace(new AddContactPlace(true), false);
+    placeService.registerPlace(new ListContactsPlace(eventBus, rpcService, true), true);
+    placeService.registerPlace(new EditContactPlace(eventBus, rpcService, true, null),
+                               false);
+    placeService.registerPlace(new AddContactPlace(eventBus, rpcService, true), false);
 
     eventBus.addHandler(ContactDeletedEvent.TYPE, new ContactDeletedEventHandler()
     {
@@ -53,7 +58,7 @@ public class AppController
   {
     // Register place changed event handler
     PlaceChangedEventHandler placeChangedHandler = new DefaultPlaceChangedEventHandler(
-      container, eventBus, placeService);
+      container, placeService);
     eventBus.addHandler(PlaceChangedEvent.TYPE, placeChangedHandler);
 
     // Force initial place evaluation

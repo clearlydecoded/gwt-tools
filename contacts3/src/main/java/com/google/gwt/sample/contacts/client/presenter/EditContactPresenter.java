@@ -87,11 +87,6 @@ public class EditContactPresenter
     rpcService.execute(new GetContactRequest(id), callback);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.tools.presenter.browser.Presenter#bind()
-   */
   @Override
   public void bind()
   {
@@ -107,17 +102,12 @@ public class EditContactPresenter
     {
       public void onClick(ClickEvent event)
       {
-        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(true)));
+        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(eventBus,
+          rpcService, true)));
       }
     });
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @seeorg.tbiq.gwt.tools.presenter.browser.Presenter#go(com.google.gwt.user.client.ui.
-   * HasWidgets)
-   */
   @Override
   public void go(final HasWidgets container)
   {
@@ -139,18 +129,13 @@ public class EditContactPresenter
       protected void handleResponse(RpcResponse response)
       {
         // On successful update (do nothing with response), switch to list contacts place
-        Place listContactsPlace = new ListContactsPlace(true);
+        Place listContactsPlace = new ListContactsPlace(eventBus, rpcService, true);
         eventBus.fireEvent(new PlaceChangedEvent(listContactsPlace));
       }
     };
     rpcService.execute(new UpdateContactRequest(contact), callback);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.tools.presenter.browser.Presenter#unbind()
-   */
   @Override
   public void unbind()
   {

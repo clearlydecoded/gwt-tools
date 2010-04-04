@@ -39,6 +39,9 @@ public class AddContactPlace
   /** View ID of this place. */
   public static String VIEW_ID = "add";
 
+  /** Application-wide event bus. */
+  private final HandlerManager eventBus;
+
   /** Flag if the history token of this place should be added to the browser URL. */
   private boolean toBeAddedToBrowserHistory;
 
@@ -51,11 +54,13 @@ public class AddContactPlace
   /**
    * Constructor.
    * 
+   * @param eventBus Application-wide event bus.
    * @param toBeAddedToBrowserHistory Flag if the history token of this place should be
    *          added to the browser URL.
    */
-  public AddContactPlace(boolean toBeAddedToBrowserHistory)
+  public AddContactPlace(HandlerManager eventBus, boolean toBeAddedToBrowserHistory)
   {
+    this.eventBus = eventBus;
     this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
   }
 
@@ -64,7 +69,7 @@ public class AddContactPlace
                            boolean toBeAddedToBrowserHistory)
   {
 
-    return new AddContactPlace(toBeAddedToBrowserHistory);
+    return new AddContactPlace(eventBus, toBeAddedToBrowserHistory);
   }
 
   @Override
@@ -94,7 +99,7 @@ public class AddContactPlace
   }
 
   @Override
-  public void show(HasWidgets container, HandlerManager eventBus)
+  public void show(HasWidgets container)
   {
     // Add history token to URL if so indicated
     if (toBeAddedToBrowserHistory)

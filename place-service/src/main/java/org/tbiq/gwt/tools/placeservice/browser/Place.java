@@ -129,8 +129,7 @@ public interface Place
    * which would show the view if MVP pattern is used) to the end user which matches this
    * place.
    * 
-   * @param container Container to add the corresponding to this place view into.
    * @param eventBus Event bus to use (usually in a presenter implementation).
    */
-  public void show(final HasWidgets container, final HandlerManager eventBus);
+  public void show(final HasWidgets container);
 }

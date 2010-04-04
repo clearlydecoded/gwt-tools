@@ -43,6 +43,9 @@ public class ListContactsPlace
   /** Flag if the history token of this place should be added to the browser URL. */
   private boolean toBeAddedToBrowserHistory;
 
+  /** Application-wide event bus. */
+  private final HandlerManager eventBus;
+
   /**
    * History token parser which knows the format to use when building history token based
    * on this place's data.
@@ -53,11 +56,13 @@ public class ListContactsPlace
   /**
    * Constructor.
    * 
+   * @param eventBus Application-wide event bus.
    * @param toBeAddedToBrowserHistory Flag if the history token of this place should be
    *          added to the browser URL.
    */
-  public ListContactsPlace(boolean toBeAddedToBrowserHistory)
+  public ListContactsPlace(HandlerManager eventBus, boolean toBeAddedToBrowserHistory)
   {
+    this.eventBus = eventBus;
     this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
   }
 
@@ -65,7 +70,7 @@ public class ListContactsPlace
   public Place createPlace(Map<String, List<String>> nameValuePairs,
                            boolean toBeAddedToBrowserHistory)
   {
-    return new ListContactsPlace(toBeAddedToBrowserHistory);
+    return new ListContactsPlace(eventBus, toBeAddedToBrowserHistory);
   }
 
   @Override
@@ -95,7 +100,7 @@ public class ListContactsPlace
   }
 
   @Override
-  public void show(HasWidgets container, HandlerManager eventBus)
+  public void show(HasWidgets container)
   {
     // Add history token to URL if so indicated
     if (toBeAddedToBrowserHistory)

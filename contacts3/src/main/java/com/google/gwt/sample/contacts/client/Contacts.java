@@ -15,7 +15,7 @@ public class Contacts
    * RPC service for this application. The need for this global declaration will go away
    * once we introduce dependency injection.
    */
-  public static final RpcServiceAsync RPC_SERVICE = GWT.create(RpcService.class);;
+  public static final RpcServiceAsync RPC_SERVICE = GWT.create(RpcService.class);
 
   public void onModuleLoad()
   {
