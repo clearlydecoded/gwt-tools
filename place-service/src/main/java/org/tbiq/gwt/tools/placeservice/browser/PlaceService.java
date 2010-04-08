@@ -38,17 +38,9 @@ public interface PlaceService
    * previous such calls have been already made will override the default place to be
    * whatever the last call's place was.
    * <p>
-   * If the passed in place is marked as default place, it must be fully populated with
-   * all the parameters to be ready to be executed as is (
-   * {@link Place#show(HasWidgets, HandlerManager)} method should be able to execute
-   * without having to provide additional property data to the {@link Place} instance),
-   * i.e., its {@link Place#getHistoryToken()} method should return a valid query string
-   * that would signify the default place of the application on the URL.
-   * <p>
    * <b>Note: The passed in <code>place</code> must not be <code>null</code> and its
    * {@link Place#getViewId()} should return a valid (non-null) unique view ID. The rest
-   * of the data contained in the <code>place</code> is irrelevant unless this is a
-   * default place registration.</b>
+   * of the data contained in the <code>place</code> is irrelevant.</b>
    * 
    * @param place Place to register.
    * @param isDefaultPlace If <code>true</code>, this place is registered as the default
