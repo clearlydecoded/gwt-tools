@@ -3,16 +3,16 @@
 
 	<groupId>org.tbiq.gwt.tools</groupId>
 	<artifactId>gwt-tools</artifactId>
-	<version>1.0-RC5-SNAPSHOT</version>
+	<version>1.0-RC5</version>
 	<packaging>pom</packaging>
 
 	<name>GWT Tools</name>
 	<description>Parent pom for the gwt-tools components</description>
 
 	<scm>
-		<connection>scm:svn:http://gwt-tools.googlecode.com/svn/trunk</connection>
-		<developerConnection>scm:svn:https://gwt-tools.googlecode.com/svn/trunk</developerConnection>
-		<url>scm:svn:http://gwt-tools.googlecode.com/svn</url>
+		<connection>scm:svn:http://gwt-tools.googlecode.com/svn/tags/gwt-tools-1.0-RC5</connection>
+		<developerConnection>scm:svn:https://gwt-tools.googlecode.com/svn/tags/gwt-tools-1.0-RC5</developerConnection>
+		<url>scm:svn:http://gwt-tools.googlecode.com/svn/tags/gwt-tools-1.0-RC5</url>
 	</scm>
 
 	<distributionManagement>
