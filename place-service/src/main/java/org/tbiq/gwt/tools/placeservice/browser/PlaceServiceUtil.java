@@ -23,14 +23,21 @@ import com.google.gwt.user.client.History;
 public class PlaceServiceUtil
 {
   /**
-   * Adds history token which represents provided <code>place</code> to browser history.
+   * Adds history token which represents provided <code>place</code> to browser history if
+   * the provided <code>place</code> instance's
+   * {@link Place#isToBeAddedToBrowserHistory()} is true. Otherwise, does nothing.
+   * <p>
    * <b>Calling this method does <i>not</i> trigger history token evaluation.</b>
    * 
    * @param place {@link Place} data to add to the browser history.
    */
   public static void addToBrowserHistory(Place place)
   {
-    History.newItem(place.getHistoryToken(), false);
+    // Check if this place is marked to be added to browser history
+    if (place.isToBeAddedToBrowserHistory())
+    {
+      History.newItem(place.getHistoryToken(), false);
+    }
   }
 
   /**
@@ -68,5 +75,19 @@ public class PlaceServiceUtil
 
     String paramValue = paramValues.get(0);
     return paramValue;
+  }
+
+  /**
+   * Adds history token which represents provided <code>place</code> to browser history
+   * <i>regardless</i> of the value returned by the provided <code>place</code> instance's
+   * {@link Place#isToBeAddedToBrowserHistory()}.
+   * <p>
+   * <b>Calling this method does <i>not</i> trigger history token evaluation.</b>
+   * 
+   * @param place {@link Place} data to add to the browser history.
+   */
+  public static void forceAddToBrowserHistory(Place place)
+  {
+    History.newItem(place.getHistoryToken(), false);
   }
 }

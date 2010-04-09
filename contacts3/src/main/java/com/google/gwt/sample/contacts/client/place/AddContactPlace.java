@@ -108,10 +108,7 @@ public class AddContactPlace
   public void show(HasWidgets container)
   {
     // Add history token to URL if so indicated
-    if (toBeAddedToBrowserHistory)
-    {
-      PlaceServiceUtil.addToBrowserHistory(this);
-    }
+    PlaceServiceUtil.addToBrowserHistory(this);
 
     // Create presenter and execute
     Presenter editcontactPresenter = new EditContactPresenter(rpcService, eventBus,

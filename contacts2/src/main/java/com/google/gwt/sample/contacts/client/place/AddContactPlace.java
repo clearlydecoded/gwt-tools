@@ -102,10 +102,7 @@ public class AddContactPlace
   public void show(HasWidgets container)
   {
     // Add history token to URL if so indicated
-    if (toBeAddedToBrowserHistory)
-    {
-      PlaceServiceUtil.addToBrowserHistory(this);
-    }
+    PlaceServiceUtil.addToBrowserHistory(this);
 
     // Retrieve RPC service to use in the presenter
     RpcServiceAsync rpcService = Contacts.RPC_SERVICE;
