@@ -103,7 +103,7 @@ public class EditContactPresenter
       public void onClick(ClickEvent event)
       {
         eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(eventBus,
-          rpcService, true)));
+          rpcService)));
       }
     });
   }
@@ -129,7 +129,7 @@ public class EditContactPresenter
       protected void handleResponse(RpcResponse response)
       {
         // On successful update (do nothing with response), switch to list contacts place
-        Place listContactsPlace = new ListContactsPlace(eventBus, rpcService, true);
+        Place listContactsPlace = new ListContactsPlace(eventBus, rpcService);
         eventBus.fireEvent(new PlaceChangedEvent(listContactsPlace));
       }
     };

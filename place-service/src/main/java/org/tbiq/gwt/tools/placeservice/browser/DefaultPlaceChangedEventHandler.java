@@ -57,7 +57,14 @@ public class DefaultPlaceChangedEventHandler
     // Inject the history token parser used by the place service into this place
     requestedPlace.setHistoryTokenParser(placeService.getHistoryTokenParser());
 
-    // Show requested place
-    requestedPlace.show(container);
+    // Check if this event should show place without URL update with its history token
+    if (!event.isUpdateUrl())
+    {
+      requestedPlace.showWithoutUrlUpdate(container);
+    }
+    else
+    {
+      requestedPlace.show(container);
+    }
   }
 }

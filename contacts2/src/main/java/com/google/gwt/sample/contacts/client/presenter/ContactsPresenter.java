@@ -61,11 +61,6 @@ public class ContactsPresenter
     this.display = view;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.tools.presenter.browser.Presenter#bind()
-   */
   @Override
   public void bind()
   {
@@ -74,7 +69,7 @@ public class ContactsPresenter
       public void onClick(ClickEvent event)
       {
         // Switch to add contact place
-        AddContactPlace place = new AddContactPlace(eventBus, true);
+        AddContactPlace place = new AddContactPlace(eventBus);
         eventBus.fireEvent(new PlaceChangedEvent(place));
       }
     });
@@ -100,19 +95,13 @@ public class ContactsPresenter
 
           // Row was clicked to edit, create EditContactPlace
           String id = contactDetails.getId();
-          EditContactPlace place = new EditContactPlace(eventBus, true, id);
+          EditContactPlace place = new EditContactPlace(eventBus, id);
           eventBus.fireEvent(new PlaceChangedEvent(place));
         }
       }
     });
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @seeorg.tbiq.gwt.tools.presenter.browser.Presenter#go(com.google.gwt.user.client.ui.
-   * HasWidgets)
-   */
   @Override
   public void go(final HasWidgets container)
   {
@@ -224,11 +213,6 @@ public class ContactsPresenter
     rpcService.execute(new DeleteContactsRequest(ids), callback);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.tools.presenter.browser.Presenter#unbind()
-   */
   @Override
   public void unbind()
   {

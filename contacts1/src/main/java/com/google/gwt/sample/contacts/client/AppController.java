@@ -33,9 +33,9 @@ public class AppController
   private void bind()
   {
     // Register places with the place service
-    placeService.registerPlace(new ListContactsPlace(eventBus, true), true);
-    placeService.registerPlace(new EditContactPlace(eventBus, true, null), false);
-    placeService.registerPlace(new AddContactPlace(eventBus, true), false);
+    placeService.registerPlace(new ListContactsPlace(eventBus), true);
+    placeService.registerPlace(new EditContactPlace(eventBus));
+    placeService.registerPlace(new AddContactPlace(eventBus));
 
     eventBus.addHandler(ContactDeletedEvent.TYPE, new ContactDeletedEventHandler()
     {

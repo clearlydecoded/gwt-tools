@@ -30,13 +30,39 @@ public class PlaceChangedEvent
   private final Place place;
 
   /**
+   * Flag which indicates that the place changed event should show the wrapped in it place
+   * instance but should not affect the current URL, i.e., it should call
+   * Place.showWithoutUrlUpdate method which guarantees not to update the URL with the
+   * wrapped place's history token.
+   */
+  private final boolean updateUrl;
+
+  /**
    * Constructor.
+   * <p>
+   * Wraps the <code>place</code> instance. Updates the URL with that <code>place</code>'s
+   * history token.
    * 
    * @param place The place the view should be switched to.
    */
   public PlaceChangedEvent(Place place)
   {
+    this(place, true);
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param place The place the view should be switched to.
+   * @param updateUrl Flag which indicates that the place changed event should show the
+   *          wrapped in it place instance but should not affect the current URL, i.e., it
+   *          should call Place.showWithoutUrlUpdate method which guarantees not to update
+   *          the URL with the wrapped place's history token.
+   */
+  public PlaceChangedEvent(Place place, boolean updateUrl)
+  {
     this.place = place;
+    this.updateUrl = updateUrl;
   }
 
   @Override
@@ -57,5 +83,15 @@ public class PlaceChangedEvent
   public Place getPlace()
   {
     return place;
+  }
+
+  /**
+   * @return <code>true</code> if the URL should be updated with the history token
+   *         representing the place instance wrapped into this place changed event,
+   *         <code>false</code> otherwise.
+   */
+  public boolean isUpdateUrl()
+  {
+    return updateUrl;
   }
 }

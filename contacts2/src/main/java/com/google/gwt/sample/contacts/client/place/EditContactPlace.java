@@ -43,9 +43,6 @@ public class EditContactPlace
   /** Param name of the ID of the person to edit. */
   private static String CONTACT_ID_PARAM_NAME = "id";
 
-  /** Flag if the history token of this place should be added to the browser URL. */
-  private boolean toBeAddedToBrowserHistory;
-
   /** Application-wide event bus. */
   private final HandlerManager eventBus;
 
@@ -58,22 +55,26 @@ public class EditContactPlace
   /** ID of the contact to edit. */
   private String contactId;
 
+  /**
+   * Constructor.
+   * 
+   * @param eventBus Application-wide event bus.
+   * @param contactId ID of the contact to edit.
+   */
+  public EditContactPlace(HandlerManager eventBus, String contactId)
+  {
+    this.eventBus = eventBus;
+    this.contactId = contactId;
+  }
 
   /**
    * Constructor.
    * 
    * @param eventBus Application-wide event bus.
-   * @param toBeAddedToBrowserHistory Flag if the history token of this place should be
-   *          added to the browser URL.
-   * @param contactId ID of the contact to edit.
    */
-  public EditContactPlace(HandlerManager eventBus,
-                          boolean toBeAddedToBrowserHistory,
-                          String contactId)
+  public EditContactPlace(HandlerManager eventBus)
   {
-    this.eventBus = eventBus;
-    this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
-    this.contactId = contactId;
+    this(eventBus, null);
   }
 
   /**
@@ -85,8 +86,7 @@ public class EditContactPlace
   }
 
   @Override
-  public Place createPlace(Map<String, List<String>> nameValuePairs,
-                           boolean toBeAddedToBrowserHistory)
+  public Place createPlace(Map<String, List<String>> nameValuePairs)
   {
     // Retrieve contact ID to edit
     String idString = PlaceServiceUtil.getParamValue(nameValuePairs,
@@ -97,7 +97,7 @@ public class EditContactPlace
     if (idString == null)
     {
       // Creation failed; makes sense to just go to 'add contact place'
-      return new AddContactPlace(eventBus, toBeAddedToBrowserHistory);
+      return new AddContactPlace(eventBus);
     }
 
     // Return null if ID value is not translatable to an int (being extra cautious)
@@ -109,10 +109,10 @@ public class EditContactPlace
     catch (NumberFormatException e)
     {
       // ID is not translatable to an int; makes sense to just go to 'add contact place'
-      return new AddContactPlace(eventBus, toBeAddedToBrowserHistory);
+      return new AddContactPlace(eventBus);
     }
 
-    return new EditContactPlace(eventBus, toBeAddedToBrowserHistory, idString);
+    return new EditContactPlace(eventBus, idString);
   }
 
   @Override
@@ -134,15 +134,9 @@ public class EditContactPlace
   }
 
   @Override
-  public boolean isToBeAddedToBrowserHistory()
+  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser)
   {
-    return toBeAddedToBrowserHistory;
-  }
-
-  @Override
-  public void setToBeAddedToBrowserHistory(boolean toBeAddedToBrowserHistory)
-  {
-    this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
+    this.historyTokenParser = historyTokenParser;
   }
 
   @Override
@@ -151,6 +145,12 @@ public class EditContactPlace
     // Add history token to URL if so indicated
     PlaceServiceUtil.addToBrowserHistory(this);
 
+    showWithoutUrlUpdate(container);
+  }
+
+  @Override
+  public void showWithoutUrlUpdate(HasWidgets container)
+  {
     // Initialize async service needed for the presenter
     RpcServiceAsync rpcService = Contacts.RPC_SERVICE;
 
@@ -158,11 +158,5 @@ public class EditContactPlace
     Presenter editContactPresenter = new EditContactPresenter(rpcService, eventBus,
       new EditContactView(), historyTokenParser, contactId);
     editContactPresenter.go(container);
-  }
-
-  @Override
-  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser)
-  {
-    this.historyTokenParser = historyTokenParser;
   }
 }

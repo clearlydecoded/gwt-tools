@@ -42,9 +42,6 @@ public class EditContactPlace
   /** Param name of the ID of the person to edit. */
   private static String CONTACT_ID_PARAM_NAME = "id";
 
-  /** Flag if the history token of this place should be added to the browser URL. */
-  private boolean toBeAddedToBrowserHistory;
-
   /** Application-wide event bus. */
   private final HandlerManager eventBus;
 
@@ -66,19 +63,27 @@ public class EditContactPlace
    * 
    * @param eventBus Application-wide event bus.
    * @param rpcService RPC service to use.
-   * @param toBeAddedToBrowserHistory Flag if the history token of this place should be
-   *          added to the browser URL.
    * @param contactId ID of the contact to edit.
    */
   public EditContactPlace(HandlerManager eventBus,
                           RpcServiceAsync rpcService,
-                          boolean toBeAddedToBrowserHistory,
                           String contactId)
   {
     this.eventBus = eventBus;
     this.rpcService = rpcService;
-    this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
     this.contactId = contactId;
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param eventBus Application-wide event bus.
+   * @param rpcService RPC service to use.
+   */
+  public EditContactPlace(HandlerManager eventBus, RpcServiceAsync rpcService)
+  {
+    this.eventBus = eventBus;
+    this.rpcService = rpcService;
   }
 
   /**
@@ -90,8 +95,7 @@ public class EditContactPlace
   }
 
   @Override
-  public Place createPlace(Map<String, List<String>> nameValuePairs,
-                           boolean toBeAddedToBrowserHistory)
+  public Place createPlace(Map<String, List<String>> nameValuePairs)
   {
     // Retrieve contact ID to edit
     String idString = PlaceServiceUtil.getParamValue(nameValuePairs,
@@ -102,7 +106,7 @@ public class EditContactPlace
     if (idString == null)
     {
       // Creation failed; makes sense to just go to 'add contact place'
-      return new AddContactPlace(eventBus, rpcService, toBeAddedToBrowserHistory);
+      return new AddContactPlace(eventBus, rpcService);
     }
 
     // Return null if ID value is not translatable to an int (being extra cautious)
@@ -114,10 +118,10 @@ public class EditContactPlace
     catch (NumberFormatException e)
     {
       // ID is not translatable to an int; makes sense to just go to 'add contact place'
-      return new AddContactPlace(eventBus, rpcService, toBeAddedToBrowserHistory);
+      return new AddContactPlace(eventBus, rpcService);
     }
 
-    return new EditContactPlace(eventBus, rpcService, toBeAddedToBrowserHistory, idString);
+    return new EditContactPlace(eventBus, rpcService, idString);
   }
 
   @Override
@@ -139,15 +143,9 @@ public class EditContactPlace
   }
 
   @Override
-  public boolean isToBeAddedToBrowserHistory()
+  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser)
   {
-    return toBeAddedToBrowserHistory;
-  }
-
-  @Override
-  public void setToBeAddedToBrowserHistory(boolean toBeAddedToBrowserHistory)
-  {
-    this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
+    this.historyTokenParser = historyTokenParser;
   }
 
   @Override
@@ -156,15 +154,15 @@ public class EditContactPlace
     // Add history token to URL if so indicated
     PlaceServiceUtil.addToBrowserHistory(this);
 
+    showWithoutUrlUpdate(container);
+  }
+
+  @Override
+  public void showWithoutUrlUpdate(HasWidgets container)
+  {
     // Create presenter and execute
     Presenter editContactPresenter = new EditContactPresenter(rpcService, eventBus,
       new EditContactView(), historyTokenParser, contactId);
     editContactPresenter.go(container);
-  }
-
-  @Override
-  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser)
-  {
-    this.historyTokenParser = historyTokenParser;
   }
 }

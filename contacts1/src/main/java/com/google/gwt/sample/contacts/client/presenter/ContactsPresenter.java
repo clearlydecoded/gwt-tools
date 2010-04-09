@@ -62,7 +62,7 @@ public class ContactsPresenter
       public void onClick(ClickEvent event)
       {
         // Switch to add contact place
-        AddContactPlace place = new AddContactPlace(eventBus, true);
+        AddContactPlace place = new AddContactPlace(eventBus);
         eventBus.fireEvent(new PlaceChangedEvent(place));
       }
     });
@@ -88,7 +88,7 @@ public class ContactsPresenter
 
           // Row was clicked to edit, create EditContactPlace
           String id = contactDetails.getId();
-          EditContactPlace place = new EditContactPlace(eventBus, true, id);
+          EditContactPlace place = new EditContactPlace(eventBus, id);
           eventBus.fireEvent(new PlaceChangedEvent(place));
         }
       }

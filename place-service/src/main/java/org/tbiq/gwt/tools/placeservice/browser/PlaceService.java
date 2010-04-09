@@ -49,6 +49,18 @@ public interface PlaceService
   public void registerPlace(Place place, boolean isDefaultPlace);
 
   /**
+   * Registers <code>place</code> as an available place to choose from when interpreting
+   * requested URLs.
+   * <p>
+   * <b>Note: The passed in <code>place</code> must not be <code>null</code> and its
+   * {@link Place#getViewId()} should return a valid (non-null) unique view ID. The rest
+   * of the data contained in the <code>place</code> is irrelevant.</b>
+   * 
+   * @param place Place to register.
+   */
+  public void registerPlace(Place place);
+
+  /**
    * Forces history token to be evaluated and responded to accordingly. This method is
    * usually called when the application is loading for the first time to trigger history
    * token evaluation (i.e., place evaluation).

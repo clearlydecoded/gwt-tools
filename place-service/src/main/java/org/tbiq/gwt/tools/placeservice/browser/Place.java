@@ -47,46 +47,12 @@ public interface Place
   public String getHistoryToken();
 
   /**
-   * Returns an indicator if the history token of this place should be added to the
-   * browser URL (and therefore browser history).
-   * <p>
-   * A particular place creation can happen either as a result of an end user typing in a
-   * URL into the browser (or following a link/bookmark) or if some application logic
-   * decides that a particular place should be shown. In the case where the end user is
-   * causing the place to be shown, the browser already has the place particulars in its
-   * history (e.g., xxx#viewId=listContacts) since the user just entered it, so there is
-   * usually no reason to add it again. In the case of the application logic creating a
-   * place, the browser URL may need to be updated.
-   * 
-   * @return An indicator if the history token of this place should be added to the
-   *         browser URL (and therefore browser history).
-   */
-  public boolean isToBeAddedToBrowserHistory();
-
-  /**
    * Sets the history token parser to use in this place.
    * 
    * @param historyTokenParser Instance of {@link HistoryTokenParser} to be used in this
    *          place.
    */
   public void setHistoryTokenParser(HistoryTokenParser historyTokenParser);
-
-  /**
-   * Sets an indicator if the history token of this place should be added to the browser
-   * URL (and therefore browser history).
-   * <p>
-   * A particular place creation can happen either as a result of an end user typing in a
-   * URL into the browser (or following a link/bookmark) or if some application logic
-   * decides that a particular place should be shown. In the case where the end user is
-   * causing the place to be shown, the browser already has the place particulars in its
-   * history (e.g., xxx#viewId=listContacts) since the user just entered it, so there is
-   * usually no reason to add it again. In the case of the application logic creating a
-   * place, the browser URL may need to be updated.
-   * 
-   * @param toBeAddedToBrowserHistory An indicator if the history token of this place
-   *          should be added to the browser URL (and therefore browser history).
-   */
-  public void setToBeAddedToBrowserHistory(boolean toBeAddedToBrowserHistory);
 
   /**
    * Returns an instance of concrete implementation of {@link Place}. The implementation
@@ -107,20 +73,17 @@ public interface Place
    * {@link Place} which identifies 'createNewPerson' place instead.
    * <p>
    * If creation is not successful, returns <code>null</code>.
+   * <p>
+   * <b>Invoking this method on some instance of place should NOT in any way alter that
+   * place's state.</b>
    * 
    * @param nameValuePairs {@link Map} of known parameters (as keys) to one or more values
    *          for that parameter. Each place should know its predefined parameters it must
    *          look for in the map.
-   * @param isToBeAddedToBrowserHistory Indicates if this place should be created with a
-   *          flag which indicates whether its history token should be added to browser
-   *          history when this place is later processed. If the instance returned is not
-   *          of the same type as the instance this method was invoked on, it's possible
-   *          that this indicator will not be honored.
    * @return An instance of concrete implementation of {@link Place}. If creation is not
    *         successful, returns <code>null</code>.
    */
-  public Place createPlace(Map<String, List<String>> nameValuePairs,
-                           boolean isToBeAddedToBrowserHistory);
+  public Place createPlace(Map<String, List<String>> nameValuePairs);
 
   /**
    * This method is similar to the classic Command Pattern (i.e., execute()), which should
@@ -128,7 +91,16 @@ public interface Place
    * which would show the view if MVP pattern is used) to the end user which matches this
    * place.
    * 
-   * @param eventBus Event bus to use (usually in a presenter implementation).
+   * @param container Container to add the corresponding to this place view into.
    */
   public void show(final HasWidgets container);
+
+  /**
+   * This method is exactly the same as {@link Place#show(HasWidgets)} method, but the
+   * implementations of this method <b>must</b> guarantee that the URL will NOT be updated
+   * as a result of showing this place, i.e., the current URL will stay unmodified.
+   * 
+   * @param container Container to add the corresponding to this place view into.
+   */
+  public void showWithoutUrlUpdate(final HasWidgets container);
 }

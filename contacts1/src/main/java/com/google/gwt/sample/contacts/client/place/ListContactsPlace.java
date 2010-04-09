@@ -40,9 +40,6 @@ public class ListContactsPlace
   /** Class version ID. */
   private static final long serialVersionUID = -548712836311564858L;
 
-  /** Flag if the history token of this place should be added to the browser URL. */
-  private boolean toBeAddedToBrowserHistory;
-
   /** Application-wide event bus. */
   private final HandlerManager eventBus;
 
@@ -57,20 +54,16 @@ public class ListContactsPlace
    * Constructor.
    * 
    * @param eventBus Application-wide event bus.
-   * @param toBeAddedToBrowserHistory Flag if the history token of this place should be
-   *          added to the browser URL.
    */
-  public ListContactsPlace(HandlerManager eventBus, boolean toBeAddedToBrowserHistory)
+  public ListContactsPlace(HandlerManager eventBus)
   {
     this.eventBus = eventBus;
-    this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
   }
 
   @Override
-  public Place createPlace(Map<String, List<String>> nameValuePairs,
-                           boolean toBeAddedToBrowserHistory)
+  public Place createPlace(Map<String, List<String>> nameValuePairs)
   {
-    return new ListContactsPlace(eventBus, toBeAddedToBrowserHistory);
+    return new ListContactsPlace(eventBus);
   }
 
   @Override
@@ -88,15 +81,9 @@ public class ListContactsPlace
   }
 
   @Override
-  public boolean isToBeAddedToBrowserHistory()
+  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser)
   {
-    return toBeAddedToBrowserHistory;
-  }
-
-  @Override
-  public void setToBeAddedToBrowserHistory(boolean toBeAddedToBrowserHistory)
-  {
-    this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
+    this.historyTokenParser = historyTokenParser;
   }
 
   @Override
@@ -105,6 +92,12 @@ public class ListContactsPlace
     // Add history token to URL if so indicated
     PlaceServiceUtil.addToBrowserHistory(this);
 
+    showWithoutUrlUpdate(container);
+  }
+
+  @Override
+  public void showWithoutUrlUpdate(HasWidgets container)
+  {
     // Initialize async service needed for the presenter
     ContactsServiceAsync rpcService = GWT.create(ContactsService.class);
 
@@ -112,11 +105,5 @@ public class ListContactsPlace
     Presenter listContactsPresenter = new ContactsPresenter(rpcService, eventBus,
       new ContactsView());
     listContactsPresenter.go(container);
-  }
-
-  @Override
-  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser)
-  {
-    this.historyTokenParser = historyTokenParser;
   }
 }

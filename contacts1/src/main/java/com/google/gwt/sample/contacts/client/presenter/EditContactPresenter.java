@@ -94,7 +94,7 @@ public class EditContactPresenter
     {
       public void onClick(ClickEvent event)
       {
-        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(eventBus, true)));
+        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(eventBus)));
       }
     });
   }
@@ -115,7 +115,7 @@ public class EditContactPresenter
     {
       public void onSuccess(Contact result)
       {
-        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(eventBus, true)));
+        eventBus.fireEvent(new PlaceChangedEvent(new ListContactsPlace(eventBus)));
       }
 
       public void onFailure(Throwable caught)

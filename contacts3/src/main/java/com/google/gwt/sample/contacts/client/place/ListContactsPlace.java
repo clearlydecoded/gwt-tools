@@ -38,9 +38,6 @@ public class ListContactsPlace
   /** Class version ID. */
   private static final long serialVersionUID = -548712836311564858L;
 
-  /** Flag if the history token of this place should be added to the browser URL. */
-  private boolean toBeAddedToBrowserHistory;
-
   /** Application-wide event bus. */
   private final HandlerManager eventBus;
 
@@ -59,23 +56,17 @@ public class ListContactsPlace
    * 
    * @param eventBus Application-wide event bus.
    * @param rpcService RPC service to use.
-   * @param toBeAddedToBrowserHistory Flag if the history token of this place should be
-   *          added to the browser URL.
    */
-  public ListContactsPlace(HandlerManager eventBus,
-                           RpcServiceAsync rpcService,
-                           boolean toBeAddedToBrowserHistory)
+  public ListContactsPlace(HandlerManager eventBus, RpcServiceAsync rpcService)
   {
     this.eventBus = eventBus;
     this.rpcService = rpcService;
-    this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
   }
 
   @Override
-  public Place createPlace(Map<String, List<String>> nameValuePairs,
-                           boolean toBeAddedToBrowserHistory)
+  public Place createPlace(Map<String, List<String>> nameValuePairs)
   {
-    return new ListContactsPlace(eventBus, rpcService, toBeAddedToBrowserHistory);
+    return new ListContactsPlace(eventBus, rpcService);
   }
 
   @Override
@@ -93,15 +84,9 @@ public class ListContactsPlace
   }
 
   @Override
-  public boolean isToBeAddedToBrowserHistory()
+  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser)
   {
-    return toBeAddedToBrowserHistory;
-  }
-
-  @Override
-  public void setToBeAddedToBrowserHistory(boolean toBeAddedToBrowserHistory)
-  {
-    this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
+    this.historyTokenParser = historyTokenParser;
   }
 
   @Override
@@ -110,15 +95,15 @@ public class ListContactsPlace
     // Add history token to URL if so indicated
     PlaceServiceUtil.addToBrowserHistory(this);
 
+    showWithoutUrlUpdate(container);
+  }
+
+  @Override
+  public void showWithoutUrlUpdate(HasWidgets container)
+  {
     // Create presenter and execute
     Presenter listContactsPresenter = new ContactsPresenter(rpcService, eventBus,
       new ContactsView());
     listContactsPresenter.go(container);
-  }
-
-  @Override
-  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser)
-  {
-    this.historyTokenParser = historyTokenParser;
   }
 }

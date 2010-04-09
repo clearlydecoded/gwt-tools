@@ -62,34 +62,6 @@ public class DefaultPlaceService
     registeredPlaces = new HashMap<String, Place>();
   }
 
-  /**
-   * Returns a new instance which is data-wise a duplicate of <code>place</code>, except
-   * the isBeAddedToBrowserHistory property, which this method allows to to be modified
-   * when creating the new instance. This method relies on the
-   * {@link DefaultPlaceService#historyTokenParser} to parse the history token of the
-   * provided <code>place</code> to extract the data.
-   * 
-   * @param place Place to create a duplicate of.
-   * @param isBeAddedToBrowserHistory Indicator if the history token of the newly created
-   *          place should be added to the browser URL (and therefore browser history)
-   *          when processed.
-   * @return A new instance which is data-wise a duplicate of <code>place</code>, except
-   *         the isBeAddedToBrowserHistory property, which this method allows to to be
-   *         modified when creating the new instance.
-   */
-  public Place duplicatePlace(Place place, boolean isBeAddedToBrowserHistory)
-  {
-    // Inject place to duplicate with a history token parser
-    place.setHistoryTokenParser(historyTokenParser);
-
-    // Build name/value pairs map based on place's history token
-    String historyToken = place.getHistoryToken();
-    Map<String, List<String>> nameValuePairs = historyTokenParser.parse(historyToken);
-
-    // Return new instance based on the name/value pairs map
-    return place.createPlace(nameValuePairs, isBeAddedToBrowserHistory);
-  }
-
   @Override
   public void onValueChange(ValueChangeEvent<String> event)
   {
@@ -111,7 +83,6 @@ public class DefaultPlaceService
                                                               .getViewIdParam(),
                                                             "");
 
-
     // If place with requested view ID is not registered, fire event with default place
     Place requestedPlace = registeredPlaces.get(requestedViewId);
     if (requestedPlace == null)
@@ -121,7 +92,7 @@ public class DefaultPlaceService
     }
 
     // Construct new instance of Place based on the map of history token data
-    requestedPlace = requestedPlace.createPlace(nameValuePairs, false);
+    requestedPlace = requestedPlace.createPlace(nameValuePairs);
 
     // If creation of place was not successful, fire event with default place
     if (requestedPlace == null)
@@ -130,8 +101,8 @@ public class DefaultPlaceService
       return;
     }
 
-    // Fire event with requested place
-    eventBus.fireEvent(new PlaceChangedEvent(requestedPlace));
+    // Fire event with requested place (without updating the URL - it's already current)
+    eventBus.fireEvent(new PlaceChangedEvent(requestedPlace, false));
   }
 
   /**
@@ -139,11 +110,6 @@ public class DefaultPlaceService
    * {@link DefaultPlaceService#defaultPlace} in the event. If
    * {@link DefaultPlaceService#defaultPlace} is <code>null</code> throws an exception
    * stating that.
-   * <p>
-   * This method does not add the default place's history token to the URL even if the
-   * registered default place instance indicates that it should. Instead, it creates a
-   * duplicate of the default place instance and changes its isToBeAddedToBrowserHistory
-   * property to false.
    */
   private void fireDefaultPlaceChangedEvent()
   {
@@ -153,11 +119,8 @@ public class DefaultPlaceService
       throw new RuntimeException("No default place is registered with the PlaceService.");
     }
 
-    // Duplicate default place to change its isToBeAddedToBrowserHistory flag
-    Place duplicateDefaultPlace = duplicatePlace(defaultPlace, false);
-
     // Fire PlaceChangedEvent wrapping defaultPlace in it
-    eventBus.fireEvent(new PlaceChangedEvent(duplicateDefaultPlace));
+    eventBus.fireEvent(new PlaceChangedEvent(defaultPlace, false));
   }
 
   @Override
@@ -171,6 +134,12 @@ public class DefaultPlaceService
     {
       defaultPlace = place;
     }
+  }
+
+  @Override
+  public void registerPlace(Place place)
+  {
+    registerPlace(place, false);
   }
 
   @Override

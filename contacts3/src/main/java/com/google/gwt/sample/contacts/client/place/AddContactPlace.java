@@ -38,9 +38,6 @@ public class AddContactPlace
   /** View ID of this place. */
   public static String VIEW_ID = "add";
 
-  /** Flag if the history token of this place should be added to the browser URL. */
-  private boolean toBeAddedToBrowserHistory;
-
   /** Application-wide event bus. */
   private final HandlerManager eventBus;
 
@@ -58,24 +55,18 @@ public class AddContactPlace
    * 
    * @param eventBus Application-wide event bus.
    * @param rpcService RPC service to use.
-   * @param toBeAddedToBrowserHistory Flag if the history token of this place should be
-   *          added to the browser URL.
    */
-  public AddContactPlace(HandlerManager eventBus,
-                         RpcServiceAsync rpcService,
-                         boolean toBeAddedToBrowserHistory)
+  public AddContactPlace(HandlerManager eventBus, RpcServiceAsync rpcService)
   {
     this.eventBus = eventBus;
     this.rpcService = rpcService;
-    this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
   }
 
   @Override
-  public Place createPlace(Map<String, List<String>> nameValuePairs,
-                           boolean toBeAddedToBrowserHistory)
+  public Place createPlace(Map<String, List<String>> nameValuePairs)
   {
 
-    return new AddContactPlace(eventBus, rpcService, toBeAddedToBrowserHistory);
+    return new AddContactPlace(eventBus, rpcService);
   }
 
   @Override
@@ -93,15 +84,9 @@ public class AddContactPlace
   }
 
   @Override
-  public boolean isToBeAddedToBrowserHistory()
+  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser)
   {
-    return toBeAddedToBrowserHistory;
-  }
-
-  @Override
-  public void setToBeAddedToBrowserHistory(boolean toBeAddedToBrowserHistory)
-  {
-    this.toBeAddedToBrowserHistory = toBeAddedToBrowserHistory;
+    this.historyTokenParser = historyTokenParser;
   }
 
   @Override
@@ -110,15 +95,15 @@ public class AddContactPlace
     // Add history token to URL if so indicated
     PlaceServiceUtil.addToBrowserHistory(this);
 
+    showWithoutUrlUpdate(container);
+  }
+
+  @Override
+  public void showWithoutUrlUpdate(HasWidgets container)
+  {
     // Create presenter and execute
     Presenter editcontactPresenter = new EditContactPresenter(rpcService, eventBus,
       new EditContactView());
     editcontactPresenter.go(container);
-  }
-
-  @Override
-  public void setHistoryTokenParser(HistoryTokenParser historyTokenParser)
-  {
-    this.historyTokenParser = historyTokenParser;
   }
 }
