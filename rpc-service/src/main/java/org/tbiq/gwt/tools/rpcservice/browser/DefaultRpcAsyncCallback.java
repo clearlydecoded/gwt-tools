@@ -82,11 +82,6 @@ public abstract class DefaultRpcAsyncCallback
     return true;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see com.google.gwt.user.client.rpc.AsyncCallback#onFailure(java.lang.Throwable)
-   */
   @Override
   public void onFailure(Throwable exception)
   {
@@ -99,11 +94,6 @@ public abstract class DefaultRpcAsyncCallback
     exception.printStackTrace();
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see com.google.gwt.user.client.rpc.AsyncCallback#onSuccess(java.lang.Object)
-   */
   @Override
   public void onSuccess(RpcResponse response)
   {

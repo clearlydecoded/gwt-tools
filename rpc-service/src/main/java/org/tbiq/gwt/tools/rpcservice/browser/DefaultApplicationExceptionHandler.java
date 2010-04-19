@@ -25,13 +25,6 @@ import com.google.gwt.user.client.Window;
 public class DefaultApplicationExceptionHandler
   implements ApplicationExceptionHandler
 {
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.tbiq.gwt.tools.rpcservice.ApplicationWideExceptionHandler#handleException(java
-   * .lang.Throwable)
-   */
   @Override
   public void handleException(Throwable exception)
   {

@@ -47,11 +47,6 @@ public class RpcServiceServlet
   /** Registry of instances of concrete implementations of RpcRequestHandlers. */
   private RpcRequestHandlerRegistry rpcRequestHandlerRegistry;
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see javax.servlet.GenericServlet#init()
-   */
   @Override
   public void init()
     throws ServletException
@@ -76,12 +71,6 @@ public class RpcServiceServlet
     }
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.tbiq.gwt.tools.rpcservice.browser.RpcService#execute(org.tbiq.gwt.tools
-   * .rpcrequest.browser.RpcRequest)
-   */
   @Override
   @SuppressWarnings("unchecked")
   public <RpcRequestT extends RpcRequest<RpcResponseT>, RpcResponseT extends RpcResponse> RpcResponseT execute(RpcRequestT rpcRequest)
