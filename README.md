@@ -1,5 +1,5 @@
 # gwt-tools
-Automatically exported from code.google.com/p/gwt-tools
+Place Service to abstract browser history management, Easy to use GWT RPC framework to help with RPC calls and setup, MVP interfaces.
 
 ## This project contains:
 
@@ -18,3 +18,5 @@ Automatically exported from code.google.com/p/gwt-tools
 **NOTE:** Since GWT 2.1 release where they introduced the MVP framework, most of the MVP part of this project is not relevant IF you are using GWT 2.1. However, if you are still using GWT 2.0, GWT 1.7, or GWT 1.6, all of the functionality of this framework are still very much applicable and useful.
 
 Take a look at the different version of the Contacts applications to see how to use the framework. It's very easy.
+
+Automatically exported from code.google.com/p/gwt-tools
