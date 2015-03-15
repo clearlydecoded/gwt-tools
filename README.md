@@ -4,7 +4,9 @@ Automatically exported from code.google.com/p/gwt-tools
 ## This project contains:
 
 **Place service to abstract history management**
+
 **RPC Service to help with RPC calls and setup**
+
 **MVP (Model View Presenter) interfaces**
 
 **Example apps extending the Contacts app that Google provided as an MVC example to include:**
